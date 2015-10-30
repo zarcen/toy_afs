@@ -38,9 +38,14 @@ class Greeter GRPC_FINAL {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::helloworld::LoginReply>> AsyncLogin(::grpc::ClientContext* context, const ::helloworld::LoginRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::helloworld::LoginReply>>(AsyncLoginRaw(context, request, cq));
     }
+    virtual ::grpc::Status TestBytes(::grpc::ClientContext* context, const ::helloworld::TestB& request, ::helloworld::LoginReply* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::helloworld::LoginReply>> AsyncTestBytes(::grpc::ClientContext* context, const ::helloworld::TestB& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::helloworld::LoginReply>>(AsyncTestBytesRaw(context, request, cq));
+    }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::helloworld::HelloReply>* AsyncSayHelloRaw(::grpc::ClientContext* context, const ::helloworld::HelloRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::helloworld::LoginReply>* AsyncLoginRaw(::grpc::ClientContext* context, const ::helloworld::LoginRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::helloworld::LoginReply>* AsyncTestBytesRaw(::grpc::ClientContext* context, const ::helloworld::TestB& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub GRPC_FINAL : public StubInterface {
    public:
@@ -53,13 +58,19 @@ class Greeter GRPC_FINAL {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::helloworld::LoginReply>> AsyncLogin(::grpc::ClientContext* context, const ::helloworld::LoginRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::helloworld::LoginReply>>(AsyncLoginRaw(context, request, cq));
     }
+    ::grpc::Status TestBytes(::grpc::ClientContext* context, const ::helloworld::TestB& request, ::helloworld::LoginReply* response) GRPC_OVERRIDE;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::helloworld::LoginReply>> AsyncTestBytes(::grpc::ClientContext* context, const ::helloworld::TestB& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::helloworld::LoginReply>>(AsyncTestBytesRaw(context, request, cq));
+    }
 
    private:
     std::shared_ptr< ::grpc::Channel> channel_;
     ::grpc::ClientAsyncResponseReader< ::helloworld::HelloReply>* AsyncSayHelloRaw(::grpc::ClientContext* context, const ::helloworld::HelloRequest& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::helloworld::LoginReply>* AsyncLoginRaw(::grpc::ClientContext* context, const ::helloworld::LoginRequest& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncResponseReader< ::helloworld::LoginReply>* AsyncTestBytesRaw(::grpc::ClientContext* context, const ::helloworld::TestB& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     const ::grpc::RpcMethod rpcmethod_SayHello_;
     const ::grpc::RpcMethod rpcmethod_Login_;
+    const ::grpc::RpcMethod rpcmethod_TestBytes_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::Channel>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -69,6 +80,7 @@ class Greeter GRPC_FINAL {
     virtual ~Service();
     virtual ::grpc::Status SayHello(::grpc::ServerContext* context, const ::helloworld::HelloRequest* request, ::helloworld::HelloReply* response);
     virtual ::grpc::Status Login(::grpc::ServerContext* context, const ::helloworld::LoginRequest* request, ::helloworld::LoginReply* response);
+    virtual ::grpc::Status TestBytes(::grpc::ServerContext* context, const ::helloworld::TestB* request, ::helloworld::LoginReply* response);
     ::grpc::RpcService* service() GRPC_OVERRIDE GRPC_FINAL;
    private:
     std::unique_ptr< ::grpc::RpcService> service_;
@@ -79,6 +91,7 @@ class Greeter GRPC_FINAL {
     ~AsyncService() {};
     void RequestSayHello(::grpc::ServerContext* context, ::helloworld::HelloRequest* request, ::grpc::ServerAsyncResponseWriter< ::helloworld::HelloReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag);
     void RequestLogin(::grpc::ServerContext* context, ::helloworld::LoginRequest* request, ::grpc::ServerAsyncResponseWriter< ::helloworld::LoginReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag);
+    void RequestTestBytes(::grpc::ServerContext* context, ::helloworld::TestB* request, ::grpc::ServerAsyncResponseWriter< ::helloworld::LoginReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag);
   };
 };
 

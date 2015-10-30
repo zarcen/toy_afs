@@ -58,6 +58,11 @@ class GreeterServiceImpl final : public Greeter::Service {
                   HelloReply* reply) override {
     std::string prefix("Hello ");
     reply->set_message(prefix + request->name());
+
+    std::string t(40);
+    t[0] = ;
+
+    
     return Status::OK;
   }
 

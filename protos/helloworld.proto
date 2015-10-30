@@ -39,6 +39,7 @@ service Greeter {
   // Sends a greeting
   rpc SayHello (HelloRequest) returns (HelloReply) {}
   rpc Login (LoginRequest) returns (LoginReply) {}
+  rpc TestBytes (TestB) returns (LoginReply) {}
 }
 
 // The request message containing the user's name.
@@ -59,4 +60,6 @@ message LoginReply{
   int32 num = 1;
 }
 
-
+message TestB {
+  bytes mydata = 1;
+}
