@@ -60,7 +60,9 @@ class GreeterServiceImpl final : public Greeter::Service {
     reply->set_message(prefix + request->name());
 
     std::string t(40);
-    t[0] = ;
+    for (int i = 0; i < 10; i++) {
+      memcpy(&t[i*4], &i, sizeof(int));
+    }
 
     
     return Status::OK;
