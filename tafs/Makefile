@@ -41,13 +41,16 @@ PROTOS_PATH = ../protos
 
 vpath %.proto $(PROTOS_PATH)
 
-all: system-check tafs_client tafs_server
+all: system-check tafs_client tafs_server fusexmp
 
 tafs_client: tafs.pb.o tafs.grpc.pb.o tafs_client.o
 	$(CXX) $^ $(LDFLAGS) -o $@
 
 tafs_server: tafs.pb.o tafs.grpc.pb.o tafs_server.o
 	$(CXX) $^ $(LDFLAGS) -o $@
+
+fusexmp: tafs.pb.o
+	$(CXX) $^ $(LDFLAGS) fusexmp.c `pkg-config fuse --cflags --libs` -o fusexmp
 
 %.grpc.pb.cc: %.proto
 	$(PROTOC) -I $(PROTOS_PATH) --grpc_out=. --plugin=protoc-gen-grpc=$(GRPC_CPP_PLUGIN_PATH) $<

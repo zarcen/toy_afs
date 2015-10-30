@@ -39,6 +39,9 @@ service ToyAFS {
   rpc SayHello (HelloRequest) returns (HelloReply) {}
   rpc Login (LoginRequest) returns (LoginReply) {}
   rpc TestBytes (TestB) returns (LoginReply) {}
+  rpc GetAttr (GetAttrReq) returns (GetAttrReply) {}
+  rpc Open (OpenReq) returns (ErrNo) {}
+  rpc Read (ReadReq) returns (ReadReply) {}
 }
 
 // The request message containing the user's name.
@@ -49,6 +52,38 @@ message HelloRequest {
 // The response message containing the greetings
 message HelloReply {
   string message = 1;
+}
+
+message GetAttrReq {
+    string path = 1;
+    string buf = 2; // stat
+}
+
+message GetAttrReply {
+    string buf = 2; // stat
+    int32 err = 1;
+}
+
+message OpenReq {
+    string path = 1;
+    int32  flag = 2;
+}
+
+message ReadReq {
+    string path = 1;
+}
+
+message ReadReply {
+    int32 num_bytes = 1;
+    string buf  = 2;
+}
+
+message ErrNo {
+  int32 err = 1;
+}
+
+message Buf {
+  string data = 1;
 }
 
 message LoginRequest{

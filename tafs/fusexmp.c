@@ -33,7 +33,7 @@
 #include <sys/xattr.h>
 #endif
 
-#include "../tafs/tafs_client.cc"
+#include "tafs2.h"
 
 static int xmp_getattr(const char *path, struct stat *stbuf)
 {

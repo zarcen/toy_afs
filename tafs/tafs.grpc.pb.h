@@ -42,10 +42,25 @@ class ToyAFS GRPC_FINAL {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tafs::LoginReply>> AsyncTestBytes(::grpc::ClientContext* context, const ::tafs::TestB& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tafs::LoginReply>>(AsyncTestBytesRaw(context, request, cq));
     }
+    virtual ::grpc::Status GetAttr(::grpc::ClientContext* context, const ::tafs::GetAttrReq& request, ::tafs::GetAttrReply* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tafs::GetAttrReply>> AsyncGetAttr(::grpc::ClientContext* context, const ::tafs::GetAttrReq& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tafs::GetAttrReply>>(AsyncGetAttrRaw(context, request, cq));
+    }
+    virtual ::grpc::Status Open(::grpc::ClientContext* context, const ::tafs::OpenReq& request, ::tafs::ErrNo* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tafs::ErrNo>> AsyncOpen(::grpc::ClientContext* context, const ::tafs::OpenReq& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tafs::ErrNo>>(AsyncOpenRaw(context, request, cq));
+    }
+    virtual ::grpc::Status Read(::grpc::ClientContext* context, const ::tafs::ReadReq& request, ::tafs::ReadReply* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tafs::ReadReply>> AsyncRead(::grpc::ClientContext* context, const ::tafs::ReadReq& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tafs::ReadReply>>(AsyncReadRaw(context, request, cq));
+    }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::tafs::HelloReply>* AsyncSayHelloRaw(::grpc::ClientContext* context, const ::tafs::HelloRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::tafs::LoginReply>* AsyncLoginRaw(::grpc::ClientContext* context, const ::tafs::LoginRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::tafs::LoginReply>* AsyncTestBytesRaw(::grpc::ClientContext* context, const ::tafs::TestB& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::tafs::GetAttrReply>* AsyncGetAttrRaw(::grpc::ClientContext* context, const ::tafs::GetAttrReq& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::tafs::ErrNo>* AsyncOpenRaw(::grpc::ClientContext* context, const ::tafs::OpenReq& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::tafs::ReadReply>* AsyncReadRaw(::grpc::ClientContext* context, const ::tafs::ReadReq& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub GRPC_FINAL : public StubInterface {
    public:
@@ -62,15 +77,33 @@ class ToyAFS GRPC_FINAL {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tafs::LoginReply>> AsyncTestBytes(::grpc::ClientContext* context, const ::tafs::TestB& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tafs::LoginReply>>(AsyncTestBytesRaw(context, request, cq));
     }
+    ::grpc::Status GetAttr(::grpc::ClientContext* context, const ::tafs::GetAttrReq& request, ::tafs::GetAttrReply* response) GRPC_OVERRIDE;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tafs::GetAttrReply>> AsyncGetAttr(::grpc::ClientContext* context, const ::tafs::GetAttrReq& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tafs::GetAttrReply>>(AsyncGetAttrRaw(context, request, cq));
+    }
+    ::grpc::Status Open(::grpc::ClientContext* context, const ::tafs::OpenReq& request, ::tafs::ErrNo* response) GRPC_OVERRIDE;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tafs::ErrNo>> AsyncOpen(::grpc::ClientContext* context, const ::tafs::OpenReq& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tafs::ErrNo>>(AsyncOpenRaw(context, request, cq));
+    }
+    ::grpc::Status Read(::grpc::ClientContext* context, const ::tafs::ReadReq& request, ::tafs::ReadReply* response) GRPC_OVERRIDE;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tafs::ReadReply>> AsyncRead(::grpc::ClientContext* context, const ::tafs::ReadReq& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tafs::ReadReply>>(AsyncReadRaw(context, request, cq));
+    }
 
    private:
     std::shared_ptr< ::grpc::Channel> channel_;
     ::grpc::ClientAsyncResponseReader< ::tafs::HelloReply>* AsyncSayHelloRaw(::grpc::ClientContext* context, const ::tafs::HelloRequest& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::tafs::LoginReply>* AsyncLoginRaw(::grpc::ClientContext* context, const ::tafs::LoginRequest& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::tafs::LoginReply>* AsyncTestBytesRaw(::grpc::ClientContext* context, const ::tafs::TestB& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncResponseReader< ::tafs::GetAttrReply>* AsyncGetAttrRaw(::grpc::ClientContext* context, const ::tafs::GetAttrReq& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncResponseReader< ::tafs::ErrNo>* AsyncOpenRaw(::grpc::ClientContext* context, const ::tafs::OpenReq& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncResponseReader< ::tafs::ReadReply>* AsyncReadRaw(::grpc::ClientContext* context, const ::tafs::ReadReq& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     const ::grpc::RpcMethod rpcmethod_SayHello_;
     const ::grpc::RpcMethod rpcmethod_Login_;
     const ::grpc::RpcMethod rpcmethod_TestBytes_;
+    const ::grpc::RpcMethod rpcmethod_GetAttr_;
+    const ::grpc::RpcMethod rpcmethod_Open_;
+    const ::grpc::RpcMethod rpcmethod_Read_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::Channel>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -81,6 +114,9 @@ class ToyAFS GRPC_FINAL {
     virtual ::grpc::Status SayHello(::grpc::ServerContext* context, const ::tafs::HelloRequest* request, ::tafs::HelloReply* response);
     virtual ::grpc::Status Login(::grpc::ServerContext* context, const ::tafs::LoginRequest* request, ::tafs::LoginReply* response);
     virtual ::grpc::Status TestBytes(::grpc::ServerContext* context, const ::tafs::TestB* request, ::tafs::LoginReply* response);
+    virtual ::grpc::Status GetAttr(::grpc::ServerContext* context, const ::tafs::GetAttrReq* request, ::tafs::GetAttrReply* response);
+    virtual ::grpc::Status Open(::grpc::ServerContext* context, const ::tafs::OpenReq* request, ::tafs::ErrNo* response);
+    virtual ::grpc::Status Read(::grpc::ServerContext* context, const ::tafs::ReadReq* request, ::tafs::ReadReply* response);
     ::grpc::RpcService* service() GRPC_OVERRIDE GRPC_FINAL;
    private:
     std::unique_ptr< ::grpc::RpcService> service_;
@@ -92,6 +128,9 @@ class ToyAFS GRPC_FINAL {
     void RequestSayHello(::grpc::ServerContext* context, ::tafs::HelloRequest* request, ::grpc::ServerAsyncResponseWriter< ::tafs::HelloReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag);
     void RequestLogin(::grpc::ServerContext* context, ::tafs::LoginRequest* request, ::grpc::ServerAsyncResponseWriter< ::tafs::LoginReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag);
     void RequestTestBytes(::grpc::ServerContext* context, ::tafs::TestB* request, ::grpc::ServerAsyncResponseWriter< ::tafs::LoginReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag);
+    void RequestGetAttr(::grpc::ServerContext* context, ::tafs::GetAttrReq* request, ::grpc::ServerAsyncResponseWriter< ::tafs::GetAttrReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag);
+    void RequestOpen(::grpc::ServerContext* context, ::tafs::OpenReq* request, ::grpc::ServerAsyncResponseWriter< ::tafs::ErrNo>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag);
+    void RequestRead(::grpc::ServerContext* context, ::tafs::ReadReq* request, ::grpc::ServerAsyncResponseWriter< ::tafs::ReadReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag);
   };
 };
 
