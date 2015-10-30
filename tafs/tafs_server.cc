@@ -37,20 +37,20 @@
 
 #include <grpc++/grpc++.h>
 
-#include "helloworld.grpc.pb.h"
+#include "tafs.grpc.pb.h"
 
 using grpc::Server;
 using grpc::ServerBuilder;
 using grpc::ServerContext;
 using grpc::Status;
-using helloworld::HelloRequest;
-using helloworld::HelloReply;
-using helloworld::LoginRequest;
-using helloworld::LoginReply;
-using helloworld::Greeter;
+using tafs::HelloRequest;
+using tafs::HelloReply;
+using tafs::LoginRequest;
+using tafs::LoginReply;
+using tafs::ToyAFS;
 
 // Logic and data behind the server's behavior.
-class GreeterServiceImpl final : public Greeter::Service {
+class GreeterServiceImpl final : public ToyAFS::Service {
 
   /** Sample
    */
@@ -65,8 +65,6 @@ class GreeterServiceImpl final : public Greeter::Service {
       memcpy(&t[i*4], &i, sizeof(int));
     }
 
-    
-    printf("size: %d\n", t.size());
     for (int i = 0; i < 10; i++) {
       int k;
       memcpy(&k, &t[i*4], sizeof(int));
