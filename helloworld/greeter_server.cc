@@ -59,9 +59,15 @@ class GreeterServiceImpl final : public Greeter::Service {
     std::string prefix("Hello ");
     reply->set_message(prefix + request->name());
 
-    std::string t(40);
+    std::string t;
     for (int i = 0; i < 10; i++) {
       memcpy(&t[i*4], &i, sizeof(int));
+    }
+
+    for (int i = 0; i < 10; i++) {
+      int k;
+      memcpy(&k, &t[i*4], sizeof(int));
+      printf("%d\n", k);
     }
 
     

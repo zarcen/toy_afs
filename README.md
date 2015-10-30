@@ -16,6 +16,6 @@ A toy filesystem which is AFS-like
 - int  write(  int  handle,  void  *buffer,  int  nbyte  );
 
 ## RPC Calls
-int tafs_read(const char *path, char *buf, size_t size)
-int tafs_open(const char *path, int flag)
-int tafs_getattr(const char *path, struct stat *stbuf)
+- int tafs_read(const char *path, char *buf, size_t size)
+- int tafs_open(const char *path, int flag)
+- int tafs_getattr(const char *path, struct stat *stbuf)
