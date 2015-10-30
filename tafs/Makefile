@@ -49,8 +49,8 @@ tafs_client: tafs.pb.o tafs.grpc.pb.o tafs_client.o
 tafs_server: tafs.pb.o tafs.grpc.pb.o tafs_server.o
 	$(CXX) $^ $(LDFLAGS) -o $@
 
-fusexmp: tafs.pb.o
-	$(CXX) $^ $(LDFLAGS) fusexmp.c `pkg-config fuse --cflags --libs` -o fusexmp
+fusexmp: tafs.pb.o tafs.grpc.pb.o
+	$(CXX) $^ -Wall $(LDFLAGS) $(CXXFLAGS) fusexmp.c `pkg-config fuse --cflags --libs` -o fusexmp
 
 %.grpc.pb.cc: %.proto
 	$(PROTOC) -I $(PROTOS_PATH) --grpc_out=. --plugin=protoc-gen-grpc=$(GRPC_CPP_PLUGIN_PATH) $<

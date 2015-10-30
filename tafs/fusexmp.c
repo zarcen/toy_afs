@@ -372,53 +372,49 @@ static int xmp_removexattr(const char *path, const char *name)
 }
 #endif /* HAVE_SETXATTR */
 
-static struct fuse_operations xmp_oper = {
-	.getattr	= xmp_getattr,
-	.access		= xmp_access,
-	.readlink	= xmp_readlink,
-	.readdir	= xmp_readdir,
-	.mknod		= xmp_mknod,
-	.mkdir		= xmp_mkdir,
-	.symlink	= xmp_symlink,
-	.unlink		= xmp_unlink,
-	.rmdir		= xmp_rmdir,
-	.rename		= xmp_rename,
-	.link		= xmp_link,
-	.chmod		= xmp_chmod,
-	.chown		= xmp_chown,
-	.truncate	= xmp_truncate,
+struct tafs_fuse_operations:fuse_operations {
+    tafs_fuse_operations () {
+        getattr	= xmp_getattr;
+            access		= xmp_access;
+            readlink	= xmp_readlink;
+            readdir	= xmp_readdir;
+            mknod		= xmp_mknod;
+            mkdir		= xmp_mkdir;
+            symlink	= xmp_symlink;
+            unlink		= xmp_unlink;
+            rmdir		= xmp_rmdir;
+            rename		= xmp_rename;
+            link		= xmp_link;
+            chmod		= xmp_chmod;
+            chown		= xmp_chown;
+            truncate	= xmp_truncate;
 #ifdef HAVE_UTIMENSAT
-	.utimens	= xmp_utimens,
+            utimens	= xmp_utimens;
 #endif
-	.open		= xmp_open,
-	.read		= xmp_read,
-	.write		= xmp_write,
-	.statfs		= xmp_statfs,
-	.release	= xmp_release,
-	.fsync		= xmp_fsync,
+            open		= xmp_open;
+            read		= xmp_read;
+            write		= xmp_write;
+            statfs		= xmp_statfs;
+            release	= xmp_release;
+            fsync		= xmp_fsync;
 #ifdef HAVE_POSIX_FALLOCATE
-	.fallocate	= xmp_fallocate,
+            fallocate	= xmp_fallocate;
 #endif
 #ifdef HAVE_SETXATTR
-	.setxattr	= xmp_setxattr,
-	.getxattr	= xmp_getxattr,
-	.listxattr	= xmp_listxattr,
-	.removexattr	= xmp_removexattr,
+            setxattr	= xmp_setxattr;
+            getxattr	= xmp_getxattr;
+            listxattr	= xmp_listxattr;
+            removexattr	= xmp_removexattr;
 #endif
+        
+    }
 };
+static struct tafs_fuse_operations xmp_oper;
+
 
 int main(int argc, char** argv) {                                                                                                                                            
-    // Instantiate the client. It requires a channel, out of which the actual RPCs                                                                                             
-    // are created. This channel models a connection to an endpoint (in this case,                                                                                             
-    // localhost at port 50051). We indicate that the channel isn't authenticated                                                                                              
-    // (use of InsecureCredentials()).                                                                                                                                         
     GreeterClient greeter(                                                                                                                                                     
             grpc::CreateChannel("node1:50051", grpc::InsecureCredentials()));                                                                                                  
-
-    // SayHello                                                                                                                                                                
-    std::string user("world");                                                                                                                                                 
-    std::string reply = greeter.SayHello(user);                                                                                                                                
-    std::cout << "Greeter received: " << reply << std::endl;                                                                                                                   
 
     // Login                                                                                                                                                                   
     int login_reply = greeter.Login(739);                                                                                                                                      
@@ -426,7 +422,7 @@ int main(int argc, char** argv) {
 
     // Read
     std::string buf;
-    int read_reply = greeter.Read("1.txt", buf);
+    greeter.Read("1.txt", buf);
     
     printf("%s\n", buf.c_str()); 
 
