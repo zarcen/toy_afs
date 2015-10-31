@@ -29,6 +29,8 @@ using tafs::AccessReq;
 using tafs::AccessReply;
 using tafs::ReadReq;
 using tafs::ReadReply;
+using tafs::WriteReq;
+using tafs::WriteReply;
 using tafs::ReadDirReq;
 using tafs::ReadDirReply;
 using tafs::MkDirReq;
@@ -174,6 +176,37 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             reply->set_buf(buf);
 
             printf("READ data%s \n", buf.c_str());
+            return Status::OK;
+        }
+        /**
+         * Write
+         */
+        Status Write(ServerContext* context, const WriteReq* request,
+                WriteReply* reply) override {
+            // default errno = 0
+            reply->set_num_bytes(-errno);
+            std::string path = path_prefix + request->path();
+            int fd;
+            int res;
+
+            (void) fi;
+            fd = open(path.c_str(), O_WRONLY);
+            if (fd == -1) {
+                reply->set_num_bytes(-errno);
+                return Status::OK;
+            }
+
+            std::string buf = request->buf();
+            int size = buf.size();
+            res = write(fd, &buf[0], size);
+
+            if (res == -1) {
+                reply->set_num_bytes(-errno);
+                return Status::OK;
+            }
+
+            close(fd);
+            reply->set_num_bytes(res);
             return Status::OK;
         }
 
