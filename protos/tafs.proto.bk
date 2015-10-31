@@ -40,34 +40,13 @@ service ToyAFS {
   rpc Login (LoginRequest) returns (LoginReply) {}
   rpc TestBytes (TestB) returns (LoginReply) {}
   rpc GetAttr (GetAttrReq) returns (GetAttrReply) {}
-  rpc Open (OpenReq) returns (OpenReply) {}
+  rpc Open (OpenReq) returns (ErrNo) {}
   rpc Read (ReadReq) returns (ReadReply) {}
   rpc Write (WriteReq) returns (WriteReply) {}
   rpc ReadDir (ReadDirReq) returns (stream ReadDirReply) {}
   rpc MkDir (MkDirReq) returns (MkDirReply) {}
   rpc RmDir (RmDirReq) returns (RmDirReply) {}
   rpc Unlink (UnlinkReq) returns (UnlinkReply) {}
-  rpc Access(AccessReq) returns (AccessReply) {}
-  rpc Flush(FlushReq) returns (FlushReply) {}
-}
-
-// flush
-message FlushReq {
-  string path = 1;
-}
-
-message FlushReply {
-  int32 err = 1;
-}
-
-// Access
-message AccessReq{
-  string path = 1;
-  int32  mode = 2;
-}
-
-message AccessReply{
-  int32  err = 1;
 }
 
 // ReadDir
@@ -131,10 +110,6 @@ message GetAttrReply {
 message OpenReq {
     string path = 1;
     int32  flag = 2;
-}
-
-message OpenReply{
-    int32  err = 1;
 }
 
 message ReadReq {

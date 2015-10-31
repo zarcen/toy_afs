@@ -34,7 +34,7 @@
 #include <cassert>
 #endif
 
-#include "tafs2.h"
+#include "tafs.h"
 
 static GreeterClient* greeter = NULL;
 
