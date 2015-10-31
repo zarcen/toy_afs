@@ -189,7 +189,6 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             int fd;
             int res;
 
-            (void) fi;
             fd = open(path.c_str(), O_WRONLY);
             if (fd == -1) {
                 reply->set_num_bytes(-errno);
