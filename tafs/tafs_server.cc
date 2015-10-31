@@ -31,6 +31,8 @@ using tafs::ReadReq;
 using tafs::ReadReply;
 using tafs::WriteReq;
 using tafs::WriteReply;
+using tafs::MknodReq;
+using tafs::MknodReply;
 using tafs::ReadDirReq;
 using tafs::ReadDirReply;
 using tafs::MkDirReq;
@@ -178,6 +180,7 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             printf("READ data%s \n", buf.c_str());
             return Status::OK;
         }
+
         /**
          * Write
          */
@@ -206,6 +209,39 @@ class GreeterServiceImpl final : public ToyAFS::Service {
 
             close(fd);
             reply->set_num_bytes(res);
+            return Status::OK;
+        }
+
+        /**
+         * Mknod
+         */
+        Status Mknod(ServerContext* context, const MknodReq* request,
+                MknodReply* reply) override {
+            // default errno = 0
+            reply->set_err(-errno);
+            std::string path = path_prefix + request->path();
+            int mode = request->mode();
+            int rdev = request->rdev();
+            int res;
+
+            /* On Linux this could just be 'mknod(path, mode, rdev)' but this
+               is more portable */
+            if (S_ISREG(mode)) {
+                res = open(path.c_str(), O_CREAT | O_EXCL | O_WRONLY, mode);
+                if (res >= 0) {
+                    res = close(res);
+                }
+            } else if (S_ISFIFO(mode)) {
+                res = mkfifo(path.c_str(), mode);
+            } else {
+                res = mknod(path.c_str(), mode, rdev);
+            }
+
+            if (res == -1) {
+                reply->set_err(-errno);
+                return Status::OK;
+            }
+            reply->set_err(res);
             return Status::OK;
         }
 
