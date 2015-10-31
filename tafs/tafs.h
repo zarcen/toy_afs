@@ -63,6 +63,8 @@ using tafs::RmDirReq;
 using tafs::RmDirReply;
 using tafs::AccessReq;
 using tafs::AccessReply;
+using tafs::WriteReq;
+using tafs::WriteReply;
 
 class GreeterClient {
  enum ErrorCode {
@@ -238,6 +240,25 @@ class GreeterClient {
         return -1;
     }
   }
+
+
+  int Write(const std::string& path, std::string& data) {
+    WriteReq request;
+    request.set_path(path);
+    request.set_buf(data);
+
+    WriteReply reply;
+    ClientContext context;
+    Status status = stub_->Write(&context, request, &reply);
+
+    if (status.ok()) {
+        return reply.num_bytes();
+    }
+    else {
+        return -1;
+    }
+  }
+
 
  private:
   std::unique_ptr<ToyAFS::Stub> stub_;

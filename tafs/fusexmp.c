@@ -302,6 +302,19 @@ static int xmp_write(const char *path, const char *buf, size_t size,
 		     off_t offset, struct fuse_file_info *fi)
 {
     printf("## START ## xmp_write\n");
+
+    std::string cpp_path = path;
+    std::string rpcbuf;
+    rpcbuf.resize(size);
+    memcpy(&rpcbuf[0], buf, size);
+    int res = greeter->Write(cpp_path, rpcbuf);
+
+    if (res < 0) {
+       res = -errno;
+       return res;
+    }
+
+    /*
 	int fd;
 	int res;
 
@@ -315,6 +328,7 @@ static int xmp_write(const char *path, const char *buf, size_t size,
 		res = -errno;
 
 	close(fd);
+	*/
 	return res;
 }
 
