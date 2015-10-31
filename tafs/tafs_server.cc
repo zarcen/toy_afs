@@ -161,6 +161,9 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             int size;
             off_t currentPos = lseek(fd, (size_t)0, SEEK_CUR);
             size = lseek(fd, (size_t)0, SEEK_END);
+
+            printf("READ size %d \n", size);
+
             lseek(fd, currentPos, SEEK_SET);
             buf.resize(size);
             res = read(fd, &buf[0], size);
@@ -170,6 +173,7 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             close(fd);
             reply->set_buf(buf);
 
+            printf("READ data%s \n", buf.c_str());
             return Status::OK;
         }
 

@@ -120,8 +120,12 @@ class GreeterClient {
     GetAttrReply reply;
     ClientContext context;
     Status status = stub_->GetAttr(&context, request, &reply);
-    buf = reply.buf();
-    return reply.err();
+    if (status.ok()) {
+        buf = reply.buf();
+        return reply.err();
+    } else {
+        return -1;
+    }
   }
 
   // put file in buf
@@ -159,10 +163,13 @@ class GreeterClient {
       }
     }
 
-    //Status status = stub_->ReadDir(&context, request, &reply);
-    //buf = reply.buf();
-    //return reply.err();
-    return reply.err();
+    Status status = reader->Finish();
+    if (status.ok()) {
+        return reply.err();
+    }
+    else {
+        return -1;
+    }
   }
 
   int MkDir(const std::string& path, int mode) {
@@ -173,7 +180,13 @@ class GreeterClient {
     MkDirReply reply;
     ClientContext context;
     Status status = stub_->MkDir(&context, request, &reply);
-    return reply.err();
+
+    if (status.ok()) {
+        return reply.err();
+    }
+    else {
+        return -1;
+    }
   }
 
   int Open(const std::string& path, int flag) {
@@ -184,9 +197,14 @@ class GreeterClient {
     OpenReply reply;
     ClientContext context;
     Status status = stub_->Open(&context, request, &reply);
-    return reply.err();
-  }
 
+    if (status.ok()) {
+        return reply.err();
+    }
+    else {
+        return -1;
+    }
+  }
 
   int RmDir(const std::string& path) {
     RmDirReq request;
@@ -195,7 +213,13 @@ class GreeterClient {
     RmDirReply reply;
     ClientContext context;
     Status status = stub_->RmDir(&context, request, &reply);
-    return reply.err();
+
+    if (status.ok()) {
+        return reply.err();
+    }
+    else {
+        return -1;
+    }
   }
 
   int Access(const std::string& path, int mode) {
@@ -206,7 +230,13 @@ class GreeterClient {
     AccessReply reply;
     ClientContext context;
     Status status = stub_->Access(&context, request, &reply);
-    return reply.err();
+
+    if (status.ok()) {
+        return reply.err();
+    }
+    else {
+        return -1;
+    }
   }
 
  private:
