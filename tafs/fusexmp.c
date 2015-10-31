@@ -72,7 +72,7 @@ static int xmp_access(const char *path, int mask)
 	if (res < 0)
 		return -errno;
 
-	return 0;
+	return res;
 }
 
 static int xmp_readlink(const char *path, char *buf, size_t size)
