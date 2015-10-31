@@ -60,7 +60,7 @@ static int xmp_getattr(const char *path, struct stat *stbuf) {
 	memset(stbuf, 0, sizeof(struct stat)); 
     memcpy(stbuf, &rpcbuf[0], rpcbuf.size());
 
-	return res;
+	return 0;
 }
 
 static int xmp_access(const char *path, int mask)
