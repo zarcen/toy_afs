@@ -293,7 +293,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 	} 
 	*/
 
-    memcpy(buf, &rpcbuf[0], size);
+    memcpy(buf, &rpcbuf[0]+offset, size);
 	return size;
 }
 
