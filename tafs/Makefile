@@ -41,16 +41,16 @@ PROTOS_PATH = ../protos
 
 vpath %.proto $(PROTOS_PATH)
 
-all: system-check tafs_client tafs_server fusexmp
+all: system-check tafs_server fusexmp
 
-tafs_client: tafs.pb.o tafs.grpc.pb.o tafs_client.o
-	$(CXX) $^ $(LDFLAGS) -o $@
+#tafs_client: tafs.pb.o tafs.grpc.pb.o tafs_client.o
+#	$(CXX) $^ $(LDFLAGS) -o $@
 
 tafs_server: tafs.pb.o tafs.grpc.pb.o tafs_server.o
 	$(CXX) $^ $(LDFLAGS) -o $@
 
-fusexmp: tafs.pb.o tafs.grpc.pb.o
-	$(CXX) $^ -Wall $(LDFLAGS) $(CXXFLAGS) fusexmp.c `pkg-config fuse --cflags --libs` -o fusexmp
+fusexmp: tafs.pb.o tafs.grpc.pb.o fusexmp.c 
+	$(CXX) $^ -Wall $(LDFLAGS) $(CXXFLAGS) `pkg-config fuse --cflags --libs` -o $@
 
 %.grpc.pb.cc: %.proto
 	$(PROTOC) -I $(PROTOS_PATH) --grpc_out=. --plugin=protoc-gen-grpc=$(GRPC_CPP_PLUGIN_PATH) $<
@@ -59,7 +59,7 @@ fusexmp: tafs.pb.o tafs.grpc.pb.o
 	$(PROTOC) -I $(PROTOS_PATH) --cpp_out=. $<
 
 clean:
-	rm -f *.o *.pb.cc *.pb.h tafs_client tafs_server tafs_async_client tafs_async_server
+	rm -f *.o *.pb.cc *.pb.h tafs_client tafs_server
 
 
 # The following is to test your system and ensure a smoother experience.

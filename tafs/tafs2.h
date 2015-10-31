@@ -41,7 +41,9 @@
 
 using grpc::Channel;
 using grpc::ClientContext;
+using grpc::ClientReader;
 using grpc::Status;
+
 using tafs::HelloRequest;
 using tafs::HelloReply;
 using tafs::LoginRequest;
@@ -50,8 +52,17 @@ using tafs::ToyAFS;
 using tafs::GetAttrReq;
 using tafs::GetAttrReply ;
 using tafs::OpenReq;
+using tafs::OpenReply;
 using tafs::ReadReq;
 using tafs::ReadReply;
+using tafs::ReadDirReq;
+using tafs::ReadDirReply;
+using tafs::MkDirReq;
+using tafs::MkDirReply;
+using tafs::RmDirReq;
+using tafs::RmDirReply;
+using tafs::AccessReq;
+using tafs::AccessReply;
 
 class GreeterClient {
  enum ErrorCode {
@@ -61,6 +72,29 @@ class GreeterClient {
  public:
   GreeterClient(std::shared_ptr<Channel> channel)
       : stub_(ToyAFS::NewStub(channel)) {}
+
+  // Assambles the client's payload, sends it and presents the response back
+  // from the server.
+  std::string SayHello(const std::string& user) {
+    // Data we are sending to the server.
+    HelloRequest request;
+    request.set_name(user);
+
+    // Container for the data we expect from the server.
+    HelloReply reply;
+
+    // Context for the client. It could be used to convey extra information to
+    // the server and/or tweak certain RPC behaviors.
+    ClientContext context;
+
+    // The actual RPC.
+    Status status = stub_->SayHello(&context, request, &reply);
+
+    // Act upon its status.
+    if (status.ok()) {
+      return reply.message();
+    }
+  }
 
   int Login(int uid) {
     LoginRequest request;
@@ -102,7 +136,75 @@ class GreeterClient {
     return reply.num_bytes();
   }
 
+  // read directory
+  int ReadDir(const std::string& path, std::vector<std::string>& buf) {
+    ReadDirReq request;
+    request.set_path(path);
+
+    ReadDirReply reply;
+    ClientContext context;
+
+    std::unique_ptr<ClientReader<ReadDirReply> > reader(stub_->ReadDir(&context, request));
+
+    while (reader->Read(&reply)) {
+      buf.push_back(reply.buf());
+      if (reply.err() < 0) {
+        break;
+      }
+    }
+
+    //Status status = stub_->ReadDir(&context, request, &reply);
+    //buf = reply.buf();
+    //return reply.err();
+    return reply.err();
+  }
+
+  int MkDir(const std::string& path, int mode) {
+    MkDirReq request;
+    request.set_path(path);
+    request.set_mode(mode);
+
+    MkDirReply reply;
+    ClientContext context;
+    Status status = stub_->MkDir(&context, request, &reply);
+    return reply.err();
+  }
+
+  int Open(const std::string& path, int flag) {
+    OpenReq request;
+    request.set_path(path);
+    request.set_flag(flag);
+
+    OpenReply reply;
+    ClientContext context;
+    Status status = stub_->Open(&context, request, &reply);
+    return reply.err();
+  }
+
+
+  int RmDir(const std::string& path) {
+    RmDirReq request;
+    request.set_path(path);
+
+    RmDirReply reply;
+    ClientContext context;
+    Status status = stub_->RmDir(&context, request, &reply);
+    return reply.err();
+  }
+
+  int Access(const std::string& path, int mode) {
+    AccessReq request;
+    request.set_path(path);
+    request.set_mode(mode);
+
+    AccessReply reply;
+    ClientContext context;
+    Status status = stub_->Access(&context, request, &reply);
+    return reply.err();
+  }
+
  private:
   std::unique_ptr<ToyAFS::Stub> stub_;
 };
+
 

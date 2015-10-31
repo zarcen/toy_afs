@@ -1,0 +1,2069 @@
+g++ tafs.pb.o tafs.grpc.pb.o fusexmp.c -Wall -L/usr/local/lib -lgrpc++_unsecure -lgrpc -lgpr -lprotobuf -lpthread -ldl -std=c++11 tafs.pb.o tafs.grpc.pb.o fusexmp.c `pkg-config fuse --cflags --libs` -o fusexmp
+tafs.pb.o: In function `tafs::protobuf_AssignDesc_tafs_2eproto()':
+tafs.pb.cc:(.text+0x0): multiple definition of `tafs::protobuf_AssignDesc_tafs_2eproto()'
+tafs.pb.o:tafs.pb.cc:(.text+0x0): first defined here
+tafs.pb.o: In function `tafs::protobuf_AddDesc_tafs_2eproto()':
+tafs.pb.cc:(.text+0x1310): multiple definition of `tafs::protobuf_AddDesc_tafs_2eproto()'
+tafs.pb.o:tafs.pb.cc:(.text+0x1310): first defined here
+tafs.pb.o:(.bss+0x8): multiple definition of `tafs::ReadDirReq::default_instance_'
+tafs.pb.o:(.bss+0x8): first defined here
+tafs.pb.o:(.bss+0x10): multiple definition of `tafs::ReadDirReply::default_instance_'
+tafs.pb.o:(.bss+0x10): first defined here
+tafs.pb.o:(.bss+0x18): multiple definition of `tafs::MkDirReq::default_instance_'
+tafs.pb.o:(.bss+0x18): first defined here
+tafs.pb.o:(.bss+0x20): multiple definition of `tafs::MkDirReply::default_instance_'
+tafs.pb.o:(.bss+0x20): first defined here
+tafs.pb.o:(.bss+0x28): multiple definition of `tafs::RmDirReq::default_instance_'
+tafs.pb.o:(.bss+0x28): first defined here
+tafs.pb.o:(.bss+0x30): multiple definition of `tafs::RmDirReply::default_instance_'
+tafs.pb.o:(.bss+0x30): first defined here
+tafs.pb.o:(.bss+0x38): multiple definition of `tafs::UnlinkReq::default_instance_'
+tafs.pb.o:(.bss+0x38): first defined here
+tafs.pb.o:(.bss+0x40): multiple definition of `tafs::UnlinkReply::default_instance_'
+tafs.pb.o:(.bss+0x40): first defined here
+tafs.pb.o:(.bss+0x48): multiple definition of `tafs::HelloRequest::default_instance_'
+tafs.pb.o:(.bss+0x48): first defined here
+tafs.pb.o:(.bss+0x50): multiple definition of `tafs::HelloReply::default_instance_'
+tafs.pb.o:(.bss+0x50): first defined here
+tafs.pb.o:(.bss+0x58): multiple definition of `tafs::GetAttrReq::default_instance_'
+tafs.pb.o:(.bss+0x58): first defined here
+tafs.pb.o:(.bss+0x60): multiple definition of `tafs::GetAttrReply::default_instance_'
+tafs.pb.o:(.bss+0x60): first defined here
+tafs.pb.o:(.bss+0x68): multiple definition of `tafs::OpenReq::default_instance_'
+tafs.pb.o:(.bss+0x68): first defined here
+tafs.pb.o:(.bss+0x70): multiple definition of `tafs::ReadReq::default_instance_'
+tafs.pb.o:(.bss+0x70): first defined here
+tafs.pb.o:(.bss+0x78): multiple definition of `tafs::ReadReply::default_instance_'
+tafs.pb.o:(.bss+0x78): first defined here
+tafs.pb.o:(.bss+0x80): multiple definition of `tafs::WriteReq::default_instance_'
+tafs.pb.o:(.bss+0x80): first defined here
+tafs.pb.o:(.bss+0x88): multiple definition of `tafs::WriteReply::default_instance_'
+tafs.pb.o:(.bss+0x88): first defined here
+tafs.pb.o:(.bss+0x90): multiple definition of `tafs::ErrNo::default_instance_'
+tafs.pb.o:(.bss+0x90): first defined here
+tafs.pb.o:(.bss+0x98): multiple definition of `tafs::Buf::default_instance_'
+tafs.pb.o:(.bss+0x98): first defined here
+tafs.pb.o:(.bss+0xa0): multiple definition of `tafs::LoginRequest::default_instance_'
+tafs.pb.o:(.bss+0xa0): first defined here
+tafs.pb.o:(.bss+0xa8): multiple definition of `tafs::LoginReply::default_instance_'
+tafs.pb.o:(.bss+0xa8): first defined here
+tafs.pb.o:(.bss+0xb0): multiple definition of `tafs::TestB::default_instance_'
+tafs.pb.o:(.bss+0xb0): first defined here
+tafs.pb.o: In function `tafs::ReadDirReq::default_instance()':
+tafs.pb.cc:(.text+0x1bce): multiple definition of `tafs::ReadDirReq::default_instance()'
+tafs.pb.o:tafs.pb.cc:(.text+0x1bce): first defined here
+tafs.pb.o: In function `tafs::ReadDirReply::default_instance()':
+tafs.pb.cc:(.text+0x2730): multiple definition of `tafs::ReadDirReply::default_instance()'
+tafs.pb.o:tafs.pb.cc:(.text+0x2730): first defined here
+tafs.pb.o: In function `tafs::MkDirReq::default_instance()':
+tafs.pb.cc:(.text+0x3574): multiple definition of `tafs::MkDirReq::default_instance()'
+tafs.pb.o:tafs.pb.cc:(.text+0x3574): first defined here
+tafs.pb.o: In function `tafs::MkDirReply::default_instance()':
+tafs.pb.cc:(.text+0x4348): multiple definition of `tafs::MkDirReply::default_instance()'
+tafs.pb.o:tafs.pb.cc:(.text+0x4348): first defined here
+tafs.pb.o: In function `tafs::RmDirReq::default_instance()':
+tafs.pb.cc:(.text+0x4d6c): multiple definition of `tafs::RmDirReq::default_instance()'
+tafs.pb.o:tafs.pb.cc:(.text+0x4d6c): first defined here
+tafs.pb.o: In function `tafs::RmDirReply::default_instance()':
+tafs.pb.cc:(.text+0x585e): multiple definition of `tafs::RmDirReply::default_instance()'
+tafs.pb.o:tafs.pb.cc:(.text+0x585e): first defined here
+tafs.pb.o: In function `tafs::UnlinkReq::default_instance()':
+tafs.pb.cc:(.text+0x6282): multiple definition of `tafs::UnlinkReq::default_instance()'
+tafs.pb.o:tafs.pb.cc:(.text+0x6282): first defined here
+tafs.pb.o: In function `tafs::UnlinkReply::default_instance()':
+tafs.pb.cc:(.text+0x6d74): multiple definition of `tafs::UnlinkReply::default_instance()'
+tafs.pb.o:tafs.pb.cc:(.text+0x6d74): first defined here
+tafs.pb.o: In function `tafs::HelloRequest::default_instance()':
+tafs.pb.cc:(.text+0x7798): multiple definition of `tafs::HelloRequest::default_instance()'
+tafs.pb.o:tafs.pb.cc:(.text+0x7798): first defined here
+tafs.pb.o: In function `tafs::HelloReply::default_instance()':
+tafs.pb.cc:(.text+0x82ee): multiple definition of `tafs::HelloReply::default_instance()'
+tafs.pb.o:tafs.pb.cc:(.text+0x82ee): first defined here
+tafs.pb.o: In function `tafs::GetAttrReq::default_instance()':
+tafs.pb.cc:(.text+0x8e74): multiple definition of `tafs::GetAttrReq::default_instance()'
+tafs.pb.o:tafs.pb.cc:(.text+0x8e74): first defined here
+tafs.pb.o: In function `tafs::GetAttrReply::default_instance()':
+tafs.pb.cc:(.text+0x9d72): multiple definition of `tafs::GetAttrReply::default_instance()'
+tafs.pb.o:tafs.pb.cc:(.text+0x9d72): first defined here
+tafs.pb.o: In function `tafs::OpenReq::default_instance()':
+tafs.pb.cc:(.text+0xabb6): multiple definition of `tafs::OpenReq::default_instance()'
+tafs.pb.o:tafs.pb.cc:(.text+0xabb6): first defined here
+tafs.pb.o: In function `tafs::ReadReq::default_instance()':
+tafs.pb.cc:(.text+0xb9ee): multiple definition of `tafs::ReadReq::default_instance()'
+tafs.pb.o:tafs.pb.cc:(.text+0xb9ee): first defined here
+tafs.pb.o: In function `tafs::ReadReply::default_instance()':
+tafs.pb.cc:(.text+0xc550): multiple definition of `tafs::ReadReply::default_instance()'
+tafs.pb.o:tafs.pb.cc:(.text+0xc550): first defined here
+tafs.pb.o: In function `tafs::WriteReq::default_instance()':
+tafs.pb.cc:(.text+0xd3b8): multiple definition of `tafs::WriteReq::default_instance()'
+tafs.pb.o:tafs.pb.cc:(.text+0xd3b8): first defined here
+tafs.pb.o: In function `tafs::WriteReply::default_instance()':
+tafs.pb.cc:(.text+0xe246): multiple definition of `tafs::WriteReply::default_instance()'
+tafs.pb.o:tafs.pb.cc:(.text+0xe246): first defined here
+tafs.pb.o: In function `tafs::ErrNo::default_instance()':
+tafs.pb.cc:(.text+0xec06): multiple definition of `tafs::ErrNo::default_instance()'
+tafs.pb.o:tafs.pb.cc:(.text+0xec06): first defined here
+tafs.pb.o: In function `tafs::Buf::default_instance()':
+tafs.pb.cc:(.text+0xf62a): multiple definition of `tafs::Buf::default_instance()'
+tafs.pb.o:tafs.pb.cc:(.text+0xf62a): first defined here
+tafs.pb.o: In function `tafs::LoginRequest::default_instance()':
+tafs.pb.cc:(.text+0x1011c): multiple definition of `tafs::LoginRequest::default_instance()'
+tafs.pb.o:tafs.pb.cc:(.text+0x1011c): first defined here
+tafs.pb.o: In function `tafs::LoginReply::default_instance()':
+tafs.pb.cc:(.text+0x10adc): multiple definition of `tafs::LoginReply::default_instance()'
+tafs.pb.o:tafs.pb.cc:(.text+0x10adc): first defined here
+tafs.pb.o: In function `tafs::TestB::default_instance()':
+tafs.pb.cc:(.text+0x11500): multiple definition of `tafs::TestB::default_instance()'
+tafs.pb.o:tafs.pb.cc:(.text+0x11500): first defined here
+tafs.pb.o: In function `tafs::protobuf_ShutdownFile_tafs_2eproto()':
+tafs.pb.cc:(.text+0xbfe): multiple definition of `tafs::protobuf_ShutdownFile_tafs_2eproto()'
+tafs.pb.o:tafs.pb.cc:(.text+0xbfe): first defined here
+tafs.pb.o: In function `tafs::ReadDirReq::ReadDirReq()':
+tafs.pb.cc:(.text+0x19aa): multiple definition of `tafs::ReadDirReq::ReadDirReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0x19aa): first defined here
+tafs.pb.o: In function `tafs::ReadDirReply::ReadDirReply()':
+tafs.pb.cc:(.text+0x2500): multiple definition of `tafs::ReadDirReply::ReadDirReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0x2500): first defined here
+tafs.pb.o: In function `tafs::MkDirReq::MkDirReq()':
+tafs.pb.cc:(.text+0x3344): multiple definition of `tafs::MkDirReq::MkDirReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0x3344): first defined here
+tafs.pb.o: In function `tafs::MkDirReply::MkDirReply()':
+tafs.pb.cc:(.text+0x4188): multiple definition of `tafs::MkDirReply::MkDirReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0x4188): first defined here
+tafs.pb.o: In function `tafs::RmDirReq::RmDirReq()':
+tafs.pb.cc:(.text+0x4b48): multiple definition of `tafs::RmDirReq::RmDirReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0x4b48): first defined here
+tafs.pb.o: In function `tafs::RmDirReply::RmDirReply()':
+tafs.pb.cc:(.text+0x569e): multiple definition of `tafs::RmDirReply::RmDirReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0x569e): first defined here
+tafs.pb.o: In function `tafs::UnlinkReq::UnlinkReq()':
+tafs.pb.cc:(.text+0x605e): multiple definition of `tafs::UnlinkReq::UnlinkReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0x605e): first defined here
+tafs.pb.o: In function `tafs::UnlinkReply::UnlinkReply()':
+tafs.pb.cc:(.text+0x6bb4): multiple definition of `tafs::UnlinkReply::UnlinkReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0x6bb4): first defined here
+tafs.pb.o: In function `tafs::HelloRequest::HelloRequest()':
+tafs.pb.cc:(.text+0x7574): multiple definition of `tafs::HelloRequest::HelloRequest()'
+tafs.pb.o:tafs.pb.cc:(.text+0x7574): first defined here
+tafs.pb.o: In function `tafs::HelloReply::HelloReply()':
+tafs.pb.cc:(.text+0x80ca): multiple definition of `tafs::HelloReply::HelloReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0x80ca): first defined here
+tafs.pb.o: In function `tafs::GetAttrReq::GetAttrReq()':
+tafs.pb.cc:(.text+0x8c20): multiple definition of `tafs::GetAttrReq::GetAttrReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0x8c20): first defined here
+tafs.pb.o: In function `tafs::GetAttrReply::GetAttrReply()':
+tafs.pb.cc:(.text+0x9b42): multiple definition of `tafs::GetAttrReply::GetAttrReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0x9b42): first defined here
+tafs.pb.o: In function `tafs::OpenReq::OpenReq()':
+tafs.pb.cc:(.text+0xa986): multiple definition of `tafs::OpenReq::OpenReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0xa986): first defined here
+tafs.pb.o: In function `tafs::ReadReq::ReadReq()':
+tafs.pb.cc:(.text+0xb7ca): multiple definition of `tafs::ReadReq::ReadReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0xb7ca): first defined here
+tafs.pb.o: In function `tafs::ReadReply::ReadReply()':
+tafs.pb.cc:(.text+0xc320): multiple definition of `tafs::ReadReply::ReadReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0xc320): first defined here
+tafs.pb.o: In function `tafs::WriteReq::WriteReq()':
+tafs.pb.cc:(.text+0xd164): multiple definition of `tafs::WriteReq::WriteReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0xd164): first defined here
+tafs.pb.o: In function `tafs::WriteReply::WriteReply()':
+tafs.pb.cc:(.text+0xe086): multiple definition of `tafs::WriteReply::WriteReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0xe086): first defined here
+tafs.pb.o: In function `tafs::ErrNo::ErrNo()':
+tafs.pb.cc:(.text+0xea46): multiple definition of `tafs::ErrNo::ErrNo()'
+tafs.pb.o:tafs.pb.cc:(.text+0xea46): first defined here
+tafs.pb.o: In function `tafs::Buf::Buf()':
+tafs.pb.cc:(.text+0xf406): multiple definition of `tafs::Buf::Buf()'
+tafs.pb.o:tafs.pb.cc:(.text+0xf406): first defined here
+tafs.pb.o: In function `tafs::LoginRequest::LoginRequest()':
+tafs.pb.cc:(.text+0xff5c): multiple definition of `tafs::LoginRequest::LoginRequest()'
+tafs.pb.o:tafs.pb.cc:(.text+0xff5c): first defined here
+tafs.pb.o: In function `tafs::LoginReply::LoginReply()':
+tafs.pb.cc:(.text+0x1091c): multiple definition of `tafs::LoginReply::LoginReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0x1091c): first defined here
+tafs.pb.o: In function `tafs::TestB::TestB()':
+tafs.pb.cc:(.text+0x112dc): multiple definition of `tafs::TestB::TestB()'
+tafs.pb.o:tafs.pb.cc:(.text+0x112dc): first defined here
+tafs.pb.o: In function `tafs::ReadDirReq::InitAsDefaultInstance()':
+tafs.pb.cc:(.text+0x1a22): multiple definition of `tafs::ReadDirReq::InitAsDefaultInstance()'
+tafs.pb.o:tafs.pb.cc:(.text+0x1a22): first defined here
+tafs.pb.o: In function `tafs::ReadDirReply::InitAsDefaultInstance()':
+tafs.pb.cc:(.text+0x2578): multiple definition of `tafs::ReadDirReply::InitAsDefaultInstance()'
+tafs.pb.o:tafs.pb.cc:(.text+0x2578): first defined here
+tafs.pb.o: In function `tafs::MkDirReq::InitAsDefaultInstance()':
+tafs.pb.cc:(.text+0x33bc): multiple definition of `tafs::MkDirReq::InitAsDefaultInstance()'
+tafs.pb.o:tafs.pb.cc:(.text+0x33bc): first defined here
+tafs.pb.o: In function `tafs::MkDirReply::InitAsDefaultInstance()':
+tafs.pb.cc:(.text+0x41ce): multiple definition of `tafs::MkDirReply::InitAsDefaultInstance()'
+tafs.pb.o:tafs.pb.cc:(.text+0x41ce): first defined here
+tafs.pb.o: In function `tafs::RmDirReq::InitAsDefaultInstance()':
+tafs.pb.cc:(.text+0x4bc0): multiple definition of `tafs::RmDirReq::InitAsDefaultInstance()'
+tafs.pb.o:tafs.pb.cc:(.text+0x4bc0): first defined here
+tafs.pb.o: In function `tafs::RmDirReply::InitAsDefaultInstance()':
+tafs.pb.cc:(.text+0x56e4): multiple definition of `tafs::RmDirReply::InitAsDefaultInstance()'
+tafs.pb.o:tafs.pb.cc:(.text+0x56e4): first defined here
+tafs.pb.o: In function `tafs::UnlinkReq::InitAsDefaultInstance()':
+tafs.pb.cc:(.text+0x60d6): multiple definition of `tafs::UnlinkReq::InitAsDefaultInstance()'
+tafs.pb.o:tafs.pb.cc:(.text+0x60d6): first defined here
+tafs.pb.o: In function `tafs::UnlinkReply::InitAsDefaultInstance()':
+tafs.pb.cc:(.text+0x6bfa): multiple definition of `tafs::UnlinkReply::InitAsDefaultInstance()'
+tafs.pb.o:tafs.pb.cc:(.text+0x6bfa): first defined here
+tafs.pb.o: In function `tafs::HelloRequest::InitAsDefaultInstance()':
+tafs.pb.cc:(.text+0x75ec): multiple definition of `tafs::HelloRequest::InitAsDefaultInstance()'
+tafs.pb.o:tafs.pb.cc:(.text+0x75ec): first defined here
+tafs.pb.o: In function `tafs::HelloReply::InitAsDefaultInstance()':
+tafs.pb.cc:(.text+0x8142): multiple definition of `tafs::HelloReply::InitAsDefaultInstance()'
+tafs.pb.o:tafs.pb.cc:(.text+0x8142): first defined here
+tafs.pb.o: In function `tafs::GetAttrReq::InitAsDefaultInstance()':
+tafs.pb.cc:(.text+0x8c98): multiple definition of `tafs::GetAttrReq::InitAsDefaultInstance()'
+tafs.pb.o:tafs.pb.cc:(.text+0x8c98): first defined here
+tafs.pb.o: In function `tafs::GetAttrReply::InitAsDefaultInstance()':
+tafs.pb.cc:(.text+0x9bba): multiple definition of `tafs::GetAttrReply::InitAsDefaultInstance()'
+tafs.pb.o:tafs.pb.cc:(.text+0x9bba): first defined here
+tafs.pb.o: In function `tafs::OpenReq::InitAsDefaultInstance()':
+tafs.pb.cc:(.text+0xa9fe): multiple definition of `tafs::OpenReq::InitAsDefaultInstance()'
+tafs.pb.o:tafs.pb.cc:(.text+0xa9fe): first defined here
+tafs.pb.o: In function `tafs::ReadReq::InitAsDefaultInstance()':
+tafs.pb.cc:(.text+0xb842): multiple definition of `tafs::ReadReq::InitAsDefaultInstance()'
+tafs.pb.o:tafs.pb.cc:(.text+0xb842): first defined here
+tafs.pb.o: In function `tafs::ReadReply::InitAsDefaultInstance()':
+tafs.pb.cc:(.text+0xc398): multiple definition of `tafs::ReadReply::InitAsDefaultInstance()'
+tafs.pb.o:tafs.pb.cc:(.text+0xc398): first defined here
+tafs.pb.o: In function `tafs::WriteReq::InitAsDefaultInstance()':
+tafs.pb.cc:(.text+0xd1dc): multiple definition of `tafs::WriteReq::InitAsDefaultInstance()'
+tafs.pb.o:tafs.pb.cc:(.text+0xd1dc): first defined here
+tafs.pb.o: In function `tafs::WriteReply::InitAsDefaultInstance()':
+tafs.pb.cc:(.text+0xe0cc): multiple definition of `tafs::WriteReply::InitAsDefaultInstance()'
+tafs.pb.o:tafs.pb.cc:(.text+0xe0cc): first defined here
+tafs.pb.o: In function `tafs::ErrNo::InitAsDefaultInstance()':
+tafs.pb.cc:(.text+0xea8c): multiple definition of `tafs::ErrNo::InitAsDefaultInstance()'
+tafs.pb.o:tafs.pb.cc:(.text+0xea8c): first defined here
+tafs.pb.o: In function `tafs::Buf::InitAsDefaultInstance()':
+tafs.pb.cc:(.text+0xf47e): multiple definition of `tafs::Buf::InitAsDefaultInstance()'
+tafs.pb.o:tafs.pb.cc:(.text+0xf47e): first defined here
+tafs.pb.o: In function `tafs::LoginRequest::InitAsDefaultInstance()':
+tafs.pb.cc:(.text+0xffa2): multiple definition of `tafs::LoginRequest::InitAsDefaultInstance()'
+tafs.pb.o:tafs.pb.cc:(.text+0xffa2): first defined here
+tafs.pb.o: In function `tafs::LoginReply::InitAsDefaultInstance()':
+tafs.pb.cc:(.text+0x10962): multiple definition of `tafs::LoginReply::InitAsDefaultInstance()'
+tafs.pb.o:tafs.pb.cc:(.text+0x10962): first defined here
+tafs.pb.o: In function `tafs::TestB::InitAsDefaultInstance()':
+tafs.pb.cc:(.text+0x11354): multiple definition of `tafs::TestB::InitAsDefaultInstance()'
+tafs.pb.o:tafs.pb.cc:(.text+0x11354): first defined here
+tafs.pb.o:(.bss+0x0): multiple definition of `tafs::static_descriptor_initializer_tafs_2eproto_'
+tafs.pb.o:(.bss+0x0): first defined here
+tafs.pb.o:(.rodata+0x5a4): multiple definition of `tafs::ReadDirReq::kPathFieldNumber'
+tafs.pb.o:(.rodata+0x5a4): first defined here
+tafs.pb.o: In function `tafs::ReadDirReq::ReadDirReq()':
+tafs.pb.cc:(.text+0x19aa): multiple definition of `tafs::ReadDirReq::ReadDirReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0x19aa): first defined here
+tafs.pb.o: In function `tafs::ReadDirReq::SharedCtor()':
+tafs.pb.cc:(.text+0x1ac4): multiple definition of `tafs::ReadDirReq::SharedCtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x1ac4): first defined here
+tafs.pb.o: In function `tafs::ReadDirReq::ReadDirReq(tafs::ReadDirReq const&)':
+tafs.pb.cc:(.text+0x1a34): multiple definition of `tafs::ReadDirReq::ReadDirReq(tafs::ReadDirReq const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x1a34): first defined here
+tafs.pb.o: In function `tafs::ReadDirReq::MergeFrom(tafs::ReadDirReq const&)':
+tafs.pb.cc:(.text+0x21e0): multiple definition of `tafs::ReadDirReq::MergeFrom(tafs::ReadDirReq const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x21e0): first defined here
+tafs.pb.o: In function `tafs::ReadDirReq::ReadDirReq(tafs::ReadDirReq const&)':
+tafs.pb.cc:(.text+0x1a34): multiple definition of `tafs::ReadDirReq::ReadDirReq(tafs::ReadDirReq const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x1a34): first defined here
+tafs.pb.o: In function `tafs::ReadDirReq::~ReadDirReq()':
+tafs.pb.cc:(.text+0x1b02): multiple definition of `tafs::ReadDirReq::~ReadDirReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0x1b02): first defined here
+tafs.pb.o: In function `tafs::ReadDirReq::SharedDtor()':
+tafs.pb.cc:(.text+0x1b7e): multiple definition of `tafs::ReadDirReq::SharedDtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x1b7e): first defined here
+tafs.pb.o: In function `tafs::ReadDirReq::~ReadDirReq()':
+tafs.pb.cc:(.text+0x1b02): multiple definition of `tafs::ReadDirReq::~ReadDirReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0x1b02): first defined here
+tafs.pb.o: In function `tafs::ReadDirReq::~ReadDirReq()':
+tafs.pb.cc:(.text+0x1b58): multiple definition of `tafs::ReadDirReq::~ReadDirReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0x1b58): first defined here
+tafs.pb.o: In function `tafs::ReadDirReq::SetCachedSize(int) const':
+tafs.pb.cc:(.text+0x1ba4): multiple definition of `tafs::ReadDirReq::SetCachedSize(int) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x1ba4): first defined here
+tafs.pb.o: In function `tafs::ReadDirReq::descriptor()':
+tafs.pb.cc:(.text+0x1bbc): multiple definition of `tafs::ReadDirReq::descriptor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x1bbc): first defined here
+tafs.pb.o: In function `tafs::ReadDirReq::New(google::protobuf::Arena*) const':
+tafs.pb.cc:(.text+0x1bec): multiple definition of `tafs::ReadDirReq::New(google::protobuf::Arena*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x1bec): first defined here
+tafs.pb.o: In function `tafs::ReadDirReq::Clear()':
+tafs.pb.cc:(.text+0x1c58): multiple definition of `tafs::ReadDirReq::Clear()'
+tafs.pb.o:tafs.pb.cc:(.text+0x1c58): first defined here
+tafs.pb.o: In function `tafs::ReadDirReq::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)':
+tafs.pb.cc:(.text+0x1c7e): multiple definition of `tafs::ReadDirReq::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x1c7e): first defined here
+tafs.pb.o: In function `tafs::ReadDirReq::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const':
+tafs.pb.cc:(.text+0x1f90): multiple definition of `tafs::ReadDirReq::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x1f90): first defined here
+tafs.pb.o: In function `tafs::ReadDirReq::SerializeWithCachedSizesToArray(unsigned char*) const':
+tafs.pb.cc:(.text+0x2022): multiple definition of `tafs::ReadDirReq::SerializeWithCachedSizesToArray(unsigned char*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x2022): first defined here
+tafs.pb.o: In function `tafs::ReadDirReq::ByteSize() const':
+tafs.pb.cc:(.text+0x2118): multiple definition of `tafs::ReadDirReq::ByteSize() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x2118): first defined here
+tafs.pb.o: In function `tafs::ReadDirReq::MergeFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0x2172): multiple definition of `tafs::ReadDirReq::MergeFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x2172): first defined here
+tafs.pb.o: In function `tafs::ReadDirReq::CopyFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0x224e): multiple definition of `tafs::ReadDirReq::CopyFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x224e): first defined here
+tafs.pb.o: In function `tafs::ReadDirReq::CopyFrom(tafs::ReadDirReq const&)':
+tafs.pb.cc:(.text+0x22a4): multiple definition of `tafs::ReadDirReq::CopyFrom(tafs::ReadDirReq const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x22a4): first defined here
+tafs.pb.o: In function `tafs::ReadDirReq::IsInitialized() const':
+tafs.pb.cc:(.text+0x22ec): multiple definition of `tafs::ReadDirReq::IsInitialized() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x22ec): first defined here
+tafs.pb.o: In function `tafs::ReadDirReq::Swap(tafs::ReadDirReq*)':
+tafs.pb.cc:(.text+0x22fc): multiple definition of `tafs::ReadDirReq::Swap(tafs::ReadDirReq*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x22fc): first defined here
+tafs.pb.o: In function `tafs::ReadDirReq::InternalSwap(tafs::ReadDirReq*)':
+tafs.pb.cc:(.text+0x232e): multiple definition of `tafs::ReadDirReq::InternalSwap(tafs::ReadDirReq*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x232e): first defined here
+tafs.pb.o: In function `tafs::ReadDirReq::GetMetadata() const':
+tafs.pb.cc:(.text+0x24ce): multiple definition of `tafs::ReadDirReq::GetMetadata() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x24ce): first defined here
+tafs.pb.o:(.rodata+0x5c0): multiple definition of `tafs::ReadDirReply::kErrFieldNumber'
+tafs.pb.o:(.rodata+0x5c0): first defined here
+tafs.pb.o:(.rodata+0x5c4): multiple definition of `tafs::ReadDirReply::kBufFieldNumber'
+tafs.pb.o:(.rodata+0x5c4): first defined here
+tafs.pb.o: In function `tafs::ReadDirReply::ReadDirReply()':
+tafs.pb.cc:(.text+0x2500): multiple definition of `tafs::ReadDirReply::ReadDirReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0x2500): first defined here
+tafs.pb.o: In function `tafs::ReadDirReply::SharedCtor()':
+tafs.pb.cc:(.text+0x261a): multiple definition of `tafs::ReadDirReply::SharedCtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x261a): first defined here
+tafs.pb.o: In function `tafs::ReadDirReply::ReadDirReply(tafs::ReadDirReply const&)':
+tafs.pb.cc:(.text+0x258a): multiple definition of `tafs::ReadDirReply::ReadDirReply(tafs::ReadDirReply const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x258a): first defined here
+tafs.pb.o: In function `tafs::ReadDirReply::MergeFrom(tafs::ReadDirReply const&)':
+tafs.pb.cc:(.text+0x2fd4): multiple definition of `tafs::ReadDirReply::MergeFrom(tafs::ReadDirReply const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x2fd4): first defined here
+tafs.pb.o: In function `tafs::ReadDirReply::ReadDirReply(tafs::ReadDirReply const&)':
+tafs.pb.cc:(.text+0x258a): multiple definition of `tafs::ReadDirReply::ReadDirReply(tafs::ReadDirReply const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x258a): first defined here
+tafs.pb.o: In function `tafs::ReadDirReply::~ReadDirReply()':
+tafs.pb.cc:(.text+0x2664): multiple definition of `tafs::ReadDirReply::~ReadDirReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0x2664): first defined here
+tafs.pb.o: In function `tafs::ReadDirReply::SharedDtor()':
+tafs.pb.cc:(.text+0x26e0): multiple definition of `tafs::ReadDirReply::SharedDtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x26e0): first defined here
+tafs.pb.o: In function `tafs::ReadDirReply::~ReadDirReply()':
+tafs.pb.cc:(.text+0x2664): multiple definition of `tafs::ReadDirReply::~ReadDirReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0x2664): first defined here
+tafs.pb.o: In function `tafs::ReadDirReply::~ReadDirReply()':
+tafs.pb.cc:(.text+0x26ba): multiple definition of `tafs::ReadDirReply::~ReadDirReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0x26ba): first defined here
+tafs.pb.o: In function `tafs::ReadDirReply::SetCachedSize(int) const':
+tafs.pb.cc:(.text+0x2706): multiple definition of `tafs::ReadDirReply::SetCachedSize(int) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x2706): first defined here
+tafs.pb.o: In function `tafs::ReadDirReply::descriptor()':
+tafs.pb.cc:(.text+0x271e): multiple definition of `tafs::ReadDirReply::descriptor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x271e): first defined here
+tafs.pb.o: In function `tafs::ReadDirReply::New(google::protobuf::Arena*) const':
+tafs.pb.cc:(.text+0x274e): multiple definition of `tafs::ReadDirReply::New(google::protobuf::Arena*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x274e): first defined here
+tafs.pb.o: In function `tafs::ReadDirReply::Clear()':
+tafs.pb.cc:(.text+0x27ba): multiple definition of `tafs::ReadDirReply::Clear()'
+tafs.pb.o:tafs.pb.cc:(.text+0x27ba): first defined here
+tafs.pb.o: In function `tafs::ReadDirReply::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)':
+tafs.pb.cc:(.text+0x27ec): multiple definition of `tafs::ReadDirReply::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x27ec): first defined here
+tafs.pb.o: In function `tafs::ReadDirReply::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const':
+tafs.pb.cc:(.text+0x2c5a): multiple definition of `tafs::ReadDirReply::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x2c5a): first defined here
+tafs.pb.o: In function `tafs::ReadDirReply::SerializeWithCachedSizesToArray(unsigned char*) const':
+tafs.pb.cc:(.text+0x2d1c): multiple definition of `tafs::ReadDirReply::SerializeWithCachedSizesToArray(unsigned char*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x2d1c): first defined here
+tafs.pb.o: In function `tafs::ReadDirReply::ByteSize() const':
+tafs.pb.cc:(.text+0x2ede): multiple definition of `tafs::ReadDirReply::ByteSize() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x2ede): first defined here
+tafs.pb.o: In function `tafs::ReadDirReply::MergeFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0x2f66): multiple definition of `tafs::ReadDirReply::MergeFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x2f66): first defined here
+tafs.pb.o: In function `tafs::ReadDirReply::CopyFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0x3072): multiple definition of `tafs::ReadDirReply::CopyFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x3072): first defined here
+tafs.pb.o: In function `tafs::ReadDirReply::CopyFrom(tafs::ReadDirReply const&)':
+tafs.pb.cc:(.text+0x30c8): multiple definition of `tafs::ReadDirReply::CopyFrom(tafs::ReadDirReply const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x30c8): first defined here
+tafs.pb.o: In function `tafs::ReadDirReply::IsInitialized() const':
+tafs.pb.cc:(.text+0x3110): multiple definition of `tafs::ReadDirReply::IsInitialized() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x3110): first defined here
+tafs.pb.o: In function `tafs::ReadDirReply::Swap(tafs::ReadDirReply*)':
+tafs.pb.cc:(.text+0x3120): multiple definition of `tafs::ReadDirReply::Swap(tafs::ReadDirReply*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x3120): first defined here
+tafs.pb.o: In function `tafs::ReadDirReply::InternalSwap(tafs::ReadDirReply*)':
+tafs.pb.cc:(.text+0x3152): multiple definition of `tafs::ReadDirReply::InternalSwap(tafs::ReadDirReply*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x3152): first defined here
+tafs.pb.o: In function `tafs::ReadDirReply::GetMetadata() const':
+tafs.pb.cc:(.text+0x3312): multiple definition of `tafs::ReadDirReply::GetMetadata() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x3312): first defined here
+tafs.pb.o:(.rodata+0x5e0): multiple definition of `tafs::MkDirReq::kPathFieldNumber'
+tafs.pb.o:(.rodata+0x5e0): first defined here
+tafs.pb.o:(.rodata+0x5e4): multiple definition of `tafs::MkDirReq::kModeFieldNumber'
+tafs.pb.o:(.rodata+0x5e4): first defined here
+tafs.pb.o: In function `tafs::MkDirReq::MkDirReq()':
+tafs.pb.cc:(.text+0x3344): multiple definition of `tafs::MkDirReq::MkDirReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0x3344): first defined here
+tafs.pb.o: In function `tafs::MkDirReq::SharedCtor()':
+tafs.pb.cc:(.text+0x345e): multiple definition of `tafs::MkDirReq::SharedCtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x345e): first defined here
+tafs.pb.o: In function `tafs::MkDirReq::MkDirReq(tafs::MkDirReq const&)':
+tafs.pb.cc:(.text+0x33ce): multiple definition of `tafs::MkDirReq::MkDirReq(tafs::MkDirReq const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x33ce): first defined here
+tafs.pb.o: In function `tafs::MkDirReq::MergeFrom(tafs::MkDirReq const&)':
+tafs.pb.cc:(.text+0x3e18): multiple definition of `tafs::MkDirReq::MergeFrom(tafs::MkDirReq const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x3e18): first defined here
+tafs.pb.o: In function `tafs::MkDirReq::MkDirReq(tafs::MkDirReq const&)':
+tafs.pb.cc:(.text+0x33ce): multiple definition of `tafs::MkDirReq::MkDirReq(tafs::MkDirReq const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x33ce): first defined here
+tafs.pb.o: In function `tafs::MkDirReq::~MkDirReq()':
+tafs.pb.cc:(.text+0x34a8): multiple definition of `tafs::MkDirReq::~MkDirReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0x34a8): first defined here
+tafs.pb.o: In function `tafs::MkDirReq::SharedDtor()':
+tafs.pb.cc:(.text+0x3524): multiple definition of `tafs::MkDirReq::SharedDtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x3524): first defined here
+tafs.pb.o: In function `tafs::MkDirReq::~MkDirReq()':
+tafs.pb.cc:(.text+0x34a8): multiple definition of `tafs::MkDirReq::~MkDirReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0x34a8): first defined here
+tafs.pb.o: In function `tafs::MkDirReq::~MkDirReq()':
+tafs.pb.cc:(.text+0x34fe): multiple definition of `tafs::MkDirReq::~MkDirReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0x34fe): first defined here
+tafs.pb.o: In function `tafs::MkDirReq::SetCachedSize(int) const':
+tafs.pb.cc:(.text+0x354a): multiple definition of `tafs::MkDirReq::SetCachedSize(int) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x354a): first defined here
+tafs.pb.o: In function `tafs::MkDirReq::descriptor()':
+tafs.pb.cc:(.text+0x3562): multiple definition of `tafs::MkDirReq::descriptor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x3562): first defined here
+tafs.pb.o: In function `tafs::MkDirReq::New(google::protobuf::Arena*) const':
+tafs.pb.cc:(.text+0x3592): multiple definition of `tafs::MkDirReq::New(google::protobuf::Arena*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x3592): first defined here
+tafs.pb.o: In function `tafs::MkDirReq::Clear()':
+tafs.pb.cc:(.text+0x35fe): multiple definition of `tafs::MkDirReq::Clear()'
+tafs.pb.o:tafs.pb.cc:(.text+0x35fe): first defined here
+tafs.pb.o: In function `tafs::MkDirReq::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)':
+tafs.pb.cc:(.text+0x3630): multiple definition of `tafs::MkDirReq::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x3630): first defined here
+tafs.pb.o: In function `tafs::MkDirReq::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const':
+tafs.pb.cc:(.text+0x3a9e): multiple definition of `tafs::MkDirReq::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x3a9e): first defined here
+tafs.pb.o: In function `tafs::MkDirReq::SerializeWithCachedSizesToArray(unsigned char*) const':
+tafs.pb.cc:(.text+0x3b60): multiple definition of `tafs::MkDirReq::SerializeWithCachedSizesToArray(unsigned char*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x3b60): first defined here
+tafs.pb.o: In function `tafs::MkDirReq::ByteSize() const':
+tafs.pb.cc:(.text+0x3d22): multiple definition of `tafs::MkDirReq::ByteSize() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x3d22): first defined here
+tafs.pb.o: In function `tafs::MkDirReq::MergeFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0x3daa): multiple definition of `tafs::MkDirReq::MergeFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x3daa): first defined here
+tafs.pb.o: In function `tafs::MkDirReq::CopyFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0x3eb6): multiple definition of `tafs::MkDirReq::CopyFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x3eb6): first defined here
+tafs.pb.o: In function `tafs::MkDirReq::CopyFrom(tafs::MkDirReq const&)':
+tafs.pb.cc:(.text+0x3f0c): multiple definition of `tafs::MkDirReq::CopyFrom(tafs::MkDirReq const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x3f0c): first defined here
+tafs.pb.o: In function `tafs::MkDirReq::IsInitialized() const':
+tafs.pb.cc:(.text+0x3f54): multiple definition of `tafs::MkDirReq::IsInitialized() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x3f54): first defined here
+tafs.pb.o: In function `tafs::MkDirReq::Swap(tafs::MkDirReq*)':
+tafs.pb.cc:(.text+0x3f64): multiple definition of `tafs::MkDirReq::Swap(tafs::MkDirReq*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x3f64): first defined here
+tafs.pb.o: In function `tafs::MkDirReq::InternalSwap(tafs::MkDirReq*)':
+tafs.pb.cc:(.text+0x3f96): multiple definition of `tafs::MkDirReq::InternalSwap(tafs::MkDirReq*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x3f96): first defined here
+tafs.pb.o: In function `tafs::MkDirReq::GetMetadata() const':
+tafs.pb.cc:(.text+0x4156): multiple definition of `tafs::MkDirReq::GetMetadata() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x4156): first defined here
+tafs.pb.o:(.rodata+0x5fc): multiple definition of `tafs::MkDirReply::kErrFieldNumber'
+tafs.pb.o:(.rodata+0x5fc): first defined here
+tafs.pb.o: In function `tafs::MkDirReply::MkDirReply()':
+tafs.pb.cc:(.text+0x4188): multiple definition of `tafs::MkDirReply::MkDirReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0x4188): first defined here
+tafs.pb.o: In function `tafs::MkDirReply::SharedCtor()':
+tafs.pb.cc:(.text+0x4270): multiple definition of `tafs::MkDirReply::SharedCtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x4270): first defined here
+tafs.pb.o: In function `tafs::MkDirReply::MkDirReply(tafs::MkDirReply const&)':
+tafs.pb.cc:(.text+0x41e0): multiple definition of `tafs::MkDirReply::MkDirReply(tafs::MkDirReply const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x41e0): first defined here
+tafs.pb.o: In function `tafs::MkDirReply::MergeFrom(tafs::MkDirReply const&)':
+tafs.pb.cc:(.text+0x4864): multiple definition of `tafs::MkDirReply::MergeFrom(tafs::MkDirReply const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x4864): first defined here
+tafs.pb.o: In function `tafs::MkDirReply::MkDirReply(tafs::MkDirReply const&)':
+tafs.pb.cc:(.text+0x41e0): multiple definition of `tafs::MkDirReply::MkDirReply(tafs::MkDirReply const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x41e0): first defined here
+tafs.pb.o: In function `tafs::MkDirReply::~MkDirReply()':
+tafs.pb.cc:(.text+0x4298): multiple definition of `tafs::MkDirReply::~MkDirReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0x4298): first defined here
+tafs.pb.o: In function `tafs::MkDirReply::SharedDtor()':
+tafs.pb.cc:(.text+0x4314): multiple definition of `tafs::MkDirReply::SharedDtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x4314): first defined here
+tafs.pb.o: In function `tafs::MkDirReply::~MkDirReply()':
+tafs.pb.cc:(.text+0x4298): multiple definition of `tafs::MkDirReply::~MkDirReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0x4298): first defined here
+tafs.pb.o: In function `tafs::MkDirReply::~MkDirReply()':
+tafs.pb.cc:(.text+0x42ee): multiple definition of `tafs::MkDirReply::~MkDirReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0x42ee): first defined here
+tafs.pb.o: In function `tafs::MkDirReply::SetCachedSize(int) const':
+tafs.pb.cc:(.text+0x431e): multiple definition of `tafs::MkDirReply::SetCachedSize(int) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x431e): first defined here
+tafs.pb.o: In function `tafs::MkDirReply::descriptor()':
+tafs.pb.cc:(.text+0x4336): multiple definition of `tafs::MkDirReply::descriptor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x4336): first defined here
+tafs.pb.o: In function `tafs::MkDirReply::New(google::protobuf::Arena*) const':
+tafs.pb.cc:(.text+0x4366): multiple definition of `tafs::MkDirReply::New(google::protobuf::Arena*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x4366): first defined here
+tafs.pb.o: In function `tafs::MkDirReply::Clear()':
+tafs.pb.cc:(.text+0x43b6): multiple definition of `tafs::MkDirReply::Clear()'
+tafs.pb.o:tafs.pb.cc:(.text+0x43b6): first defined here
+tafs.pb.o: In function `tafs::MkDirReply::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)':
+tafs.pb.cc:(.text+0x43cc): multiple definition of `tafs::MkDirReply::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x43cc): first defined here
+tafs.pb.o: In function `tafs::MkDirReply::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const':
+tafs.pb.cc:(.text+0x46ae): multiple definition of `tafs::MkDirReply::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x46ae): first defined here
+tafs.pb.o: In function `tafs::MkDirReply::SerializeWithCachedSizesToArray(unsigned char*) const':
+tafs.pb.cc:(.text+0x46f2): multiple definition of `tafs::MkDirReply::SerializeWithCachedSizesToArray(unsigned char*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x46f2): first defined here
+tafs.pb.o: In function `tafs::MkDirReply::ByteSize() const':
+tafs.pb.cc:(.text+0x47a6): multiple definition of `tafs::MkDirReply::ByteSize() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x47a6): first defined here
+tafs.pb.o: In function `tafs::MkDirReply::MergeFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0x47f6): multiple definition of `tafs::MkDirReply::MergeFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x47f6): first defined here
+tafs.pb.o: In function `tafs::MkDirReply::CopyFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0x48c4): multiple definition of `tafs::MkDirReply::CopyFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x48c4): first defined here
+tafs.pb.o: In function `tafs::MkDirReply::CopyFrom(tafs::MkDirReply const&)':
+tafs.pb.cc:(.text+0x491a): multiple definition of `tafs::MkDirReply::CopyFrom(tafs::MkDirReply const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x491a): first defined here
+tafs.pb.o: In function `tafs::MkDirReply::IsInitialized() const':
+tafs.pb.cc:(.text+0x4962): multiple definition of `tafs::MkDirReply::IsInitialized() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x4962): first defined here
+tafs.pb.o: In function `tafs::MkDirReply::Swap(tafs::MkDirReply*)':
+tafs.pb.cc:(.text+0x4972): multiple definition of `tafs::MkDirReply::Swap(tafs::MkDirReply*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x4972): first defined here
+tafs.pb.o: In function `tafs::MkDirReply::InternalSwap(tafs::MkDirReply*)':
+tafs.pb.cc:(.text+0x49a4): multiple definition of `tafs::MkDirReply::InternalSwap(tafs::MkDirReply*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x49a4): first defined here
+tafs.pb.o: In function `tafs::MkDirReply::GetMetadata() const':
+tafs.pb.cc:(.text+0x4b16): multiple definition of `tafs::MkDirReply::GetMetadata() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x4b16): first defined here
+tafs.pb.o:(.rodata+0x600): multiple definition of `tafs::RmDirReq::kPathFieldNumber'
+tafs.pb.o:(.rodata+0x600): first defined here
+tafs.pb.o: In function `tafs::RmDirReq::RmDirReq()':
+tafs.pb.cc:(.text+0x4b48): multiple definition of `tafs::RmDirReq::RmDirReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0x4b48): first defined here
+tafs.pb.o: In function `tafs::RmDirReq::SharedCtor()':
+tafs.pb.cc:(.text+0x4c62): multiple definition of `tafs::RmDirReq::SharedCtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x4c62): first defined here
+tafs.pb.o: In function `tafs::RmDirReq::RmDirReq(tafs::RmDirReq const&)':
+tafs.pb.cc:(.text+0x4bd2): multiple definition of `tafs::RmDirReq::RmDirReq(tafs::RmDirReq const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x4bd2): first defined here
+tafs.pb.o: In function `tafs::RmDirReq::MergeFrom(tafs::RmDirReq const&)':
+tafs.pb.cc:(.text+0x537e): multiple definition of `tafs::RmDirReq::MergeFrom(tafs::RmDirReq const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x537e): first defined here
+tafs.pb.o: In function `tafs::RmDirReq::RmDirReq(tafs::RmDirReq const&)':
+tafs.pb.cc:(.text+0x4bd2): multiple definition of `tafs::RmDirReq::RmDirReq(tafs::RmDirReq const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x4bd2): first defined here
+tafs.pb.o: In function `tafs::RmDirReq::~RmDirReq()':
+tafs.pb.cc:(.text+0x4ca0): multiple definition of `tafs::RmDirReq::~RmDirReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0x4ca0): first defined here
+tafs.pb.o: In function `tafs::RmDirReq::SharedDtor()':
+tafs.pb.cc:(.text+0x4d1c): multiple definition of `tafs::RmDirReq::SharedDtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x4d1c): first defined here
+tafs.pb.o: In function `tafs::RmDirReq::~RmDirReq()':
+tafs.pb.cc:(.text+0x4ca0): multiple definition of `tafs::RmDirReq::~RmDirReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0x4ca0): first defined here
+tafs.pb.o: In function `tafs::RmDirReq::~RmDirReq()':
+tafs.pb.cc:(.text+0x4cf6): multiple definition of `tafs::RmDirReq::~RmDirReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0x4cf6): first defined here
+tafs.pb.o: In function `tafs::RmDirReq::SetCachedSize(int) const':
+tafs.pb.cc:(.text+0x4d42): multiple definition of `tafs::RmDirReq::SetCachedSize(int) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x4d42): first defined here
+tafs.pb.o: In function `tafs::RmDirReq::descriptor()':
+tafs.pb.cc:(.text+0x4d5a): multiple definition of `tafs::RmDirReq::descriptor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x4d5a): first defined here
+tafs.pb.o: In function `tafs::RmDirReq::New(google::protobuf::Arena*) const':
+tafs.pb.cc:(.text+0x4d8a): multiple definition of `tafs::RmDirReq::New(google::protobuf::Arena*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x4d8a): first defined here
+tafs.pb.o: In function `tafs::RmDirReq::Clear()':
+tafs.pb.cc:(.text+0x4df6): multiple definition of `tafs::RmDirReq::Clear()'
+tafs.pb.o:tafs.pb.cc:(.text+0x4df6): first defined here
+tafs.pb.o: In function `tafs::RmDirReq::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)':
+tafs.pb.cc:(.text+0x4e1c): multiple definition of `tafs::RmDirReq::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x4e1c): first defined here
+tafs.pb.o: In function `tafs::RmDirReq::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const':
+tafs.pb.cc:(.text+0x512e): multiple definition of `tafs::RmDirReq::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x512e): first defined here
+tafs.pb.o: In function `tafs::RmDirReq::SerializeWithCachedSizesToArray(unsigned char*) const':
+tafs.pb.cc:(.text+0x51c0): multiple definition of `tafs::RmDirReq::SerializeWithCachedSizesToArray(unsigned char*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x51c0): first defined here
+tafs.pb.o: In function `tafs::RmDirReq::ByteSize() const':
+tafs.pb.cc:(.text+0x52b6): multiple definition of `tafs::RmDirReq::ByteSize() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x52b6): first defined here
+tafs.pb.o: In function `tafs::RmDirReq::MergeFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0x5310): multiple definition of `tafs::RmDirReq::MergeFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x5310): first defined here
+tafs.pb.o: In function `tafs::RmDirReq::CopyFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0x53ec): multiple definition of `tafs::RmDirReq::CopyFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x53ec): first defined here
+tafs.pb.o: In function `tafs::RmDirReq::CopyFrom(tafs::RmDirReq const&)':
+tafs.pb.cc:(.text+0x5442): multiple definition of `tafs::RmDirReq::CopyFrom(tafs::RmDirReq const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x5442): first defined here
+tafs.pb.o: In function `tafs::RmDirReq::IsInitialized() const':
+tafs.pb.cc:(.text+0x548a): multiple definition of `tafs::RmDirReq::IsInitialized() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x548a): first defined here
+tafs.pb.o: In function `tafs::RmDirReq::Swap(tafs::RmDirReq*)':
+tafs.pb.cc:(.text+0x549a): multiple definition of `tafs::RmDirReq::Swap(tafs::RmDirReq*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x549a): first defined here
+tafs.pb.o: In function `tafs::RmDirReq::InternalSwap(tafs::RmDirReq*)':
+tafs.pb.cc:(.text+0x54cc): multiple definition of `tafs::RmDirReq::InternalSwap(tafs::RmDirReq*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x54cc): first defined here
+tafs.pb.o: In function `tafs::RmDirReq::GetMetadata() const':
+tafs.pb.cc:(.text+0x566c): multiple definition of `tafs::RmDirReq::GetMetadata() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x566c): first defined here
+tafs.pb.o:(.rodata+0x618): multiple definition of `tafs::RmDirReply::kErrFieldNumber'
+tafs.pb.o:(.rodata+0x618): first defined here
+tafs.pb.o: In function `tafs::RmDirReply::RmDirReply()':
+tafs.pb.cc:(.text+0x569e): multiple definition of `tafs::RmDirReply::RmDirReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0x569e): first defined here
+tafs.pb.o: In function `tafs::RmDirReply::SharedCtor()':
+tafs.pb.cc:(.text+0x5786): multiple definition of `tafs::RmDirReply::SharedCtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x5786): first defined here
+tafs.pb.o: In function `tafs::RmDirReply::RmDirReply(tafs::RmDirReply const&)':
+tafs.pb.cc:(.text+0x56f6): multiple definition of `tafs::RmDirReply::RmDirReply(tafs::RmDirReply const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x56f6): first defined here
+tafs.pb.o: In function `tafs::RmDirReply::MergeFrom(tafs::RmDirReply const&)':
+tafs.pb.cc:(.text+0x5d7a): multiple definition of `tafs::RmDirReply::MergeFrom(tafs::RmDirReply const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x5d7a): first defined here
+tafs.pb.o: In function `tafs::RmDirReply::RmDirReply(tafs::RmDirReply const&)':
+tafs.pb.cc:(.text+0x56f6): multiple definition of `tafs::RmDirReply::RmDirReply(tafs::RmDirReply const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x56f6): first defined here
+tafs.pb.o: In function `tafs::RmDirReply::~RmDirReply()':
+tafs.pb.cc:(.text+0x57ae): multiple definition of `tafs::RmDirReply::~RmDirReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0x57ae): first defined here
+tafs.pb.o: In function `tafs::RmDirReply::SharedDtor()':
+tafs.pb.cc:(.text+0x582a): multiple definition of `tafs::RmDirReply::SharedDtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x582a): first defined here
+tafs.pb.o: In function `tafs::RmDirReply::~RmDirReply()':
+tafs.pb.cc:(.text+0x57ae): multiple definition of `tafs::RmDirReply::~RmDirReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0x57ae): first defined here
+tafs.pb.o: In function `tafs::RmDirReply::~RmDirReply()':
+tafs.pb.cc:(.text+0x5804): multiple definition of `tafs::RmDirReply::~RmDirReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0x5804): first defined here
+tafs.pb.o: In function `tafs::RmDirReply::SetCachedSize(int) const':
+tafs.pb.cc:(.text+0x5834): multiple definition of `tafs::RmDirReply::SetCachedSize(int) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x5834): first defined here
+tafs.pb.o: In function `tafs::RmDirReply::descriptor()':
+tafs.pb.cc:(.text+0x584c): multiple definition of `tafs::RmDirReply::descriptor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x584c): first defined here
+tafs.pb.o: In function `tafs::RmDirReply::New(google::protobuf::Arena*) const':
+tafs.pb.cc:(.text+0x587c): multiple definition of `tafs::RmDirReply::New(google::protobuf::Arena*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x587c): first defined here
+tafs.pb.o: In function `tafs::RmDirReply::Clear()':
+tafs.pb.cc:(.text+0x58cc): multiple definition of `tafs::RmDirReply::Clear()'
+tafs.pb.o:tafs.pb.cc:(.text+0x58cc): first defined here
+tafs.pb.o: In function `tafs::RmDirReply::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)':
+tafs.pb.cc:(.text+0x58e2): multiple definition of `tafs::RmDirReply::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x58e2): first defined here
+tafs.pb.o: In function `tafs::RmDirReply::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const':
+tafs.pb.cc:(.text+0x5bc4): multiple definition of `tafs::RmDirReply::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x5bc4): first defined here
+tafs.pb.o: In function `tafs::RmDirReply::SerializeWithCachedSizesToArray(unsigned char*) const':
+tafs.pb.cc:(.text+0x5c08): multiple definition of `tafs::RmDirReply::SerializeWithCachedSizesToArray(unsigned char*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x5c08): first defined here
+tafs.pb.o: In function `tafs::RmDirReply::ByteSize() const':
+tafs.pb.cc:(.text+0x5cbc): multiple definition of `tafs::RmDirReply::ByteSize() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x5cbc): first defined here
+tafs.pb.o: In function `tafs::RmDirReply::MergeFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0x5d0c): multiple definition of `tafs::RmDirReply::MergeFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x5d0c): first defined here
+tafs.pb.o: In function `tafs::RmDirReply::CopyFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0x5dda): multiple definition of `tafs::RmDirReply::CopyFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x5dda): first defined here
+tafs.pb.o: In function `tafs::RmDirReply::CopyFrom(tafs::RmDirReply const&)':
+tafs.pb.cc:(.text+0x5e30): multiple definition of `tafs::RmDirReply::CopyFrom(tafs::RmDirReply const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x5e30): first defined here
+tafs.pb.o: In function `tafs::RmDirReply::IsInitialized() const':
+tafs.pb.cc:(.text+0x5e78): multiple definition of `tafs::RmDirReply::IsInitialized() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x5e78): first defined here
+tafs.pb.o: In function `tafs::RmDirReply::Swap(tafs::RmDirReply*)':
+tafs.pb.cc:(.text+0x5e88): multiple definition of `tafs::RmDirReply::Swap(tafs::RmDirReply*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x5e88): first defined here
+tafs.pb.o: In function `tafs::RmDirReply::InternalSwap(tafs::RmDirReply*)':
+tafs.pb.cc:(.text+0x5eba): multiple definition of `tafs::RmDirReply::InternalSwap(tafs::RmDirReply*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x5eba): first defined here
+tafs.pb.o: In function `tafs::RmDirReply::GetMetadata() const':
+tafs.pb.cc:(.text+0x602c): multiple definition of `tafs::RmDirReply::GetMetadata() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x602c): first defined here
+tafs.pb.o:(.rodata+0x61c): multiple definition of `tafs::UnlinkReq::kPathFieldNumber'
+tafs.pb.o:(.rodata+0x61c): first defined here
+tafs.pb.o: In function `tafs::UnlinkReq::UnlinkReq()':
+tafs.pb.cc:(.text+0x605e): multiple definition of `tafs::UnlinkReq::UnlinkReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0x605e): first defined here
+tafs.pb.o: In function `tafs::UnlinkReq::SharedCtor()':
+tafs.pb.cc:(.text+0x6178): multiple definition of `tafs::UnlinkReq::SharedCtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x6178): first defined here
+tafs.pb.o: In function `tafs::UnlinkReq::UnlinkReq(tafs::UnlinkReq const&)':
+tafs.pb.cc:(.text+0x60e8): multiple definition of `tafs::UnlinkReq::UnlinkReq(tafs::UnlinkReq const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x60e8): first defined here
+tafs.pb.o: In function `tafs::UnlinkReq::MergeFrom(tafs::UnlinkReq const&)':
+tafs.pb.cc:(.text+0x6894): multiple definition of `tafs::UnlinkReq::MergeFrom(tafs::UnlinkReq const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x6894): first defined here
+tafs.pb.o: In function `tafs::UnlinkReq::UnlinkReq(tafs::UnlinkReq const&)':
+tafs.pb.cc:(.text+0x60e8): multiple definition of `tafs::UnlinkReq::UnlinkReq(tafs::UnlinkReq const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x60e8): first defined here
+tafs.pb.o: In function `tafs::UnlinkReq::~UnlinkReq()':
+tafs.pb.cc:(.text+0x61b6): multiple definition of `tafs::UnlinkReq::~UnlinkReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0x61b6): first defined here
+tafs.pb.o: In function `tafs::UnlinkReq::SharedDtor()':
+tafs.pb.cc:(.text+0x6232): multiple definition of `tafs::UnlinkReq::SharedDtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x6232): first defined here
+tafs.pb.o: In function `tafs::UnlinkReq::~UnlinkReq()':
+tafs.pb.cc:(.text+0x61b6): multiple definition of `tafs::UnlinkReq::~UnlinkReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0x61b6): first defined here
+tafs.pb.o: In function `tafs::UnlinkReq::~UnlinkReq()':
+tafs.pb.cc:(.text+0x620c): multiple definition of `tafs::UnlinkReq::~UnlinkReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0x620c): first defined here
+tafs.pb.o: In function `tafs::UnlinkReq::SetCachedSize(int) const':
+tafs.pb.cc:(.text+0x6258): multiple definition of `tafs::UnlinkReq::SetCachedSize(int) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x6258): first defined here
+tafs.pb.o: In function `tafs::UnlinkReq::descriptor()':
+tafs.pb.cc:(.text+0x6270): multiple definition of `tafs::UnlinkReq::descriptor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x6270): first defined here
+tafs.pb.o: In function `tafs::UnlinkReq::New(google::protobuf::Arena*) const':
+tafs.pb.cc:(.text+0x62a0): multiple definition of `tafs::UnlinkReq::New(google::protobuf::Arena*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x62a0): first defined here
+tafs.pb.o: In function `tafs::UnlinkReq::Clear()':
+tafs.pb.cc:(.text+0x630c): multiple definition of `tafs::UnlinkReq::Clear()'
+tafs.pb.o:tafs.pb.cc:(.text+0x630c): first defined here
+tafs.pb.o: In function `tafs::UnlinkReq::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)':
+tafs.pb.cc:(.text+0x6332): multiple definition of `tafs::UnlinkReq::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x6332): first defined here
+tafs.pb.o: In function `tafs::UnlinkReq::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const':
+tafs.pb.cc:(.text+0x6644): multiple definition of `tafs::UnlinkReq::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x6644): first defined here
+tafs.pb.o: In function `tafs::UnlinkReq::SerializeWithCachedSizesToArray(unsigned char*) const':
+tafs.pb.cc:(.text+0x66d6): multiple definition of `tafs::UnlinkReq::SerializeWithCachedSizesToArray(unsigned char*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x66d6): first defined here
+tafs.pb.o: In function `tafs::UnlinkReq::ByteSize() const':
+tafs.pb.cc:(.text+0x67cc): multiple definition of `tafs::UnlinkReq::ByteSize() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x67cc): first defined here
+tafs.pb.o: In function `tafs::UnlinkReq::MergeFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0x6826): multiple definition of `tafs::UnlinkReq::MergeFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x6826): first defined here
+tafs.pb.o: In function `tafs::UnlinkReq::CopyFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0x6902): multiple definition of `tafs::UnlinkReq::CopyFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x6902): first defined here
+tafs.pb.o: In function `tafs::UnlinkReq::CopyFrom(tafs::UnlinkReq const&)':
+tafs.pb.cc:(.text+0x6958): multiple definition of `tafs::UnlinkReq::CopyFrom(tafs::UnlinkReq const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x6958): first defined here
+tafs.pb.o: In function `tafs::UnlinkReq::IsInitialized() const':
+tafs.pb.cc:(.text+0x69a0): multiple definition of `tafs::UnlinkReq::IsInitialized() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x69a0): first defined here
+tafs.pb.o: In function `tafs::UnlinkReq::Swap(tafs::UnlinkReq*)':
+tafs.pb.cc:(.text+0x69b0): multiple definition of `tafs::UnlinkReq::Swap(tafs::UnlinkReq*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x69b0): first defined here
+tafs.pb.o: In function `tafs::UnlinkReq::InternalSwap(tafs::UnlinkReq*)':
+tafs.pb.cc:(.text+0x69e2): multiple definition of `tafs::UnlinkReq::InternalSwap(tafs::UnlinkReq*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x69e2): first defined here
+tafs.pb.o: In function `tafs::UnlinkReq::GetMetadata() const':
+tafs.pb.cc:(.text+0x6b82): multiple definition of `tafs::UnlinkReq::GetMetadata() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x6b82): first defined here
+tafs.pb.o:(.rodata+0x634): multiple definition of `tafs::UnlinkReply::kErrFieldNumber'
+tafs.pb.o:(.rodata+0x634): first defined here
+tafs.pb.o: In function `tafs::UnlinkReply::UnlinkReply()':
+tafs.pb.cc:(.text+0x6bb4): multiple definition of `tafs::UnlinkReply::UnlinkReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0x6bb4): first defined here
+tafs.pb.o: In function `tafs::UnlinkReply::SharedCtor()':
+tafs.pb.cc:(.text+0x6c9c): multiple definition of `tafs::UnlinkReply::SharedCtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x6c9c): first defined here
+tafs.pb.o: In function `tafs::UnlinkReply::UnlinkReply(tafs::UnlinkReply const&)':
+tafs.pb.cc:(.text+0x6c0c): multiple definition of `tafs::UnlinkReply::UnlinkReply(tafs::UnlinkReply const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x6c0c): first defined here
+tafs.pb.o: In function `tafs::UnlinkReply::MergeFrom(tafs::UnlinkReply const&)':
+tafs.pb.cc:(.text+0x7290): multiple definition of `tafs::UnlinkReply::MergeFrom(tafs::UnlinkReply const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x7290): first defined here
+tafs.pb.o: In function `tafs::UnlinkReply::UnlinkReply(tafs::UnlinkReply const&)':
+tafs.pb.cc:(.text+0x6c0c): multiple definition of `tafs::UnlinkReply::UnlinkReply(tafs::UnlinkReply const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x6c0c): first defined here
+tafs.pb.o: In function `tafs::UnlinkReply::~UnlinkReply()':
+tafs.pb.cc:(.text+0x6cc4): multiple definition of `tafs::UnlinkReply::~UnlinkReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0x6cc4): first defined here
+tafs.pb.o: In function `tafs::UnlinkReply::SharedDtor()':
+tafs.pb.cc:(.text+0x6d40): multiple definition of `tafs::UnlinkReply::SharedDtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x6d40): first defined here
+tafs.pb.o: In function `tafs::UnlinkReply::~UnlinkReply()':
+tafs.pb.cc:(.text+0x6cc4): multiple definition of `tafs::UnlinkReply::~UnlinkReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0x6cc4): first defined here
+tafs.pb.o: In function `tafs::UnlinkReply::~UnlinkReply()':
+tafs.pb.cc:(.text+0x6d1a): multiple definition of `tafs::UnlinkReply::~UnlinkReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0x6d1a): first defined here
+tafs.pb.o: In function `tafs::UnlinkReply::SetCachedSize(int) const':
+tafs.pb.cc:(.text+0x6d4a): multiple definition of `tafs::UnlinkReply::SetCachedSize(int) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x6d4a): first defined here
+tafs.pb.o: In function `tafs::UnlinkReply::descriptor()':
+tafs.pb.cc:(.text+0x6d62): multiple definition of `tafs::UnlinkReply::descriptor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x6d62): first defined here
+tafs.pb.o: In function `tafs::UnlinkReply::New(google::protobuf::Arena*) const':
+tafs.pb.cc:(.text+0x6d92): multiple definition of `tafs::UnlinkReply::New(google::protobuf::Arena*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x6d92): first defined here
+tafs.pb.o: In function `tafs::UnlinkReply::Clear()':
+tafs.pb.cc:(.text+0x6de2): multiple definition of `tafs::UnlinkReply::Clear()'
+tafs.pb.o:tafs.pb.cc:(.text+0x6de2): first defined here
+tafs.pb.o: In function `tafs::UnlinkReply::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)':
+tafs.pb.cc:(.text+0x6df8): multiple definition of `tafs::UnlinkReply::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x6df8): first defined here
+tafs.pb.o: In function `tafs::UnlinkReply::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const':
+tafs.pb.cc:(.text+0x70da): multiple definition of `tafs::UnlinkReply::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x70da): first defined here
+tafs.pb.o: In function `tafs::UnlinkReply::SerializeWithCachedSizesToArray(unsigned char*) const':
+tafs.pb.cc:(.text+0x711e): multiple definition of `tafs::UnlinkReply::SerializeWithCachedSizesToArray(unsigned char*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x711e): first defined here
+tafs.pb.o: In function `tafs::UnlinkReply::ByteSize() const':
+tafs.pb.cc:(.text+0x71d2): multiple definition of `tafs::UnlinkReply::ByteSize() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x71d2): first defined here
+tafs.pb.o: In function `tafs::UnlinkReply::MergeFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0x7222): multiple definition of `tafs::UnlinkReply::MergeFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x7222): first defined here
+tafs.pb.o: In function `tafs::UnlinkReply::CopyFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0x72f0): multiple definition of `tafs::UnlinkReply::CopyFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x72f0): first defined here
+tafs.pb.o: In function `tafs::UnlinkReply::CopyFrom(tafs::UnlinkReply const&)':
+tafs.pb.cc:(.text+0x7346): multiple definition of `tafs::UnlinkReply::CopyFrom(tafs::UnlinkReply const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x7346): first defined here
+tafs.pb.o: In function `tafs::UnlinkReply::IsInitialized() const':
+tafs.pb.cc:(.text+0x738e): multiple definition of `tafs::UnlinkReply::IsInitialized() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x738e): first defined here
+tafs.pb.o: In function `tafs::UnlinkReply::Swap(tafs::UnlinkReply*)':
+tafs.pb.cc:(.text+0x739e): multiple definition of `tafs::UnlinkReply::Swap(tafs::UnlinkReply*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x739e): first defined here
+tafs.pb.o: In function `tafs::UnlinkReply::InternalSwap(tafs::UnlinkReply*)':
+tafs.pb.cc:(.text+0x73d0): multiple definition of `tafs::UnlinkReply::InternalSwap(tafs::UnlinkReply*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x73d0): first defined here
+tafs.pb.o: In function `tafs::UnlinkReply::GetMetadata() const':
+tafs.pb.cc:(.text+0x7542): multiple definition of `tafs::UnlinkReply::GetMetadata() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x7542): first defined here
+tafs.pb.o:(.rodata+0x638): multiple definition of `tafs::HelloRequest::kNameFieldNumber'
+tafs.pb.o:(.rodata+0x638): first defined here
+tafs.pb.o: In function `tafs::HelloRequest::HelloRequest()':
+tafs.pb.cc:(.text+0x7574): multiple definition of `tafs::HelloRequest::HelloRequest()'
+tafs.pb.o:tafs.pb.cc:(.text+0x7574): first defined here
+tafs.pb.o: In function `tafs::HelloRequest::SharedCtor()':
+tafs.pb.cc:(.text+0x768e): multiple definition of `tafs::HelloRequest::SharedCtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x768e): first defined here
+tafs.pb.o: In function `tafs::HelloRequest::HelloRequest(tafs::HelloRequest const&)':
+tafs.pb.cc:(.text+0x75fe): multiple definition of `tafs::HelloRequest::HelloRequest(tafs::HelloRequest const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x75fe): first defined here
+tafs.pb.o: In function `tafs::HelloRequest::MergeFrom(tafs::HelloRequest const&)':
+tafs.pb.cc:(.text+0x7daa): multiple definition of `tafs::HelloRequest::MergeFrom(tafs::HelloRequest const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x7daa): first defined here
+tafs.pb.o: In function `tafs::HelloRequest::HelloRequest(tafs::HelloRequest const&)':
+tafs.pb.cc:(.text+0x75fe): multiple definition of `tafs::HelloRequest::HelloRequest(tafs::HelloRequest const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x75fe): first defined here
+tafs.pb.o: In function `tafs::HelloRequest::~HelloRequest()':
+tafs.pb.cc:(.text+0x76cc): multiple definition of `tafs::HelloRequest::~HelloRequest()'
+tafs.pb.o:tafs.pb.cc:(.text+0x76cc): first defined here
+tafs.pb.o: In function `tafs::HelloRequest::SharedDtor()':
+tafs.pb.cc:(.text+0x7748): multiple definition of `tafs::HelloRequest::SharedDtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x7748): first defined here
+tafs.pb.o: In function `tafs::HelloRequest::~HelloRequest()':
+tafs.pb.cc:(.text+0x76cc): multiple definition of `tafs::HelloRequest::~HelloRequest()'
+tafs.pb.o:tafs.pb.cc:(.text+0x76cc): first defined here
+tafs.pb.o: In function `tafs::HelloRequest::~HelloRequest()':
+tafs.pb.cc:(.text+0x7722): multiple definition of `tafs::HelloRequest::~HelloRequest()'
+tafs.pb.o:tafs.pb.cc:(.text+0x7722): first defined here
+tafs.pb.o: In function `tafs::HelloRequest::SetCachedSize(int) const':
+tafs.pb.cc:(.text+0x776e): multiple definition of `tafs::HelloRequest::SetCachedSize(int) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x776e): first defined here
+tafs.pb.o: In function `tafs::HelloRequest::descriptor()':
+tafs.pb.cc:(.text+0x7786): multiple definition of `tafs::HelloRequest::descriptor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x7786): first defined here
+tafs.pb.o: In function `tafs::HelloRequest::New(google::protobuf::Arena*) const':
+tafs.pb.cc:(.text+0x77b6): multiple definition of `tafs::HelloRequest::New(google::protobuf::Arena*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x77b6): first defined here
+tafs.pb.o: In function `tafs::HelloRequest::Clear()':
+tafs.pb.cc:(.text+0x7822): multiple definition of `tafs::HelloRequest::Clear()'
+tafs.pb.o:tafs.pb.cc:(.text+0x7822): first defined here
+tafs.pb.o: In function `tafs::HelloRequest::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)':
+tafs.pb.cc:(.text+0x7848): multiple definition of `tafs::HelloRequest::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x7848): first defined here
+tafs.pb.o: In function `tafs::HelloRequest::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const':
+tafs.pb.cc:(.text+0x7b5a): multiple definition of `tafs::HelloRequest::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x7b5a): first defined here
+tafs.pb.o: In function `tafs::HelloRequest::SerializeWithCachedSizesToArray(unsigned char*) const':
+tafs.pb.cc:(.text+0x7bec): multiple definition of `tafs::HelloRequest::SerializeWithCachedSizesToArray(unsigned char*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x7bec): first defined here
+tafs.pb.o: In function `tafs::HelloRequest::ByteSize() const':
+tafs.pb.cc:(.text+0x7ce2): multiple definition of `tafs::HelloRequest::ByteSize() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x7ce2): first defined here
+tafs.pb.o: In function `tafs::HelloRequest::MergeFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0x7d3c): multiple definition of `tafs::HelloRequest::MergeFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x7d3c): first defined here
+tafs.pb.o: In function `tafs::HelloRequest::CopyFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0x7e18): multiple definition of `tafs::HelloRequest::CopyFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x7e18): first defined here
+tafs.pb.o: In function `tafs::HelloRequest::CopyFrom(tafs::HelloRequest const&)':
+tafs.pb.cc:(.text+0x7e6e): multiple definition of `tafs::HelloRequest::CopyFrom(tafs::HelloRequest const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x7e6e): first defined here
+tafs.pb.o: In function `tafs::HelloRequest::IsInitialized() const':
+tafs.pb.cc:(.text+0x7eb6): multiple definition of `tafs::HelloRequest::IsInitialized() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x7eb6): first defined here
+tafs.pb.o: In function `tafs::HelloRequest::Swap(tafs::HelloRequest*)':
+tafs.pb.cc:(.text+0x7ec6): multiple definition of `tafs::HelloRequest::Swap(tafs::HelloRequest*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x7ec6): first defined here
+tafs.pb.o: In function `tafs::HelloRequest::InternalSwap(tafs::HelloRequest*)':
+tafs.pb.cc:(.text+0x7ef8): multiple definition of `tafs::HelloRequest::InternalSwap(tafs::HelloRequest*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x7ef8): first defined here
+tafs.pb.o: In function `tafs::HelloRequest::GetMetadata() const':
+tafs.pb.cc:(.text+0x8098): multiple definition of `tafs::HelloRequest::GetMetadata() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x8098): first defined here
+tafs.pb.o:(.rodata+0x654): multiple definition of `tafs::HelloReply::kMessageFieldNumber'
+tafs.pb.o:(.rodata+0x654): first defined here
+tafs.pb.o: In function `tafs::HelloReply::HelloReply()':
+tafs.pb.cc:(.text+0x80ca): multiple definition of `tafs::HelloReply::HelloReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0x80ca): first defined here
+tafs.pb.o: In function `tafs::HelloReply::SharedCtor()':
+tafs.pb.cc:(.text+0x81e4): multiple definition of `tafs::HelloReply::SharedCtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x81e4): first defined here
+tafs.pb.o: In function `tafs::HelloReply::HelloReply(tafs::HelloReply const&)':
+tafs.pb.cc:(.text+0x8154): multiple definition of `tafs::HelloReply::HelloReply(tafs::HelloReply const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x8154): first defined here
+tafs.pb.o: In function `tafs::HelloReply::MergeFrom(tafs::HelloReply const&)':
+tafs.pb.cc:(.text+0x8900): multiple definition of `tafs::HelloReply::MergeFrom(tafs::HelloReply const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x8900): first defined here
+tafs.pb.o: In function `tafs::HelloReply::HelloReply(tafs::HelloReply const&)':
+tafs.pb.cc:(.text+0x8154): multiple definition of `tafs::HelloReply::HelloReply(tafs::HelloReply const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x8154): first defined here
+tafs.pb.o: In function `tafs::HelloReply::~HelloReply()':
+tafs.pb.cc:(.text+0x8222): multiple definition of `tafs::HelloReply::~HelloReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0x8222): first defined here
+tafs.pb.o: In function `tafs::HelloReply::SharedDtor()':
+tafs.pb.cc:(.text+0x829e): multiple definition of `tafs::HelloReply::SharedDtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x829e): first defined here
+tafs.pb.o: In function `tafs::HelloReply::~HelloReply()':
+tafs.pb.cc:(.text+0x8222): multiple definition of `tafs::HelloReply::~HelloReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0x8222): first defined here
+tafs.pb.o: In function `tafs::HelloReply::~HelloReply()':
+tafs.pb.cc:(.text+0x8278): multiple definition of `tafs::HelloReply::~HelloReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0x8278): first defined here
+tafs.pb.o: In function `tafs::HelloReply::SetCachedSize(int) const':
+tafs.pb.cc:(.text+0x82c4): multiple definition of `tafs::HelloReply::SetCachedSize(int) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x82c4): first defined here
+tafs.pb.o: In function `tafs::HelloReply::descriptor()':
+tafs.pb.cc:(.text+0x82dc): multiple definition of `tafs::HelloReply::descriptor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x82dc): first defined here
+tafs.pb.o: In function `tafs::HelloReply::New(google::protobuf::Arena*) const':
+tafs.pb.cc:(.text+0x830c): multiple definition of `tafs::HelloReply::New(google::protobuf::Arena*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x830c): first defined here
+tafs.pb.o: In function `tafs::HelloReply::Clear()':
+tafs.pb.cc:(.text+0x8378): multiple definition of `tafs::HelloReply::Clear()'
+tafs.pb.o:tafs.pb.cc:(.text+0x8378): first defined here
+tafs.pb.o: In function `tafs::HelloReply::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)':
+tafs.pb.cc:(.text+0x839e): multiple definition of `tafs::HelloReply::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x839e): first defined here
+tafs.pb.o: In function `tafs::HelloReply::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const':
+tafs.pb.cc:(.text+0x86b0): multiple definition of `tafs::HelloReply::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x86b0): first defined here
+tafs.pb.o: In function `tafs::HelloReply::SerializeWithCachedSizesToArray(unsigned char*) const':
+tafs.pb.cc:(.text+0x8742): multiple definition of `tafs::HelloReply::SerializeWithCachedSizesToArray(unsigned char*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x8742): first defined here
+tafs.pb.o: In function `tafs::HelloReply::ByteSize() const':
+tafs.pb.cc:(.text+0x8838): multiple definition of `tafs::HelloReply::ByteSize() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x8838): first defined here
+tafs.pb.o: In function `tafs::HelloReply::MergeFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0x8892): multiple definition of `tafs::HelloReply::MergeFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x8892): first defined here
+tafs.pb.o: In function `tafs::HelloReply::CopyFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0x896e): multiple definition of `tafs::HelloReply::CopyFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x896e): first defined here
+tafs.pb.o: In function `tafs::HelloReply::CopyFrom(tafs::HelloReply const&)':
+tafs.pb.cc:(.text+0x89c4): multiple definition of `tafs::HelloReply::CopyFrom(tafs::HelloReply const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x89c4): first defined here
+tafs.pb.o: In function `tafs::HelloReply::IsInitialized() const':
+tafs.pb.cc:(.text+0x8a0c): multiple definition of `tafs::HelloReply::IsInitialized() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x8a0c): first defined here
+tafs.pb.o: In function `tafs::HelloReply::Swap(tafs::HelloReply*)':
+tafs.pb.cc:(.text+0x8a1c): multiple definition of `tafs::HelloReply::Swap(tafs::HelloReply*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x8a1c): first defined here
+tafs.pb.o: In function `tafs::HelloReply::InternalSwap(tafs::HelloReply*)':
+tafs.pb.cc:(.text+0x8a4e): multiple definition of `tafs::HelloReply::InternalSwap(tafs::HelloReply*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x8a4e): first defined here
+tafs.pb.o: In function `tafs::HelloReply::GetMetadata() const':
+tafs.pb.cc:(.text+0x8bee): multiple definition of `tafs::HelloReply::GetMetadata() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x8bee): first defined here
+tafs.pb.o:(.rodata+0x670): multiple definition of `tafs::GetAttrReq::kPathFieldNumber'
+tafs.pb.o:(.rodata+0x670): first defined here
+tafs.pb.o:(.rodata+0x674): multiple definition of `tafs::GetAttrReq::kBufFieldNumber'
+tafs.pb.o:(.rodata+0x674): first defined here
+tafs.pb.o: In function `tafs::GetAttrReq::GetAttrReq()':
+tafs.pb.cc:(.text+0x8c20): multiple definition of `tafs::GetAttrReq::GetAttrReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0x8c20): first defined here
+tafs.pb.o: In function `tafs::GetAttrReq::SharedCtor()':
+tafs.pb.cc:(.text+0x8d3a): multiple definition of `tafs::GetAttrReq::SharedCtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x8d3a): first defined here
+tafs.pb.o: In function `tafs::GetAttrReq::GetAttrReq(tafs::GetAttrReq const&)':
+tafs.pb.cc:(.text+0x8caa): multiple definition of `tafs::GetAttrReq::GetAttrReq(tafs::GetAttrReq const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x8caa): first defined here
+tafs.pb.o: In function `tafs::GetAttrReq::MergeFrom(tafs::GetAttrReq const&)':
+tafs.pb.cc:(.text+0x97a8): multiple definition of `tafs::GetAttrReq::MergeFrom(tafs::GetAttrReq const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x97a8): first defined here
+tafs.pb.o: In function `tafs::GetAttrReq::GetAttrReq(tafs::GetAttrReq const&)':
+tafs.pb.cc:(.text+0x8caa): multiple definition of `tafs::GetAttrReq::GetAttrReq(tafs::GetAttrReq const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x8caa): first defined here
+tafs.pb.o: In function `tafs::GetAttrReq::~GetAttrReq()':
+tafs.pb.cc:(.text+0x8d90): multiple definition of `tafs::GetAttrReq::~GetAttrReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0x8d90): first defined here
+tafs.pb.o: In function `tafs::GetAttrReq::SharedDtor()':
+tafs.pb.cc:(.text+0x8e0c): multiple definition of `tafs::GetAttrReq::SharedDtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x8e0c): first defined here
+tafs.pb.o: In function `tafs::GetAttrReq::~GetAttrReq()':
+tafs.pb.cc:(.text+0x8d90): multiple definition of `tafs::GetAttrReq::~GetAttrReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0x8d90): first defined here
+tafs.pb.o: In function `tafs::GetAttrReq::~GetAttrReq()':
+tafs.pb.cc:(.text+0x8de6): multiple definition of `tafs::GetAttrReq::~GetAttrReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0x8de6): first defined here
+tafs.pb.o: In function `tafs::GetAttrReq::SetCachedSize(int) const':
+tafs.pb.cc:(.text+0x8e4a): multiple definition of `tafs::GetAttrReq::SetCachedSize(int) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x8e4a): first defined here
+tafs.pb.o: In function `tafs::GetAttrReq::descriptor()':
+tafs.pb.cc:(.text+0x8e62): multiple definition of `tafs::GetAttrReq::descriptor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x8e62): first defined here
+tafs.pb.o: In function `tafs::GetAttrReq::New(google::protobuf::Arena*) const':
+tafs.pb.cc:(.text+0x8e92): multiple definition of `tafs::GetAttrReq::New(google::protobuf::Arena*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x8e92): first defined here
+tafs.pb.o: In function `tafs::GetAttrReq::Clear()':
+tafs.pb.cc:(.text+0x8efe): multiple definition of `tafs::GetAttrReq::Clear()'
+tafs.pb.o:tafs.pb.cc:(.text+0x8efe): first defined here
+tafs.pb.o: In function `tafs::GetAttrReq::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)':
+tafs.pb.cc:(.text+0x8f3c): multiple definition of `tafs::GetAttrReq::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x8f3c): first defined here
+tafs.pb.o: In function `tafs::GetAttrReq::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const':
+tafs.pb.cc:(.text+0x93ce): multiple definition of `tafs::GetAttrReq::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x93ce): first defined here
+tafs.pb.o: In function `tafs::GetAttrReq::SerializeWithCachedSizesToArray(unsigned char*) const':
+tafs.pb.cc:(.text+0x94d8): multiple definition of `tafs::GetAttrReq::SerializeWithCachedSizesToArray(unsigned char*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x94d8): first defined here
+tafs.pb.o: In function `tafs::GetAttrReq::ByteSize() const':
+tafs.pb.cc:(.text+0x96a8): multiple definition of `tafs::GetAttrReq::ByteSize() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x96a8): first defined here
+tafs.pb.o: In function `tafs::GetAttrReq::MergeFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0x973a): multiple definition of `tafs::GetAttrReq::MergeFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x973a): first defined here
+tafs.pb.o: In function `tafs::GetAttrReq::CopyFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0x9854): multiple definition of `tafs::GetAttrReq::CopyFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x9854): first defined here
+tafs.pb.o: In function `tafs::GetAttrReq::CopyFrom(tafs::GetAttrReq const&)':
+tafs.pb.cc:(.text+0x98aa): multiple definition of `tafs::GetAttrReq::CopyFrom(tafs::GetAttrReq const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x98aa): first defined here
+tafs.pb.o: In function `tafs::GetAttrReq::IsInitialized() const':
+tafs.pb.cc:(.text+0x98f2): multiple definition of `tafs::GetAttrReq::IsInitialized() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x98f2): first defined here
+tafs.pb.o: In function `tafs::GetAttrReq::Swap(tafs::GetAttrReq*)':
+tafs.pb.cc:(.text+0x9902): multiple definition of `tafs::GetAttrReq::Swap(tafs::GetAttrReq*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x9902): first defined here
+tafs.pb.o: In function `tafs::GetAttrReq::InternalSwap(tafs::GetAttrReq*)':
+tafs.pb.cc:(.text+0x9934): multiple definition of `tafs::GetAttrReq::InternalSwap(tafs::GetAttrReq*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x9934): first defined here
+tafs.pb.o: In function `tafs::GetAttrReq::GetMetadata() const':
+tafs.pb.cc:(.text+0x9b10): multiple definition of `tafs::GetAttrReq::GetMetadata() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x9b10): first defined here
+tafs.pb.o:(.rodata+0x6a4): multiple definition of `tafs::GetAttrReply::kBufFieldNumber'
+tafs.pb.o:(.rodata+0x6a4): first defined here
+tafs.pb.o:(.rodata+0x6a8): multiple definition of `tafs::GetAttrReply::kErrFieldNumber'
+tafs.pb.o:(.rodata+0x6a8): first defined here
+tafs.pb.o: In function `tafs::GetAttrReply::GetAttrReply()':
+tafs.pb.cc:(.text+0x9b42): multiple definition of `tafs::GetAttrReply::GetAttrReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0x9b42): first defined here
+tafs.pb.o: In function `tafs::GetAttrReply::SharedCtor()':
+tafs.pb.cc:(.text+0x9c5c): multiple definition of `tafs::GetAttrReply::SharedCtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x9c5c): first defined here
+tafs.pb.o: In function `tafs::GetAttrReply::GetAttrReply(tafs::GetAttrReply const&)':
+tafs.pb.cc:(.text+0x9bcc): multiple definition of `tafs::GetAttrReply::GetAttrReply(tafs::GetAttrReply const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x9bcc): first defined here
+tafs.pb.o: In function `tafs::GetAttrReply::MergeFrom(tafs::GetAttrReply const&)':
+tafs.pb.cc:(.text+0xa616): multiple definition of `tafs::GetAttrReply::MergeFrom(tafs::GetAttrReply const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xa616): first defined here
+tafs.pb.o: In function `tafs::GetAttrReply::GetAttrReply(tafs::GetAttrReply const&)':
+tafs.pb.cc:(.text+0x9bcc): multiple definition of `tafs::GetAttrReply::GetAttrReply(tafs::GetAttrReply const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x9bcc): first defined here
+tafs.pb.o: In function `tafs::GetAttrReply::~GetAttrReply()':
+tafs.pb.cc:(.text+0x9ca6): multiple definition of `tafs::GetAttrReply::~GetAttrReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0x9ca6): first defined here
+tafs.pb.o: In function `tafs::GetAttrReply::SharedDtor()':
+tafs.pb.cc:(.text+0x9d22): multiple definition of `tafs::GetAttrReply::SharedDtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x9d22): first defined here
+tafs.pb.o: In function `tafs::GetAttrReply::~GetAttrReply()':
+tafs.pb.cc:(.text+0x9ca6): multiple definition of `tafs::GetAttrReply::~GetAttrReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0x9ca6): first defined here
+tafs.pb.o: In function `tafs::GetAttrReply::~GetAttrReply()':
+tafs.pb.cc:(.text+0x9cfc): multiple definition of `tafs::GetAttrReply::~GetAttrReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0x9cfc): first defined here
+tafs.pb.o: In function `tafs::GetAttrReply::SetCachedSize(int) const':
+tafs.pb.cc:(.text+0x9d48): multiple definition of `tafs::GetAttrReply::SetCachedSize(int) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x9d48): first defined here
+tafs.pb.o: In function `tafs::GetAttrReply::descriptor()':
+tafs.pb.cc:(.text+0x9d60): multiple definition of `tafs::GetAttrReply::descriptor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x9d60): first defined here
+tafs.pb.o: In function `tafs::GetAttrReply::New(google::protobuf::Arena*) const':
+tafs.pb.cc:(.text+0x9d90): multiple definition of `tafs::GetAttrReply::New(google::protobuf::Arena*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x9d90): first defined here
+tafs.pb.o: In function `tafs::GetAttrReply::Clear()':
+tafs.pb.cc:(.text+0x9dfc): multiple definition of `tafs::GetAttrReply::Clear()'
+tafs.pb.o:tafs.pb.cc:(.text+0x9dfc): first defined here
+tafs.pb.o: In function `tafs::GetAttrReply::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)':
+tafs.pb.cc:(.text+0x9e2e): multiple definition of `tafs::GetAttrReply::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x9e2e): first defined here
+tafs.pb.o: In function `tafs::GetAttrReply::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const':
+tafs.pb.cc:(.text+0xa29c): multiple definition of `tafs::GetAttrReply::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0xa29c): first defined here
+tafs.pb.o: In function `tafs::GetAttrReply::SerializeWithCachedSizesToArray(unsigned char*) const':
+tafs.pb.cc:(.text+0xa35e): multiple definition of `tafs::GetAttrReply::SerializeWithCachedSizesToArray(unsigned char*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0xa35e): first defined here
+tafs.pb.o: In function `tafs::GetAttrReply::ByteSize() const':
+tafs.pb.cc:(.text+0xa520): multiple definition of `tafs::GetAttrReply::ByteSize() const'
+tafs.pb.o:tafs.pb.cc:(.text+0xa520): first defined here
+tafs.pb.o: In function `tafs::GetAttrReply::MergeFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0xa5a8): multiple definition of `tafs::GetAttrReply::MergeFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xa5a8): first defined here
+tafs.pb.o: In function `tafs::GetAttrReply::CopyFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0xa6b4): multiple definition of `tafs::GetAttrReply::CopyFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xa6b4): first defined here
+tafs.pb.o: In function `tafs::GetAttrReply::CopyFrom(tafs::GetAttrReply const&)':
+tafs.pb.cc:(.text+0xa70a): multiple definition of `tafs::GetAttrReply::CopyFrom(tafs::GetAttrReply const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xa70a): first defined here
+tafs.pb.o: In function `tafs::GetAttrReply::IsInitialized() const':
+tafs.pb.cc:(.text+0xa752): multiple definition of `tafs::GetAttrReply::IsInitialized() const'
+tafs.pb.o:tafs.pb.cc:(.text+0xa752): first defined here
+tafs.pb.o: In function `tafs::GetAttrReply::Swap(tafs::GetAttrReply*)':
+tafs.pb.cc:(.text+0xa762): multiple definition of `tafs::GetAttrReply::Swap(tafs::GetAttrReply*)'
+tafs.pb.o:tafs.pb.cc:(.text+0xa762): first defined here
+tafs.pb.o: In function `tafs::GetAttrReply::InternalSwap(tafs::GetAttrReply*)':
+tafs.pb.cc:(.text+0xa794): multiple definition of `tafs::GetAttrReply::InternalSwap(tafs::GetAttrReply*)'
+tafs.pb.o:tafs.pb.cc:(.text+0xa794): first defined here
+tafs.pb.o: In function `tafs::GetAttrReply::GetMetadata() const':
+tafs.pb.cc:(.text+0xa954): multiple definition of `tafs::GetAttrReply::GetMetadata() const'
+tafs.pb.o:tafs.pb.cc:(.text+0xa954): first defined here
+tafs.pb.o:(.rodata+0x6c4): multiple definition of `tafs::OpenReq::kPathFieldNumber'
+tafs.pb.o:(.rodata+0x6c4): first defined here
+tafs.pb.o:(.rodata+0x6c8): multiple definition of `tafs::OpenReq::kFlagFieldNumber'
+tafs.pb.o:(.rodata+0x6c8): first defined here
+tafs.pb.o: In function `tafs::OpenReq::OpenReq()':
+tafs.pb.cc:(.text+0xa986): multiple definition of `tafs::OpenReq::OpenReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0xa986): first defined here
+tafs.pb.o: In function `tafs::OpenReq::SharedCtor()':
+tafs.pb.cc:(.text+0xaaa0): multiple definition of `tafs::OpenReq::SharedCtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0xaaa0): first defined here
+tafs.pb.o: In function `tafs::OpenReq::OpenReq(tafs::OpenReq const&)':
+tafs.pb.cc:(.text+0xaa10): multiple definition of `tafs::OpenReq::OpenReq(tafs::OpenReq const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xaa10): first defined here
+tafs.pb.o: In function `tafs::OpenReq::MergeFrom(tafs::OpenReq const&)':
+tafs.pb.cc:(.text+0xb45a): multiple definition of `tafs::OpenReq::MergeFrom(tafs::OpenReq const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xb45a): first defined here
+tafs.pb.o: In function `tafs::OpenReq::OpenReq(tafs::OpenReq const&)':
+tafs.pb.cc:(.text+0xaa10): multiple definition of `tafs::OpenReq::OpenReq(tafs::OpenReq const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xaa10): first defined here
+tafs.pb.o: In function `tafs::OpenReq::~OpenReq()':
+tafs.pb.cc:(.text+0xaaea): multiple definition of `tafs::OpenReq::~OpenReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0xaaea): first defined here
+tafs.pb.o: In function `tafs::OpenReq::SharedDtor()':
+tafs.pb.cc:(.text+0xab66): multiple definition of `tafs::OpenReq::SharedDtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0xab66): first defined here
+tafs.pb.o: In function `tafs::OpenReq::~OpenReq()':
+tafs.pb.cc:(.text+0xaaea): multiple definition of `tafs::OpenReq::~OpenReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0xaaea): first defined here
+tafs.pb.o: In function `tafs::OpenReq::~OpenReq()':
+tafs.pb.cc:(.text+0xab40): multiple definition of `tafs::OpenReq::~OpenReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0xab40): first defined here
+tafs.pb.o: In function `tafs::OpenReq::SetCachedSize(int) const':
+tafs.pb.cc:(.text+0xab8c): multiple definition of `tafs::OpenReq::SetCachedSize(int) const'
+tafs.pb.o:tafs.pb.cc:(.text+0xab8c): first defined here
+tafs.pb.o: In function `tafs::OpenReq::descriptor()':
+tafs.pb.cc:(.text+0xaba4): multiple definition of `tafs::OpenReq::descriptor()'
+tafs.pb.o:tafs.pb.cc:(.text+0xaba4): first defined here
+tafs.pb.o: In function `tafs::OpenReq::New(google::protobuf::Arena*) const':
+tafs.pb.cc:(.text+0xabd4): multiple definition of `tafs::OpenReq::New(google::protobuf::Arena*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0xabd4): first defined here
+tafs.pb.o: In function `tafs::OpenReq::Clear()':
+tafs.pb.cc:(.text+0xac40): multiple definition of `tafs::OpenReq::Clear()'
+tafs.pb.o:tafs.pb.cc:(.text+0xac40): first defined here
+tafs.pb.o: In function `tafs::OpenReq::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)':
+tafs.pb.cc:(.text+0xac72): multiple definition of `tafs::OpenReq::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)'
+tafs.pb.o:tafs.pb.cc:(.text+0xac72): first defined here
+tafs.pb.o: In function `tafs::OpenReq::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const':
+tafs.pb.cc:(.text+0xb0e0): multiple definition of `tafs::OpenReq::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0xb0e0): first defined here
+tafs.pb.o: In function `tafs::OpenReq::SerializeWithCachedSizesToArray(unsigned char*) const':
+tafs.pb.cc:(.text+0xb1a2): multiple definition of `tafs::OpenReq::SerializeWithCachedSizesToArray(unsigned char*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0xb1a2): first defined here
+tafs.pb.o: In function `tafs::OpenReq::ByteSize() const':
+tafs.pb.cc:(.text+0xb364): multiple definition of `tafs::OpenReq::ByteSize() const'
+tafs.pb.o:tafs.pb.cc:(.text+0xb364): first defined here
+tafs.pb.o: In function `tafs::OpenReq::MergeFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0xb3ec): multiple definition of `tafs::OpenReq::MergeFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xb3ec): first defined here
+tafs.pb.o: In function `tafs::OpenReq::CopyFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0xb4f8): multiple definition of `tafs::OpenReq::CopyFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xb4f8): first defined here
+tafs.pb.o: In function `tafs::OpenReq::CopyFrom(tafs::OpenReq const&)':
+tafs.pb.cc:(.text+0xb54e): multiple definition of `tafs::OpenReq::CopyFrom(tafs::OpenReq const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xb54e): first defined here
+tafs.pb.o: In function `tafs::OpenReq::IsInitialized() const':
+tafs.pb.cc:(.text+0xb596): multiple definition of `tafs::OpenReq::IsInitialized() const'
+tafs.pb.o:tafs.pb.cc:(.text+0xb596): first defined here
+tafs.pb.o: In function `tafs::OpenReq::Swap(tafs::OpenReq*)':
+tafs.pb.cc:(.text+0xb5a6): multiple definition of `tafs::OpenReq::Swap(tafs::OpenReq*)'
+tafs.pb.o:tafs.pb.cc:(.text+0xb5a6): first defined here
+tafs.pb.o: In function `tafs::OpenReq::InternalSwap(tafs::OpenReq*)':
+tafs.pb.cc:(.text+0xb5d8): multiple definition of `tafs::OpenReq::InternalSwap(tafs::OpenReq*)'
+tafs.pb.o:tafs.pb.cc:(.text+0xb5d8): first defined here
+tafs.pb.o: In function `tafs::OpenReq::GetMetadata() const':
+tafs.pb.cc:(.text+0xb798): multiple definition of `tafs::OpenReq::GetMetadata() const'
+tafs.pb.o:tafs.pb.cc:(.text+0xb798): first defined here
+tafs.pb.o:(.rodata+0x6e0): multiple definition of `tafs::ReadReq::kPathFieldNumber'
+tafs.pb.o:(.rodata+0x6e0): first defined here
+tafs.pb.o: In function `tafs::ReadReq::ReadReq()':
+tafs.pb.cc:(.text+0xb7ca): multiple definition of `tafs::ReadReq::ReadReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0xb7ca): first defined here
+tafs.pb.o: In function `tafs::ReadReq::SharedCtor()':
+tafs.pb.cc:(.text+0xb8e4): multiple definition of `tafs::ReadReq::SharedCtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0xb8e4): first defined here
+tafs.pb.o: In function `tafs::ReadReq::ReadReq(tafs::ReadReq const&)':
+tafs.pb.cc:(.text+0xb854): multiple definition of `tafs::ReadReq::ReadReq(tafs::ReadReq const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xb854): first defined here
+tafs.pb.o: In function `tafs::ReadReq::MergeFrom(tafs::ReadReq const&)':
+tafs.pb.cc:(.text+0xc000): multiple definition of `tafs::ReadReq::MergeFrom(tafs::ReadReq const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xc000): first defined here
+tafs.pb.o: In function `tafs::ReadReq::ReadReq(tafs::ReadReq const&)':
+tafs.pb.cc:(.text+0xb854): multiple definition of `tafs::ReadReq::ReadReq(tafs::ReadReq const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xb854): first defined here
+tafs.pb.o: In function `tafs::ReadReq::~ReadReq()':
+tafs.pb.cc:(.text+0xb922): multiple definition of `tafs::ReadReq::~ReadReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0xb922): first defined here
+tafs.pb.o: In function `tafs::ReadReq::SharedDtor()':
+tafs.pb.cc:(.text+0xb99e): multiple definition of `tafs::ReadReq::SharedDtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0xb99e): first defined here
+tafs.pb.o: In function `tafs::ReadReq::~ReadReq()':
+tafs.pb.cc:(.text+0xb922): multiple definition of `tafs::ReadReq::~ReadReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0xb922): first defined here
+tafs.pb.o: In function `tafs::ReadReq::~ReadReq()':
+tafs.pb.cc:(.text+0xb978): multiple definition of `tafs::ReadReq::~ReadReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0xb978): first defined here
+tafs.pb.o: In function `tafs::ReadReq::SetCachedSize(int) const':
+tafs.pb.cc:(.text+0xb9c4): multiple definition of `tafs::ReadReq::SetCachedSize(int) const'
+tafs.pb.o:tafs.pb.cc:(.text+0xb9c4): first defined here
+tafs.pb.o: In function `tafs::ReadReq::descriptor()':
+tafs.pb.cc:(.text+0xb9dc): multiple definition of `tafs::ReadReq::descriptor()'
+tafs.pb.o:tafs.pb.cc:(.text+0xb9dc): first defined here
+tafs.pb.o: In function `tafs::ReadReq::New(google::protobuf::Arena*) const':
+tafs.pb.cc:(.text+0xba0c): multiple definition of `tafs::ReadReq::New(google::protobuf::Arena*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0xba0c): first defined here
+tafs.pb.o: In function `tafs::ReadReq::Clear()':
+tafs.pb.cc:(.text+0xba78): multiple definition of `tafs::ReadReq::Clear()'
+tafs.pb.o:tafs.pb.cc:(.text+0xba78): first defined here
+tafs.pb.o: In function `tafs::ReadReq::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)':
+tafs.pb.cc:(.text+0xba9e): multiple definition of `tafs::ReadReq::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)'
+tafs.pb.o:tafs.pb.cc:(.text+0xba9e): first defined here
+tafs.pb.o: In function `tafs::ReadReq::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const':
+tafs.pb.cc:(.text+0xbdb0): multiple definition of `tafs::ReadReq::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0xbdb0): first defined here
+tafs.pb.o: In function `tafs::ReadReq::SerializeWithCachedSizesToArray(unsigned char*) const':
+tafs.pb.cc:(.text+0xbe42): multiple definition of `tafs::ReadReq::SerializeWithCachedSizesToArray(unsigned char*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0xbe42): first defined here
+tafs.pb.o: In function `tafs::ReadReq::ByteSize() const':
+tafs.pb.cc:(.text+0xbf38): multiple definition of `tafs::ReadReq::ByteSize() const'
+tafs.pb.o:tafs.pb.cc:(.text+0xbf38): first defined here
+tafs.pb.o: In function `tafs::ReadReq::MergeFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0xbf92): multiple definition of `tafs::ReadReq::MergeFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xbf92): first defined here
+tafs.pb.o: In function `tafs::ReadReq::CopyFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0xc06e): multiple definition of `tafs::ReadReq::CopyFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xc06e): first defined here
+tafs.pb.o: In function `tafs::ReadReq::CopyFrom(tafs::ReadReq const&)':
+tafs.pb.cc:(.text+0xc0c4): multiple definition of `tafs::ReadReq::CopyFrom(tafs::ReadReq const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xc0c4): first defined here
+tafs.pb.o: In function `tafs::ReadReq::IsInitialized() const':
+tafs.pb.cc:(.text+0xc10c): multiple definition of `tafs::ReadReq::IsInitialized() const'
+tafs.pb.o:tafs.pb.cc:(.text+0xc10c): first defined here
+tafs.pb.o: In function `tafs::ReadReq::Swap(tafs::ReadReq*)':
+tafs.pb.cc:(.text+0xc11c): multiple definition of `tafs::ReadReq::Swap(tafs::ReadReq*)'
+tafs.pb.o:tafs.pb.cc:(.text+0xc11c): first defined here
+tafs.pb.o: In function `tafs::ReadReq::InternalSwap(tafs::ReadReq*)':
+tafs.pb.cc:(.text+0xc14e): multiple definition of `tafs::ReadReq::InternalSwap(tafs::ReadReq*)'
+tafs.pb.o:tafs.pb.cc:(.text+0xc14e): first defined here
+tafs.pb.o: In function `tafs::ReadReq::GetMetadata() const':
+tafs.pb.cc:(.text+0xc2ee): multiple definition of `tafs::ReadReq::GetMetadata() const'
+tafs.pb.o:tafs.pb.cc:(.text+0xc2ee): first defined here
+tafs.pb.o:(.rodata+0x6f8): multiple definition of `tafs::ReadReply::kNumBytesFieldNumber'
+tafs.pb.o:(.rodata+0x6f8): first defined here
+tafs.pb.o:(.rodata+0x6fc): multiple definition of `tafs::ReadReply::kBufFieldNumber'
+tafs.pb.o:(.rodata+0x6fc): first defined here
+tafs.pb.o: In function `tafs::ReadReply::ReadReply()':
+tafs.pb.cc:(.text+0xc320): multiple definition of `tafs::ReadReply::ReadReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0xc320): first defined here
+tafs.pb.o: In function `tafs::ReadReply::SharedCtor()':
+tafs.pb.cc:(.text+0xc43a): multiple definition of `tafs::ReadReply::SharedCtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0xc43a): first defined here
+tafs.pb.o: In function `tafs::ReadReply::ReadReply(tafs::ReadReply const&)':
+tafs.pb.cc:(.text+0xc3aa): multiple definition of `tafs::ReadReply::ReadReply(tafs::ReadReply const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xc3aa): first defined here
+tafs.pb.o: In function `tafs::ReadReply::MergeFrom(tafs::ReadReply const&)':
+tafs.pb.cc:(.text+0xcdf4): multiple definition of `tafs::ReadReply::MergeFrom(tafs::ReadReply const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xcdf4): first defined here
+tafs.pb.o: In function `tafs::ReadReply::ReadReply(tafs::ReadReply const&)':
+tafs.pb.cc:(.text+0xc3aa): multiple definition of `tafs::ReadReply::ReadReply(tafs::ReadReply const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xc3aa): first defined here
+tafs.pb.o: In function `tafs::ReadReply::~ReadReply()':
+tafs.pb.cc:(.text+0xc484): multiple definition of `tafs::ReadReply::~ReadReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0xc484): first defined here
+tafs.pb.o: In function `tafs::ReadReply::SharedDtor()':
+tafs.pb.cc:(.text+0xc500): multiple definition of `tafs::ReadReply::SharedDtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0xc500): first defined here
+tafs.pb.o: In function `tafs::ReadReply::~ReadReply()':
+tafs.pb.cc:(.text+0xc484): multiple definition of `tafs::ReadReply::~ReadReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0xc484): first defined here
+tafs.pb.o: In function `tafs::ReadReply::~ReadReply()':
+tafs.pb.cc:(.text+0xc4da): multiple definition of `tafs::ReadReply::~ReadReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0xc4da): first defined here
+tafs.pb.o: In function `tafs::ReadReply::SetCachedSize(int) const':
+tafs.pb.cc:(.text+0xc526): multiple definition of `tafs::ReadReply::SetCachedSize(int) const'
+tafs.pb.o:tafs.pb.cc:(.text+0xc526): first defined here
+tafs.pb.o: In function `tafs::ReadReply::descriptor()':
+tafs.pb.cc:(.text+0xc53e): multiple definition of `tafs::ReadReply::descriptor()'
+tafs.pb.o:tafs.pb.cc:(.text+0xc53e): first defined here
+tafs.pb.o: In function `tafs::ReadReply::New(google::protobuf::Arena*) const':
+tafs.pb.cc:(.text+0xc56e): multiple definition of `tafs::ReadReply::New(google::protobuf::Arena*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0xc56e): first defined here
+tafs.pb.o: In function `tafs::ReadReply::Clear()':
+tafs.pb.cc:(.text+0xc5da): multiple definition of `tafs::ReadReply::Clear()'
+tafs.pb.o:tafs.pb.cc:(.text+0xc5da): first defined here
+tafs.pb.o: In function `tafs::ReadReply::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)':
+tafs.pb.cc:(.text+0xc60c): multiple definition of `tafs::ReadReply::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)'
+tafs.pb.o:tafs.pb.cc:(.text+0xc60c): first defined here
+tafs.pb.o: In function `tafs::ReadReply::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const':
+tafs.pb.cc:(.text+0xca7a): multiple definition of `tafs::ReadReply::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0xca7a): first defined here
+tafs.pb.o: In function `tafs::ReadReply::SerializeWithCachedSizesToArray(unsigned char*) const':
+tafs.pb.cc:(.text+0xcb3c): multiple definition of `tafs::ReadReply::SerializeWithCachedSizesToArray(unsigned char*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0xcb3c): first defined here
+tafs.pb.o: In function `tafs::ReadReply::ByteSize() const':
+tafs.pb.cc:(.text+0xccfe): multiple definition of `tafs::ReadReply::ByteSize() const'
+tafs.pb.o:tafs.pb.cc:(.text+0xccfe): first defined here
+tafs.pb.o: In function `tafs::ReadReply::MergeFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0xcd86): multiple definition of `tafs::ReadReply::MergeFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xcd86): first defined here
+tafs.pb.o: In function `tafs::ReadReply::CopyFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0xce92): multiple definition of `tafs::ReadReply::CopyFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xce92): first defined here
+tafs.pb.o: In function `tafs::ReadReply::CopyFrom(tafs::ReadReply const&)':
+tafs.pb.cc:(.text+0xcee8): multiple definition of `tafs::ReadReply::CopyFrom(tafs::ReadReply const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xcee8): first defined here
+tafs.pb.o: In function `tafs::ReadReply::IsInitialized() const':
+tafs.pb.cc:(.text+0xcf30): multiple definition of `tafs::ReadReply::IsInitialized() const'
+tafs.pb.o:tafs.pb.cc:(.text+0xcf30): first defined here
+tafs.pb.o: In function `tafs::ReadReply::Swap(tafs::ReadReply*)':
+tafs.pb.cc:(.text+0xcf40): multiple definition of `tafs::ReadReply::Swap(tafs::ReadReply*)'
+tafs.pb.o:tafs.pb.cc:(.text+0xcf40): first defined here
+tafs.pb.o: In function `tafs::ReadReply::InternalSwap(tafs::ReadReply*)':
+tafs.pb.cc:(.text+0xcf72): multiple definition of `tafs::ReadReply::InternalSwap(tafs::ReadReply*)'
+tafs.pb.o:tafs.pb.cc:(.text+0xcf72): first defined here
+tafs.pb.o: In function `tafs::ReadReply::GetMetadata() const':
+tafs.pb.cc:(.text+0xd132): multiple definition of `tafs::ReadReply::GetMetadata() const'
+tafs.pb.o:tafs.pb.cc:(.text+0xd132): first defined here
+tafs.pb.o:(.rodata+0x714): multiple definition of `tafs::WriteReq::kPathFieldNumber'
+tafs.pb.o:(.rodata+0x714): first defined here
+tafs.pb.o:(.rodata+0x718): multiple definition of `tafs::WriteReq::kBufFieldNumber'
+tafs.pb.o:(.rodata+0x718): first defined here
+tafs.pb.o: In function `tafs::WriteReq::WriteReq()':
+tafs.pb.cc:(.text+0xd164): multiple definition of `tafs::WriteReq::WriteReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0xd164): first defined here
+tafs.pb.o: In function `tafs::WriteReq::SharedCtor()':
+tafs.pb.cc:(.text+0xd27e): multiple definition of `tafs::WriteReq::SharedCtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0xd27e): first defined here
+tafs.pb.o: In function `tafs::WriteReq::WriteReq(tafs::WriteReq const&)':
+tafs.pb.cc:(.text+0xd1ee): multiple definition of `tafs::WriteReq::WriteReq(tafs::WriteReq const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xd1ee): first defined here
+tafs.pb.o: In function `tafs::WriteReq::MergeFrom(tafs::WriteReq const&)':
+tafs.pb.cc:(.text+0xdcec): multiple definition of `tafs::WriteReq::MergeFrom(tafs::WriteReq const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xdcec): first defined here
+tafs.pb.o: In function `tafs::WriteReq::WriteReq(tafs::WriteReq const&)':
+tafs.pb.cc:(.text+0xd1ee): multiple definition of `tafs::WriteReq::WriteReq(tafs::WriteReq const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xd1ee): first defined here
+tafs.pb.o: In function `tafs::WriteReq::~WriteReq()':
+tafs.pb.cc:(.text+0xd2d4): multiple definition of `tafs::WriteReq::~WriteReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0xd2d4): first defined here
+tafs.pb.o: In function `tafs::WriteReq::SharedDtor()':
+tafs.pb.cc:(.text+0xd350): multiple definition of `tafs::WriteReq::SharedDtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0xd350): first defined here
+tafs.pb.o: In function `tafs::WriteReq::~WriteReq()':
+tafs.pb.cc:(.text+0xd2d4): multiple definition of `tafs::WriteReq::~WriteReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0xd2d4): first defined here
+tafs.pb.o: In function `tafs::WriteReq::~WriteReq()':
+tafs.pb.cc:(.text+0xd32a): multiple definition of `tafs::WriteReq::~WriteReq()'
+tafs.pb.o:tafs.pb.cc:(.text+0xd32a): first defined here
+tafs.pb.o: In function `tafs::WriteReq::SetCachedSize(int) const':
+tafs.pb.cc:(.text+0xd38e): multiple definition of `tafs::WriteReq::SetCachedSize(int) const'
+tafs.pb.o:tafs.pb.cc:(.text+0xd38e): first defined here
+tafs.pb.o: In function `tafs::WriteReq::descriptor()':
+tafs.pb.cc:(.text+0xd3a6): multiple definition of `tafs::WriteReq::descriptor()'
+tafs.pb.o:tafs.pb.cc:(.text+0xd3a6): first defined here
+tafs.pb.o: In function `tafs::WriteReq::New(google::protobuf::Arena*) const':
+tafs.pb.cc:(.text+0xd3d6): multiple definition of `tafs::WriteReq::New(google::protobuf::Arena*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0xd3d6): first defined here
+tafs.pb.o: In function `tafs::WriteReq::Clear()':
+tafs.pb.cc:(.text+0xd442): multiple definition of `tafs::WriteReq::Clear()'
+tafs.pb.o:tafs.pb.cc:(.text+0xd442): first defined here
+tafs.pb.o: In function `tafs::WriteReq::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)':
+tafs.pb.cc:(.text+0xd480): multiple definition of `tafs::WriteReq::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)'
+tafs.pb.o:tafs.pb.cc:(.text+0xd480): first defined here
+tafs.pb.o: In function `tafs::WriteReq::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const':
+tafs.pb.cc:(.text+0xd912): multiple definition of `tafs::WriteReq::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0xd912): first defined here
+tafs.pb.o: In function `tafs::WriteReq::SerializeWithCachedSizesToArray(unsigned char*) const':
+tafs.pb.cc:(.text+0xda1c): multiple definition of `tafs::WriteReq::SerializeWithCachedSizesToArray(unsigned char*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0xda1c): first defined here
+tafs.pb.o: In function `tafs::WriteReq::ByteSize() const':
+tafs.pb.cc:(.text+0xdbec): multiple definition of `tafs::WriteReq::ByteSize() const'
+tafs.pb.o:tafs.pb.cc:(.text+0xdbec): first defined here
+tafs.pb.o: In function `tafs::WriteReq::MergeFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0xdc7e): multiple definition of `tafs::WriteReq::MergeFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xdc7e): first defined here
+tafs.pb.o: In function `tafs::WriteReq::CopyFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0xdd98): multiple definition of `tafs::WriteReq::CopyFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xdd98): first defined here
+tafs.pb.o: In function `tafs::WriteReq::CopyFrom(tafs::WriteReq const&)':
+tafs.pb.cc:(.text+0xddee): multiple definition of `tafs::WriteReq::CopyFrom(tafs::WriteReq const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xddee): first defined here
+tafs.pb.o: In function `tafs::WriteReq::IsInitialized() const':
+tafs.pb.cc:(.text+0xde36): multiple definition of `tafs::WriteReq::IsInitialized() const'
+tafs.pb.o:tafs.pb.cc:(.text+0xde36): first defined here
+tafs.pb.o: In function `tafs::WriteReq::Swap(tafs::WriteReq*)':
+tafs.pb.cc:(.text+0xde46): multiple definition of `tafs::WriteReq::Swap(tafs::WriteReq*)'
+tafs.pb.o:tafs.pb.cc:(.text+0xde46): first defined here
+tafs.pb.o: In function `tafs::WriteReq::InternalSwap(tafs::WriteReq*)':
+tafs.pb.cc:(.text+0xde78): multiple definition of `tafs::WriteReq::InternalSwap(tafs::WriteReq*)'
+tafs.pb.o:tafs.pb.cc:(.text+0xde78): first defined here
+tafs.pb.o: In function `tafs::WriteReq::GetMetadata() const':
+tafs.pb.cc:(.text+0xe054): multiple definition of `tafs::WriteReq::GetMetadata() const'
+tafs.pb.o:tafs.pb.cc:(.text+0xe054): first defined here
+tafs.pb.o:(.rodata+0x744): multiple definition of `tafs::WriteReply::kNumBytesFieldNumber'
+tafs.pb.o:(.rodata+0x744): first defined here
+tafs.pb.o: In function `tafs::WriteReply::WriteReply()':
+tafs.pb.cc:(.text+0xe086): multiple definition of `tafs::WriteReply::WriteReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0xe086): first defined here
+tafs.pb.o: In function `tafs::WriteReply::SharedCtor()':
+tafs.pb.cc:(.text+0xe16e): multiple definition of `tafs::WriteReply::SharedCtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0xe16e): first defined here
+tafs.pb.o: In function `tafs::WriteReply::WriteReply(tafs::WriteReply const&)':
+tafs.pb.cc:(.text+0xe0de): multiple definition of `tafs::WriteReply::WriteReply(tafs::WriteReply const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xe0de): first defined here
+tafs.pb.o: In function `tafs::WriteReply::MergeFrom(tafs::WriteReply const&)':
+tafs.pb.cc:(.text+0xe762): multiple definition of `tafs::WriteReply::MergeFrom(tafs::WriteReply const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xe762): first defined here
+tafs.pb.o: In function `tafs::WriteReply::WriteReply(tafs::WriteReply const&)':
+tafs.pb.cc:(.text+0xe0de): multiple definition of `tafs::WriteReply::WriteReply(tafs::WriteReply const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xe0de): first defined here
+tafs.pb.o: In function `tafs::WriteReply::~WriteReply()':
+tafs.pb.cc:(.text+0xe196): multiple definition of `tafs::WriteReply::~WriteReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0xe196): first defined here
+tafs.pb.o: In function `tafs::WriteReply::SharedDtor()':
+tafs.pb.cc:(.text+0xe212): multiple definition of `tafs::WriteReply::SharedDtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0xe212): first defined here
+tafs.pb.o: In function `tafs::WriteReply::~WriteReply()':
+tafs.pb.cc:(.text+0xe196): multiple definition of `tafs::WriteReply::~WriteReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0xe196): first defined here
+tafs.pb.o: In function `tafs::WriteReply::~WriteReply()':
+tafs.pb.cc:(.text+0xe1ec): multiple definition of `tafs::WriteReply::~WriteReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0xe1ec): first defined here
+tafs.pb.o: In function `tafs::WriteReply::SetCachedSize(int) const':
+tafs.pb.cc:(.text+0xe21c): multiple definition of `tafs::WriteReply::SetCachedSize(int) const'
+tafs.pb.o:tafs.pb.cc:(.text+0xe21c): first defined here
+tafs.pb.o: In function `tafs::WriteReply::descriptor()':
+tafs.pb.cc:(.text+0xe234): multiple definition of `tafs::WriteReply::descriptor()'
+tafs.pb.o:tafs.pb.cc:(.text+0xe234): first defined here
+tafs.pb.o: In function `tafs::WriteReply::New(google::protobuf::Arena*) const':
+tafs.pb.cc:(.text+0xe264): multiple definition of `tafs::WriteReply::New(google::protobuf::Arena*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0xe264): first defined here
+tafs.pb.o: In function `tafs::WriteReply::Clear()':
+tafs.pb.cc:(.text+0xe2b4): multiple definition of `tafs::WriteReply::Clear()'
+tafs.pb.o:tafs.pb.cc:(.text+0xe2b4): first defined here
+tafs.pb.o: In function `tafs::WriteReply::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)':
+tafs.pb.cc:(.text+0xe2ca): multiple definition of `tafs::WriteReply::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)'
+tafs.pb.o:tafs.pb.cc:(.text+0xe2ca): first defined here
+tafs.pb.o: In function `tafs::WriteReply::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const':
+tafs.pb.cc:(.text+0xe5ac): multiple definition of `tafs::WriteReply::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0xe5ac): first defined here
+tafs.pb.o: In function `tafs::WriteReply::SerializeWithCachedSizesToArray(unsigned char*) const':
+tafs.pb.cc:(.text+0xe5f0): multiple definition of `tafs::WriteReply::SerializeWithCachedSizesToArray(unsigned char*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0xe5f0): first defined here
+tafs.pb.o: In function `tafs::WriteReply::ByteSize() const':
+tafs.pb.cc:(.text+0xe6a4): multiple definition of `tafs::WriteReply::ByteSize() const'
+tafs.pb.o:tafs.pb.cc:(.text+0xe6a4): first defined here
+tafs.pb.o: In function `tafs::WriteReply::MergeFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0xe6f4): multiple definition of `tafs::WriteReply::MergeFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xe6f4): first defined here
+tafs.pb.o: In function `tafs::WriteReply::CopyFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0xe7c2): multiple definition of `tafs::WriteReply::CopyFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xe7c2): first defined here
+tafs.pb.o: In function `tafs::WriteReply::CopyFrom(tafs::WriteReply const&)':
+tafs.pb.cc:(.text+0xe818): multiple definition of `tafs::WriteReply::CopyFrom(tafs::WriteReply const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xe818): first defined here
+tafs.pb.o: In function `tafs::WriteReply::IsInitialized() const':
+tafs.pb.cc:(.text+0xe860): multiple definition of `tafs::WriteReply::IsInitialized() const'
+tafs.pb.o:tafs.pb.cc:(.text+0xe860): first defined here
+tafs.pb.o: In function `tafs::WriteReply::Swap(tafs::WriteReply*)':
+tafs.pb.cc:(.text+0xe870): multiple definition of `tafs::WriteReply::Swap(tafs::WriteReply*)'
+tafs.pb.o:tafs.pb.cc:(.text+0xe870): first defined here
+tafs.pb.o: In function `tafs::WriteReply::InternalSwap(tafs::WriteReply*)':
+tafs.pb.cc:(.text+0xe8a2): multiple definition of `tafs::WriteReply::InternalSwap(tafs::WriteReply*)'
+tafs.pb.o:tafs.pb.cc:(.text+0xe8a2): first defined here
+tafs.pb.o: In function `tafs::WriteReply::GetMetadata() const':
+tafs.pb.cc:(.text+0xea14): multiple definition of `tafs::WriteReply::GetMetadata() const'
+tafs.pb.o:tafs.pb.cc:(.text+0xea14): first defined here
+tafs.pb.o:(.rodata+0x748): multiple definition of `tafs::ErrNo::kErrFieldNumber'
+tafs.pb.o:(.rodata+0x748): first defined here
+tafs.pb.o: In function `tafs::ErrNo::ErrNo()':
+tafs.pb.cc:(.text+0xea46): multiple definition of `tafs::ErrNo::ErrNo()'
+tafs.pb.o:tafs.pb.cc:(.text+0xea46): first defined here
+tafs.pb.o: In function `tafs::ErrNo::SharedCtor()':
+tafs.pb.cc:(.text+0xeb2e): multiple definition of `tafs::ErrNo::SharedCtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0xeb2e): first defined here
+tafs.pb.o: In function `tafs::ErrNo::ErrNo(tafs::ErrNo const&)':
+tafs.pb.cc:(.text+0xea9e): multiple definition of `tafs::ErrNo::ErrNo(tafs::ErrNo const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xea9e): first defined here
+tafs.pb.o: In function `tafs::ErrNo::MergeFrom(tafs::ErrNo const&)':
+tafs.pb.cc:(.text+0xf122): multiple definition of `tafs::ErrNo::MergeFrom(tafs::ErrNo const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xf122): first defined here
+tafs.pb.o: In function `tafs::ErrNo::ErrNo(tafs::ErrNo const&)':
+tafs.pb.cc:(.text+0xea9e): multiple definition of `tafs::ErrNo::ErrNo(tafs::ErrNo const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xea9e): first defined here
+tafs.pb.o: In function `tafs::ErrNo::~ErrNo()':
+tafs.pb.cc:(.text+0xeb56): multiple definition of `tafs::ErrNo::~ErrNo()'
+tafs.pb.o:tafs.pb.cc:(.text+0xeb56): first defined here
+tafs.pb.o: In function `tafs::ErrNo::SharedDtor()':
+tafs.pb.cc:(.text+0xebd2): multiple definition of `tafs::ErrNo::SharedDtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0xebd2): first defined here
+tafs.pb.o: In function `tafs::ErrNo::~ErrNo()':
+tafs.pb.cc:(.text+0xeb56): multiple definition of `tafs::ErrNo::~ErrNo()'
+tafs.pb.o:tafs.pb.cc:(.text+0xeb56): first defined here
+tafs.pb.o: In function `tafs::ErrNo::~ErrNo()':
+tafs.pb.cc:(.text+0xebac): multiple definition of `tafs::ErrNo::~ErrNo()'
+tafs.pb.o:tafs.pb.cc:(.text+0xebac): first defined here
+tafs.pb.o: In function `tafs::ErrNo::SetCachedSize(int) const':
+tafs.pb.cc:(.text+0xebdc): multiple definition of `tafs::ErrNo::SetCachedSize(int) const'
+tafs.pb.o:tafs.pb.cc:(.text+0xebdc): first defined here
+tafs.pb.o: In function `tafs::ErrNo::descriptor()':
+tafs.pb.cc:(.text+0xebf4): multiple definition of `tafs::ErrNo::descriptor()'
+tafs.pb.o:tafs.pb.cc:(.text+0xebf4): first defined here
+tafs.pb.o: In function `tafs::ErrNo::New(google::protobuf::Arena*) const':
+tafs.pb.cc:(.text+0xec24): multiple definition of `tafs::ErrNo::New(google::protobuf::Arena*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0xec24): first defined here
+tafs.pb.o: In function `tafs::ErrNo::Clear()':
+tafs.pb.cc:(.text+0xec74): multiple definition of `tafs::ErrNo::Clear()'
+tafs.pb.o:tafs.pb.cc:(.text+0xec74): first defined here
+tafs.pb.o: In function `tafs::ErrNo::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)':
+tafs.pb.cc:(.text+0xec8a): multiple definition of `tafs::ErrNo::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)'
+tafs.pb.o:tafs.pb.cc:(.text+0xec8a): first defined here
+tafs.pb.o: In function `tafs::ErrNo::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const':
+tafs.pb.cc:(.text+0xef6c): multiple definition of `tafs::ErrNo::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0xef6c): first defined here
+tafs.pb.o: In function `tafs::ErrNo::SerializeWithCachedSizesToArray(unsigned char*) const':
+tafs.pb.cc:(.text+0xefb0): multiple definition of `tafs::ErrNo::SerializeWithCachedSizesToArray(unsigned char*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0xefb0): first defined here
+tafs.pb.o: In function `tafs::ErrNo::ByteSize() const':
+tafs.pb.cc:(.text+0xf064): multiple definition of `tafs::ErrNo::ByteSize() const'
+tafs.pb.o:tafs.pb.cc:(.text+0xf064): first defined here
+tafs.pb.o: In function `tafs::ErrNo::MergeFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0xf0b4): multiple definition of `tafs::ErrNo::MergeFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xf0b4): first defined here
+tafs.pb.o: In function `tafs::ErrNo::CopyFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0xf182): multiple definition of `tafs::ErrNo::CopyFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xf182): first defined here
+tafs.pb.o: In function `tafs::ErrNo::CopyFrom(tafs::ErrNo const&)':
+tafs.pb.cc:(.text+0xf1d8): multiple definition of `tafs::ErrNo::CopyFrom(tafs::ErrNo const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xf1d8): first defined here
+tafs.pb.o: In function `tafs::ErrNo::IsInitialized() const':
+tafs.pb.cc:(.text+0xf220): multiple definition of `tafs::ErrNo::IsInitialized() const'
+tafs.pb.o:tafs.pb.cc:(.text+0xf220): first defined here
+tafs.pb.o: In function `tafs::ErrNo::Swap(tafs::ErrNo*)':
+tafs.pb.cc:(.text+0xf230): multiple definition of `tafs::ErrNo::Swap(tafs::ErrNo*)'
+tafs.pb.o:tafs.pb.cc:(.text+0xf230): first defined here
+tafs.pb.o: In function `tafs::ErrNo::InternalSwap(tafs::ErrNo*)':
+tafs.pb.cc:(.text+0xf262): multiple definition of `tafs::ErrNo::InternalSwap(tafs::ErrNo*)'
+tafs.pb.o:tafs.pb.cc:(.text+0xf262): first defined here
+tafs.pb.o: In function `tafs::ErrNo::GetMetadata() const':
+tafs.pb.cc:(.text+0xf3d4): multiple definition of `tafs::ErrNo::GetMetadata() const'
+tafs.pb.o:tafs.pb.cc:(.text+0xf3d4): first defined here
+tafs.pb.o:(.rodata+0x74c): multiple definition of `tafs::Buf::kDataFieldNumber'
+tafs.pb.o:(.rodata+0x74c): first defined here
+tafs.pb.o: In function `tafs::Buf::Buf()':
+tafs.pb.cc:(.text+0xf406): multiple definition of `tafs::Buf::Buf()'
+tafs.pb.o:tafs.pb.cc:(.text+0xf406): first defined here
+tafs.pb.o: In function `tafs::Buf::SharedCtor()':
+tafs.pb.cc:(.text+0xf520): multiple definition of `tafs::Buf::SharedCtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0xf520): first defined here
+tafs.pb.o: In function `tafs::Buf::Buf(tafs::Buf const&)':
+tafs.pb.cc:(.text+0xf490): multiple definition of `tafs::Buf::Buf(tafs::Buf const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xf490): first defined here
+tafs.pb.o: In function `tafs::Buf::MergeFrom(tafs::Buf const&)':
+tafs.pb.cc:(.text+0xfc3c): multiple definition of `tafs::Buf::MergeFrom(tafs::Buf const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xfc3c): first defined here
+tafs.pb.o: In function `tafs::Buf::Buf(tafs::Buf const&)':
+tafs.pb.cc:(.text+0xf490): multiple definition of `tafs::Buf::Buf(tafs::Buf const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xf490): first defined here
+tafs.pb.o: In function `tafs::Buf::~Buf()':
+tafs.pb.cc:(.text+0xf55e): multiple definition of `tafs::Buf::~Buf()'
+tafs.pb.o:tafs.pb.cc:(.text+0xf55e): first defined here
+tafs.pb.o: In function `tafs::Buf::SharedDtor()':
+tafs.pb.cc:(.text+0xf5da): multiple definition of `tafs::Buf::SharedDtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0xf5da): first defined here
+tafs.pb.o: In function `tafs::Buf::~Buf()':
+tafs.pb.cc:(.text+0xf55e): multiple definition of `tafs::Buf::~Buf()'
+tafs.pb.o:tafs.pb.cc:(.text+0xf55e): first defined here
+tafs.pb.o: In function `tafs::Buf::~Buf()':
+tafs.pb.cc:(.text+0xf5b4): multiple definition of `tafs::Buf::~Buf()'
+tafs.pb.o:tafs.pb.cc:(.text+0xf5b4): first defined here
+tafs.pb.o: In function `tafs::Buf::SetCachedSize(int) const':
+tafs.pb.cc:(.text+0xf600): multiple definition of `tafs::Buf::SetCachedSize(int) const'
+tafs.pb.o:tafs.pb.cc:(.text+0xf600): first defined here
+tafs.pb.o: In function `tafs::Buf::descriptor()':
+tafs.pb.cc:(.text+0xf618): multiple definition of `tafs::Buf::descriptor()'
+tafs.pb.o:tafs.pb.cc:(.text+0xf618): first defined here
+tafs.pb.o: In function `tafs::Buf::New(google::protobuf::Arena*) const':
+tafs.pb.cc:(.text+0xf648): multiple definition of `tafs::Buf::New(google::protobuf::Arena*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0xf648): first defined here
+tafs.pb.o: In function `tafs::Buf::Clear()':
+tafs.pb.cc:(.text+0xf6b4): multiple definition of `tafs::Buf::Clear()'
+tafs.pb.o:tafs.pb.cc:(.text+0xf6b4): first defined here
+tafs.pb.o: In function `tafs::Buf::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)':
+tafs.pb.cc:(.text+0xf6da): multiple definition of `tafs::Buf::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)'
+tafs.pb.o:tafs.pb.cc:(.text+0xf6da): first defined here
+tafs.pb.o: In function `tafs::Buf::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const':
+tafs.pb.cc:(.text+0xf9ec): multiple definition of `tafs::Buf::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0xf9ec): first defined here
+tafs.pb.o: In function `tafs::Buf::SerializeWithCachedSizesToArray(unsigned char*) const':
+tafs.pb.cc:(.text+0xfa7e): multiple definition of `tafs::Buf::SerializeWithCachedSizesToArray(unsigned char*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0xfa7e): first defined here
+tafs.pb.o: In function `tafs::Buf::ByteSize() const':
+tafs.pb.cc:(.text+0xfb74): multiple definition of `tafs::Buf::ByteSize() const'
+tafs.pb.o:tafs.pb.cc:(.text+0xfb74): first defined here
+tafs.pb.o: In function `tafs::Buf::MergeFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0xfbce): multiple definition of `tafs::Buf::MergeFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xfbce): first defined here
+tafs.pb.o: In function `tafs::Buf::CopyFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0xfcaa): multiple definition of `tafs::Buf::CopyFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xfcaa): first defined here
+tafs.pb.o: In function `tafs::Buf::CopyFrom(tafs::Buf const&)':
+tafs.pb.cc:(.text+0xfd00): multiple definition of `tafs::Buf::CopyFrom(tafs::Buf const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xfd00): first defined here
+tafs.pb.o: In function `tafs::Buf::IsInitialized() const':
+tafs.pb.cc:(.text+0xfd48): multiple definition of `tafs::Buf::IsInitialized() const'
+tafs.pb.o:tafs.pb.cc:(.text+0xfd48): first defined here
+tafs.pb.o: In function `tafs::Buf::Swap(tafs::Buf*)':
+tafs.pb.cc:(.text+0xfd58): multiple definition of `tafs::Buf::Swap(tafs::Buf*)'
+tafs.pb.o:tafs.pb.cc:(.text+0xfd58): first defined here
+tafs.pb.o: In function `tafs::Buf::InternalSwap(tafs::Buf*)':
+tafs.pb.cc:(.text+0xfd8a): multiple definition of `tafs::Buf::InternalSwap(tafs::Buf*)'
+tafs.pb.o:tafs.pb.cc:(.text+0xfd8a): first defined here
+tafs.pb.o: In function `tafs::Buf::GetMetadata() const':
+tafs.pb.cc:(.text+0xff2a): multiple definition of `tafs::Buf::GetMetadata() const'
+tafs.pb.o:tafs.pb.cc:(.text+0xff2a): first defined here
+tafs.pb.o:(.rodata+0x760): multiple definition of `tafs::LoginRequest::kNumFieldNumber'
+tafs.pb.o:(.rodata+0x760): first defined here
+tafs.pb.o: In function `tafs::LoginRequest::LoginRequest()':
+tafs.pb.cc:(.text+0xff5c): multiple definition of `tafs::LoginRequest::LoginRequest()'
+tafs.pb.o:tafs.pb.cc:(.text+0xff5c): first defined here
+tafs.pb.o: In function `tafs::LoginRequest::SharedCtor()':
+tafs.pb.cc:(.text+0x10044): multiple definition of `tafs::LoginRequest::SharedCtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x10044): first defined here
+tafs.pb.o: In function `tafs::LoginRequest::LoginRequest(tafs::LoginRequest const&)':
+tafs.pb.cc:(.text+0xffb4): multiple definition of `tafs::LoginRequest::LoginRequest(tafs::LoginRequest const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xffb4): first defined here
+tafs.pb.o: In function `tafs::LoginRequest::MergeFrom(tafs::LoginRequest const&)':
+tafs.pb.cc:(.text+0x10638): multiple definition of `tafs::LoginRequest::MergeFrom(tafs::LoginRequest const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x10638): first defined here
+tafs.pb.o: In function `tafs::LoginRequest::LoginRequest(tafs::LoginRequest const&)':
+tafs.pb.cc:(.text+0xffb4): multiple definition of `tafs::LoginRequest::LoginRequest(tafs::LoginRequest const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0xffb4): first defined here
+tafs.pb.o: In function `tafs::LoginRequest::~LoginRequest()':
+tafs.pb.cc:(.text+0x1006c): multiple definition of `tafs::LoginRequest::~LoginRequest()'
+tafs.pb.o:tafs.pb.cc:(.text+0x1006c): first defined here
+tafs.pb.o: In function `tafs::LoginRequest::SharedDtor()':
+tafs.pb.cc:(.text+0x100e8): multiple definition of `tafs::LoginRequest::SharedDtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x100e8): first defined here
+tafs.pb.o: In function `tafs::LoginRequest::~LoginRequest()':
+tafs.pb.cc:(.text+0x1006c): multiple definition of `tafs::LoginRequest::~LoginRequest()'
+tafs.pb.o:tafs.pb.cc:(.text+0x1006c): first defined here
+tafs.pb.o: In function `tafs::LoginRequest::~LoginRequest()':
+tafs.pb.cc:(.text+0x100c2): multiple definition of `tafs::LoginRequest::~LoginRequest()'
+tafs.pb.o:tafs.pb.cc:(.text+0x100c2): first defined here
+tafs.pb.o: In function `tafs::LoginRequest::SetCachedSize(int) const':
+tafs.pb.cc:(.text+0x100f2): multiple definition of `tafs::LoginRequest::SetCachedSize(int) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x100f2): first defined here
+tafs.pb.o: In function `tafs::LoginRequest::descriptor()':
+tafs.pb.cc:(.text+0x1010a): multiple definition of `tafs::LoginRequest::descriptor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x1010a): first defined here
+tafs.pb.o: In function `tafs::LoginRequest::New(google::protobuf::Arena*) const':
+tafs.pb.cc:(.text+0x1013a): multiple definition of `tafs::LoginRequest::New(google::protobuf::Arena*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x1013a): first defined here
+tafs.pb.o: In function `tafs::LoginRequest::Clear()':
+tafs.pb.cc:(.text+0x1018a): multiple definition of `tafs::LoginRequest::Clear()'
+tafs.pb.o:tafs.pb.cc:(.text+0x1018a): first defined here
+tafs.pb.o: In function `tafs::LoginRequest::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)':
+tafs.pb.cc:(.text+0x101a0): multiple definition of `tafs::LoginRequest::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x101a0): first defined here
+tafs.pb.o: In function `tafs::LoginRequest::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const':
+tafs.pb.cc:(.text+0x10482): multiple definition of `tafs::LoginRequest::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x10482): first defined here
+tafs.pb.o: In function `tafs::LoginRequest::SerializeWithCachedSizesToArray(unsigned char*) const':
+tafs.pb.cc:(.text+0x104c6): multiple definition of `tafs::LoginRequest::SerializeWithCachedSizesToArray(unsigned char*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x104c6): first defined here
+tafs.pb.o: In function `tafs::LoginRequest::ByteSize() const':
+tafs.pb.cc:(.text+0x1057a): multiple definition of `tafs::LoginRequest::ByteSize() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x1057a): first defined here
+tafs.pb.o: In function `tafs::LoginRequest::MergeFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0x105ca): multiple definition of `tafs::LoginRequest::MergeFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x105ca): first defined here
+tafs.pb.o: In function `tafs::LoginRequest::CopyFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0x10698): multiple definition of `tafs::LoginRequest::CopyFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x10698): first defined here
+tafs.pb.o: In function `tafs::LoginRequest::CopyFrom(tafs::LoginRequest const&)':
+tafs.pb.cc:(.text+0x106ee): multiple definition of `tafs::LoginRequest::CopyFrom(tafs::LoginRequest const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x106ee): first defined here
+tafs.pb.o: In function `tafs::LoginRequest::IsInitialized() const':
+tafs.pb.cc:(.text+0x10736): multiple definition of `tafs::LoginRequest::IsInitialized() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x10736): first defined here
+tafs.pb.o: In function `tafs::LoginRequest::Swap(tafs::LoginRequest*)':
+tafs.pb.cc:(.text+0x10746): multiple definition of `tafs::LoginRequest::Swap(tafs::LoginRequest*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x10746): first defined here
+tafs.pb.o: In function `tafs::LoginRequest::InternalSwap(tafs::LoginRequest*)':
+tafs.pb.cc:(.text+0x10778): multiple definition of `tafs::LoginRequest::InternalSwap(tafs::LoginRequest*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x10778): first defined here
+tafs.pb.o: In function `tafs::LoginRequest::GetMetadata() const':
+tafs.pb.cc:(.text+0x108ea): multiple definition of `tafs::LoginRequest::GetMetadata() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x108ea): first defined here
+tafs.pb.o:(.rodata+0x764): multiple definition of `tafs::LoginReply::kNumFieldNumber'
+tafs.pb.o:(.rodata+0x764): first defined here
+tafs.pb.o: In function `tafs::LoginReply::LoginReply()':
+tafs.pb.cc:(.text+0x1091c): multiple definition of `tafs::LoginReply::LoginReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0x1091c): first defined here
+tafs.pb.o: In function `tafs::LoginReply::SharedCtor()':
+tafs.pb.cc:(.text+0x10a04): multiple definition of `tafs::LoginReply::SharedCtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x10a04): first defined here
+tafs.pb.o: In function `tafs::LoginReply::LoginReply(tafs::LoginReply const&)':
+tafs.pb.cc:(.text+0x10974): multiple definition of `tafs::LoginReply::LoginReply(tafs::LoginReply const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x10974): first defined here
+tafs.pb.o: In function `tafs::LoginReply::MergeFrom(tafs::LoginReply const&)':
+tafs.pb.cc:(.text+0x10ff8): multiple definition of `tafs::LoginReply::MergeFrom(tafs::LoginReply const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x10ff8): first defined here
+tafs.pb.o: In function `tafs::LoginReply::LoginReply(tafs::LoginReply const&)':
+tafs.pb.cc:(.text+0x10974): multiple definition of `tafs::LoginReply::LoginReply(tafs::LoginReply const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x10974): first defined here
+tafs.pb.o: In function `tafs::LoginReply::~LoginReply()':
+tafs.pb.cc:(.text+0x10a2c): multiple definition of `tafs::LoginReply::~LoginReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0x10a2c): first defined here
+tafs.pb.o: In function `tafs::LoginReply::SharedDtor()':
+tafs.pb.cc:(.text+0x10aa8): multiple definition of `tafs::LoginReply::SharedDtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x10aa8): first defined here
+tafs.pb.o: In function `tafs::LoginReply::~LoginReply()':
+tafs.pb.cc:(.text+0x10a2c): multiple definition of `tafs::LoginReply::~LoginReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0x10a2c): first defined here
+tafs.pb.o: In function `tafs::LoginReply::~LoginReply()':
+tafs.pb.cc:(.text+0x10a82): multiple definition of `tafs::LoginReply::~LoginReply()'
+tafs.pb.o:tafs.pb.cc:(.text+0x10a82): first defined here
+tafs.pb.o: In function `tafs::LoginReply::SetCachedSize(int) const':
+tafs.pb.cc:(.text+0x10ab2): multiple definition of `tafs::LoginReply::SetCachedSize(int) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x10ab2): first defined here
+tafs.pb.o: In function `tafs::LoginReply::descriptor()':
+tafs.pb.cc:(.text+0x10aca): multiple definition of `tafs::LoginReply::descriptor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x10aca): first defined here
+tafs.pb.o: In function `tafs::LoginReply::New(google::protobuf::Arena*) const':
+tafs.pb.cc:(.text+0x10afa): multiple definition of `tafs::LoginReply::New(google::protobuf::Arena*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x10afa): first defined here
+tafs.pb.o: In function `tafs::LoginReply::Clear()':
+tafs.pb.cc:(.text+0x10b4a): multiple definition of `tafs::LoginReply::Clear()'
+tafs.pb.o:tafs.pb.cc:(.text+0x10b4a): first defined here
+tafs.pb.o: In function `tafs::LoginReply::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)':
+tafs.pb.cc:(.text+0x10b60): multiple definition of `tafs::LoginReply::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x10b60): first defined here
+tafs.pb.o: In function `tafs::LoginReply::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const':
+tafs.pb.cc:(.text+0x10e42): multiple definition of `tafs::LoginReply::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x10e42): first defined here
+tafs.pb.o: In function `tafs::LoginReply::SerializeWithCachedSizesToArray(unsigned char*) const':
+tafs.pb.cc:(.text+0x10e86): multiple definition of `tafs::LoginReply::SerializeWithCachedSizesToArray(unsigned char*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x10e86): first defined here
+tafs.pb.o: In function `tafs::LoginReply::ByteSize() const':
+tafs.pb.cc:(.text+0x10f3a): multiple definition of `tafs::LoginReply::ByteSize() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x10f3a): first defined here
+tafs.pb.o: In function `tafs::LoginReply::MergeFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0x10f8a): multiple definition of `tafs::LoginReply::MergeFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x10f8a): first defined here
+tafs.pb.o: In function `tafs::LoginReply::CopyFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0x11058): multiple definition of `tafs::LoginReply::CopyFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x11058): first defined here
+tafs.pb.o: In function `tafs::LoginReply::CopyFrom(tafs::LoginReply const&)':
+tafs.pb.cc:(.text+0x110ae): multiple definition of `tafs::LoginReply::CopyFrom(tafs::LoginReply const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x110ae): first defined here
+tafs.pb.o: In function `tafs::LoginReply::IsInitialized() const':
+tafs.pb.cc:(.text+0x110f6): multiple definition of `tafs::LoginReply::IsInitialized() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x110f6): first defined here
+tafs.pb.o: In function `tafs::LoginReply::Swap(tafs::LoginReply*)':
+tafs.pb.cc:(.text+0x11106): multiple definition of `tafs::LoginReply::Swap(tafs::LoginReply*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x11106): first defined here
+tafs.pb.o: In function `tafs::LoginReply::InternalSwap(tafs::LoginReply*)':
+tafs.pb.cc:(.text+0x11138): multiple definition of `tafs::LoginReply::InternalSwap(tafs::LoginReply*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x11138): first defined here
+tafs.pb.o: In function `tafs::LoginReply::GetMetadata() const':
+tafs.pb.cc:(.text+0x112aa): multiple definition of `tafs::LoginReply::GetMetadata() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x112aa): first defined here
+tafs.pb.o:(.rodata+0x768): multiple definition of `tafs::TestB::kMydataFieldNumber'
+tafs.pb.o:(.rodata+0x768): first defined here
+tafs.pb.o: In function `tafs::TestB::TestB()':
+tafs.pb.cc:(.text+0x112dc): multiple definition of `tafs::TestB::TestB()'
+tafs.pb.o:tafs.pb.cc:(.text+0x112dc): first defined here
+tafs.pb.o: In function `tafs::TestB::SharedCtor()':
+tafs.pb.cc:(.text+0x113f6): multiple definition of `tafs::TestB::SharedCtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x113f6): first defined here
+tafs.pb.o: In function `tafs::TestB::TestB(tafs::TestB const&)':
+tafs.pb.cc:(.text+0x11366): multiple definition of `tafs::TestB::TestB(tafs::TestB const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x11366): first defined here
+tafs.pb.o: In function `tafs::TestB::MergeFrom(tafs::TestB const&)':
+tafs.pb.cc:(.text+0x11a2e): multiple definition of `tafs::TestB::MergeFrom(tafs::TestB const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x11a2e): first defined here
+tafs.pb.o: In function `tafs::TestB::TestB(tafs::TestB const&)':
+tafs.pb.cc:(.text+0x11366): multiple definition of `tafs::TestB::TestB(tafs::TestB const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x11366): first defined here
+tafs.pb.o: In function `tafs::TestB::~TestB()':
+tafs.pb.cc:(.text+0x11434): multiple definition of `tafs::TestB::~TestB()'
+tafs.pb.o:tafs.pb.cc:(.text+0x11434): first defined here
+tafs.pb.o: In function `tafs::TestB::SharedDtor()':
+tafs.pb.cc:(.text+0x114b0): multiple definition of `tafs::TestB::SharedDtor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x114b0): first defined here
+tafs.pb.o: In function `tafs::TestB::~TestB()':
+tafs.pb.cc:(.text+0x11434): multiple definition of `tafs::TestB::~TestB()'
+tafs.pb.o:tafs.pb.cc:(.text+0x11434): first defined here
+tafs.pb.o: In function `tafs::TestB::~TestB()':
+tafs.pb.cc:(.text+0x1148a): multiple definition of `tafs::TestB::~TestB()'
+tafs.pb.o:tafs.pb.cc:(.text+0x1148a): first defined here
+tafs.pb.o: In function `tafs::TestB::SetCachedSize(int) const':
+tafs.pb.cc:(.text+0x114d6): multiple definition of `tafs::TestB::SetCachedSize(int) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x114d6): first defined here
+tafs.pb.o: In function `tafs::TestB::descriptor()':
+tafs.pb.cc:(.text+0x114ee): multiple definition of `tafs::TestB::descriptor()'
+tafs.pb.o:tafs.pb.cc:(.text+0x114ee): first defined here
+tafs.pb.o: In function `tafs::TestB::New(google::protobuf::Arena*) const':
+tafs.pb.cc:(.text+0x1151e): multiple definition of `tafs::TestB::New(google::protobuf::Arena*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x1151e): first defined here
+tafs.pb.o: In function `tafs::TestB::Clear()':
+tafs.pb.cc:(.text+0x1158a): multiple definition of `tafs::TestB::Clear()'
+tafs.pb.o:tafs.pb.cc:(.text+0x1158a): first defined here
+tafs.pb.o: In function `tafs::TestB::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)':
+tafs.pb.cc:(.text+0x115b0): multiple definition of `tafs::TestB::MergePartialFromCodedStream(google::protobuf::io::CodedInputStream*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x115b0): first defined here
+tafs.pb.o: In function `tafs::TestB::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const':
+tafs.pb.cc:(.text+0x1186a): multiple definition of `tafs::TestB::SerializeWithCachedSizes(google::protobuf::io::CodedOutputStream*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x1186a): first defined here
+tafs.pb.o: In function `tafs::TestB::SerializeWithCachedSizesToArray(unsigned char*) const':
+tafs.pb.cc:(.text+0x118b8): multiple definition of `tafs::TestB::SerializeWithCachedSizesToArray(unsigned char*) const'
+tafs.pb.o:tafs.pb.cc:(.text+0x118b8): first defined here
+tafs.pb.o: In function `tafs::TestB::ByteSize() const':
+tafs.pb.cc:(.text+0x11966): multiple definition of `tafs::TestB::ByteSize() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x11966): first defined here
+tafs.pb.o: In function `tafs::TestB::MergeFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0x119c0): multiple definition of `tafs::TestB::MergeFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x119c0): first defined here
+tafs.pb.o: In function `tafs::TestB::CopyFrom(google::protobuf::Message const&)':
+tafs.pb.cc:(.text+0x11a9c): multiple definition of `tafs::TestB::CopyFrom(google::protobuf::Message const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x11a9c): first defined here
+tafs.pb.o: In function `tafs::TestB::CopyFrom(tafs::TestB const&)':
+tafs.pb.cc:(.text+0x11af2): multiple definition of `tafs::TestB::CopyFrom(tafs::TestB const&)'
+tafs.pb.o:tafs.pb.cc:(.text+0x11af2): first defined here
+tafs.pb.o: In function `tafs::TestB::IsInitialized() const':
+tafs.pb.cc:(.text+0x11b3a): multiple definition of `tafs::TestB::IsInitialized() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x11b3a): first defined here
+tafs.pb.o: In function `tafs::TestB::Swap(tafs::TestB*)':
+tafs.pb.cc:(.text+0x11b4a): multiple definition of `tafs::TestB::Swap(tafs::TestB*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x11b4a): first defined here
+tafs.pb.o: In function `tafs::TestB::InternalSwap(tafs::TestB*)':
+tafs.pb.cc:(.text+0x11b7c): multiple definition of `tafs::TestB::InternalSwap(tafs::TestB*)'
+tafs.pb.o:tafs.pb.cc:(.text+0x11b7c): first defined here
+tafs.pb.o: In function `tafs::TestB::GetMetadata() const':
+tafs.pb.cc:(.text+0x11d1c): multiple definition of `tafs::TestB::GetMetadata() const'
+tafs.pb.o:tafs.pb.cc:(.text+0x11d1c): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::NewStub(std::shared_ptr<grpc::Channel> const&, grpc::StubOptions const&)':
+tafs.grpc.pb.cc:(.text+0x114): multiple definition of `tafs::ToyAFS::NewStub(std::shared_ptr<grpc::Channel> const&, grpc::StubOptions const&)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0x114): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Stub::Stub(std::shared_ptr<grpc::Channel> const&)':
+tafs.grpc.pb.cc:(.text+0x17c): multiple definition of `tafs::ToyAFS::Stub::Stub(std::shared_ptr<grpc::Channel> const&)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0x17c): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Stub::Stub(std::shared_ptr<grpc::Channel> const&)':
+tafs.grpc.pb.cc:(.text+0x17c): multiple definition of `tafs::ToyAFS::Stub::Stub(std::shared_ptr<grpc::Channel> const&)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0x17c): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Stub::SayHello(grpc::ClientContext*, tafs::HelloRequest const&, tafs::HelloReply*)':
+tafs.grpc.pb.cc:(.text+0x382): multiple definition of `tafs::ToyAFS::Stub::SayHello(grpc::ClientContext*, tafs::HelloRequest const&, tafs::HelloReply*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0x382): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Stub::AsyncSayHelloRaw(grpc::ClientContext*, tafs::HelloRequest const&, grpc::CompletionQueue*)':
+tafs.grpc.pb.cc:(.text+0x3ea): multiple definition of `tafs::ToyAFS::Stub::AsyncSayHelloRaw(grpc::ClientContext*, tafs::HelloRequest const&, grpc::CompletionQueue*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0x3ea): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Stub::Login(grpc::ClientContext*, tafs::LoginRequest const&, tafs::LoginReply*)':
+tafs.grpc.pb.cc:(.text+0x474): multiple definition of `tafs::ToyAFS::Stub::Login(grpc::ClientContext*, tafs::LoginRequest const&, tafs::LoginReply*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0x474): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Stub::AsyncLoginRaw(grpc::ClientContext*, tafs::LoginRequest const&, grpc::CompletionQueue*)':
+tafs.grpc.pb.cc:(.text+0x4dc): multiple definition of `tafs::ToyAFS::Stub::AsyncLoginRaw(grpc::ClientContext*, tafs::LoginRequest const&, grpc::CompletionQueue*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0x4dc): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Stub::TestBytes(grpc::ClientContext*, tafs::TestB const&, tafs::LoginReply*)':
+tafs.grpc.pb.cc:(.text+0x566): multiple definition of `tafs::ToyAFS::Stub::TestBytes(grpc::ClientContext*, tafs::TestB const&, tafs::LoginReply*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0x566): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Stub::AsyncTestBytesRaw(grpc::ClientContext*, tafs::TestB const&, grpc::CompletionQueue*)':
+tafs.grpc.pb.cc:(.text+0x5ce): multiple definition of `tafs::ToyAFS::Stub::AsyncTestBytesRaw(grpc::ClientContext*, tafs::TestB const&, grpc::CompletionQueue*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0x5ce): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Stub::GetAttr(grpc::ClientContext*, tafs::GetAttrReq const&, tafs::GetAttrReply*)':
+tafs.grpc.pb.cc:(.text+0x658): multiple definition of `tafs::ToyAFS::Stub::GetAttr(grpc::ClientContext*, tafs::GetAttrReq const&, tafs::GetAttrReply*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0x658): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Stub::AsyncGetAttrRaw(grpc::ClientContext*, tafs::GetAttrReq const&, grpc::CompletionQueue*)':
+tafs.grpc.pb.cc:(.text+0x6c0): multiple definition of `tafs::ToyAFS::Stub::AsyncGetAttrRaw(grpc::ClientContext*, tafs::GetAttrReq const&, grpc::CompletionQueue*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0x6c0): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Stub::Open(grpc::ClientContext*, tafs::OpenReq const&, tafs::ErrNo*)':
+tafs.grpc.pb.cc:(.text+0x74a): multiple definition of `tafs::ToyAFS::Stub::Open(grpc::ClientContext*, tafs::OpenReq const&, tafs::ErrNo*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0x74a): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Stub::AsyncOpenRaw(grpc::ClientContext*, tafs::OpenReq const&, grpc::CompletionQueue*)':
+tafs.grpc.pb.cc:(.text+0x7b2): multiple definition of `tafs::ToyAFS::Stub::AsyncOpenRaw(grpc::ClientContext*, tafs::OpenReq const&, grpc::CompletionQueue*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0x7b2): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Stub::Read(grpc::ClientContext*, tafs::ReadReq const&, tafs::ReadReply*)':
+tafs.grpc.pb.cc:(.text+0x83c): multiple definition of `tafs::ToyAFS::Stub::Read(grpc::ClientContext*, tafs::ReadReq const&, tafs::ReadReply*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0x83c): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Stub::AsyncReadRaw(grpc::ClientContext*, tafs::ReadReq const&, grpc::CompletionQueue*)':
+tafs.grpc.pb.cc:(.text+0x8a6): multiple definition of `tafs::ToyAFS::Stub::AsyncReadRaw(grpc::ClientContext*, tafs::ReadReq const&, grpc::CompletionQueue*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0x8a6): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Stub::Write(grpc::ClientContext*, tafs::WriteReq const&, tafs::WriteReply*)':
+tafs.grpc.pb.cc:(.text+0x934): multiple definition of `tafs::ToyAFS::Stub::Write(grpc::ClientContext*, tafs::WriteReq const&, tafs::WriteReply*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0x934): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Stub::AsyncWriteRaw(grpc::ClientContext*, tafs::WriteReq const&, grpc::CompletionQueue*)':
+tafs.grpc.pb.cc:(.text+0x99e): multiple definition of `tafs::ToyAFS::Stub::AsyncWriteRaw(grpc::ClientContext*, tafs::WriteReq const&, grpc::CompletionQueue*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0x99e): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Stub::ReadDirRaw(grpc::ClientContext*, tafs::ReadDirReq const&)':
+tafs.grpc.pb.cc:(.text+0xa2c): multiple definition of `tafs::ToyAFS::Stub::ReadDirRaw(grpc::ClientContext*, tafs::ReadDirReq const&)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0xa2c): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Stub::AsyncReadDirRaw(grpc::ClientContext*, tafs::ReadDirReq const&, grpc::CompletionQueue*, void*)':
+tafs.grpc.pb.cc:(.text+0xaac): multiple definition of `tafs::ToyAFS::Stub::AsyncReadDirRaw(grpc::ClientContext*, tafs::ReadDirReq const&, grpc::CompletionQueue*, void*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0xaac): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Stub::MkDir(grpc::ClientContext*, tafs::MkDirReq const&, tafs::MkDirReply*)':
+tafs.grpc.pb.cc:(.text+0xb42): multiple definition of `tafs::ToyAFS::Stub::MkDir(grpc::ClientContext*, tafs::MkDirReq const&, tafs::MkDirReply*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0xb42): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Stub::AsyncMkDirRaw(grpc::ClientContext*, tafs::MkDirReq const&, grpc::CompletionQueue*)':
+tafs.grpc.pb.cc:(.text+0xbac): multiple definition of `tafs::ToyAFS::Stub::AsyncMkDirRaw(grpc::ClientContext*, tafs::MkDirReq const&, grpc::CompletionQueue*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0xbac): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Stub::RmDir(grpc::ClientContext*, tafs::RmDirReq const&, tafs::RmDirReply*)':
+tafs.grpc.pb.cc:(.text+0xc3a): multiple definition of `tafs::ToyAFS::Stub::RmDir(grpc::ClientContext*, tafs::RmDirReq const&, tafs::RmDirReply*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0xc3a): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Stub::AsyncRmDirRaw(grpc::ClientContext*, tafs::RmDirReq const&, grpc::CompletionQueue*)':
+tafs.grpc.pb.cc:(.text+0xca4): multiple definition of `tafs::ToyAFS::Stub::AsyncRmDirRaw(grpc::ClientContext*, tafs::RmDirReq const&, grpc::CompletionQueue*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0xca4): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Stub::Unlink(grpc::ClientContext*, tafs::UnlinkReq const&, tafs::UnlinkReply*)':
+tafs.grpc.pb.cc:(.text+0xd32): multiple definition of `tafs::ToyAFS::Stub::Unlink(grpc::ClientContext*, tafs::UnlinkReq const&, tafs::UnlinkReply*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0xd32): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Stub::AsyncUnlinkRaw(grpc::ClientContext*, tafs::UnlinkReq const&, grpc::CompletionQueue*)':
+tafs.grpc.pb.cc:(.text+0xd9c): multiple definition of `tafs::ToyAFS::Stub::AsyncUnlinkRaw(grpc::ClientContext*, tafs::UnlinkReq const&, grpc::CompletionQueue*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0xd9c): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::AsyncService::AsyncService()':
+tafs.grpc.pb.cc:(.text+0xe2a): multiple definition of `tafs::ToyAFS::AsyncService::AsyncService()'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0xe2a): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::AsyncService::AsyncService()':
+tafs.grpc.pb.cc:(.text+0xe2a): multiple definition of `tafs::ToyAFS::AsyncService::AsyncService()'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0xe2a): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Service::Service()':
+tafs.grpc.pb.cc:(.text+0xe4e): multiple definition of `tafs::ToyAFS::Service::Service()'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0xe4e): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Service::Service()':
+tafs.grpc.pb.cc:(.text+0xe4e): multiple definition of `tafs::ToyAFS::Service::Service()'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0xe4e): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Service::~Service()':
+tafs.grpc.pb.cc:(.text+0xe80): multiple definition of `tafs::ToyAFS::Service::~Service()'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0xe80): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Service::~Service()':
+tafs.grpc.pb.cc:(.text+0xe80): multiple definition of `tafs::ToyAFS::Service::~Service()'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0xe80): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Service::~Service()':
+tafs.grpc.pb.cc:(.text+0xeca): multiple definition of `tafs::ToyAFS::Service::~Service()'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0xeca): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Service::SayHello(grpc::ServerContext*, tafs::HelloRequest const*, tafs::HelloReply*)':
+tafs.grpc.pb.cc:(.text+0xef0): multiple definition of `tafs::ToyAFS::Service::SayHello(grpc::ServerContext*, tafs::HelloRequest const*, tafs::HelloReply*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0xef0): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::AsyncService::RequestSayHello(grpc::ServerContext*, tafs::HelloRequest*, grpc::ServerAsyncResponseWriter<tafs::HelloReply>*, grpc::CompletionQueue*, grpc::ServerCompletionQueue*, void*)':
+tafs.grpc.pb.cc:(.text+0xf94): multiple definition of `tafs::ToyAFS::AsyncService::RequestSayHello(grpc::ServerContext*, tafs::HelloRequest*, grpc::ServerAsyncResponseWriter<tafs::HelloReply>*, grpc::CompletionQueue*, grpc::ServerCompletionQueue*, void*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0xf94): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Service::Login(grpc::ServerContext*, tafs::LoginRequest const*, tafs::LoginReply*)':
+tafs.grpc.pb.cc:(.text+0xfee): multiple definition of `tafs::ToyAFS::Service::Login(grpc::ServerContext*, tafs::LoginRequest const*, tafs::LoginReply*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0xfee): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::AsyncService::RequestLogin(grpc::ServerContext*, tafs::LoginRequest*, grpc::ServerAsyncResponseWriter<tafs::LoginReply>*, grpc::CompletionQueue*, grpc::ServerCompletionQueue*, void*)':
+tafs.grpc.pb.cc:(.text+0x1092): multiple definition of `tafs::ToyAFS::AsyncService::RequestLogin(grpc::ServerContext*, tafs::LoginRequest*, grpc::ServerAsyncResponseWriter<tafs::LoginReply>*, grpc::CompletionQueue*, grpc::ServerCompletionQueue*, void*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0x1092): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Service::TestBytes(grpc::ServerContext*, tafs::TestB const*, tafs::LoginReply*)':
+tafs.grpc.pb.cc:(.text+0x10ec): multiple definition of `tafs::ToyAFS::Service::TestBytes(grpc::ServerContext*, tafs::TestB const*, tafs::LoginReply*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0x10ec): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::AsyncService::RequestTestBytes(grpc::ServerContext*, tafs::TestB*, grpc::ServerAsyncResponseWriter<tafs::LoginReply>*, grpc::CompletionQueue*, grpc::ServerCompletionQueue*, void*)':
+tafs.grpc.pb.cc:(.text+0x1190): multiple definition of `tafs::ToyAFS::AsyncService::RequestTestBytes(grpc::ServerContext*, tafs::TestB*, grpc::ServerAsyncResponseWriter<tafs::LoginReply>*, grpc::CompletionQueue*, grpc::ServerCompletionQueue*, void*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0x1190): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Service::GetAttr(grpc::ServerContext*, tafs::GetAttrReq const*, tafs::GetAttrReply*)':
+tafs.grpc.pb.cc:(.text+0x11ea): multiple definition of `tafs::ToyAFS::Service::GetAttr(grpc::ServerContext*, tafs::GetAttrReq const*, tafs::GetAttrReply*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0x11ea): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::AsyncService::RequestGetAttr(grpc::ServerContext*, tafs::GetAttrReq*, grpc::ServerAsyncResponseWriter<tafs::GetAttrReply>*, grpc::CompletionQueue*, grpc::ServerCompletionQueue*, void*)':
+tafs.grpc.pb.cc:(.text+0x128e): multiple definition of `tafs::ToyAFS::AsyncService::RequestGetAttr(grpc::ServerContext*, tafs::GetAttrReq*, grpc::ServerAsyncResponseWriter<tafs::GetAttrReply>*, grpc::CompletionQueue*, grpc::ServerCompletionQueue*, void*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0x128e): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Service::Open(grpc::ServerContext*, tafs::OpenReq const*, tafs::ErrNo*)':
+tafs.grpc.pb.cc:(.text+0x12e8): multiple definition of `tafs::ToyAFS::Service::Open(grpc::ServerContext*, tafs::OpenReq const*, tafs::ErrNo*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0x12e8): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::AsyncService::RequestOpen(grpc::ServerContext*, tafs::OpenReq*, grpc::ServerAsyncResponseWriter<tafs::ErrNo>*, grpc::CompletionQueue*, grpc::ServerCompletionQueue*, void*)':
+tafs.grpc.pb.cc:(.text+0x138c): multiple definition of `tafs::ToyAFS::AsyncService::RequestOpen(grpc::ServerContext*, tafs::OpenReq*, grpc::ServerAsyncResponseWriter<tafs::ErrNo>*, grpc::CompletionQueue*, grpc::ServerCompletionQueue*, void*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0x138c): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Service::Read(grpc::ServerContext*, tafs::ReadReq const*, tafs::ReadReply*)':
+tafs.grpc.pb.cc:(.text+0x13e6): multiple definition of `tafs::ToyAFS::Service::Read(grpc::ServerContext*, tafs::ReadReq const*, tafs::ReadReply*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0x13e6): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::AsyncService::RequestRead(grpc::ServerContext*, tafs::ReadReq*, grpc::ServerAsyncResponseWriter<tafs::ReadReply>*, grpc::CompletionQueue*, grpc::ServerCompletionQueue*, void*)':
+tafs.grpc.pb.cc:(.text+0x148a): multiple definition of `tafs::ToyAFS::AsyncService::RequestRead(grpc::ServerContext*, tafs::ReadReq*, grpc::ServerAsyncResponseWriter<tafs::ReadReply>*, grpc::CompletionQueue*, grpc::ServerCompletionQueue*, void*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0x148a): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Service::Write(grpc::ServerContext*, tafs::WriteReq const*, tafs::WriteReply*)':
+tafs.grpc.pb.cc:(.text+0x14e4): multiple definition of `tafs::ToyAFS::Service::Write(grpc::ServerContext*, tafs::WriteReq const*, tafs::WriteReply*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0x14e4): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::AsyncService::RequestWrite(grpc::ServerContext*, tafs::WriteReq*, grpc::ServerAsyncResponseWriter<tafs::WriteReply>*, grpc::CompletionQueue*, grpc::ServerCompletionQueue*, void*)':
+tafs.grpc.pb.cc:(.text+0x1588): multiple definition of `tafs::ToyAFS::AsyncService::RequestWrite(grpc::ServerContext*, tafs::WriteReq*, grpc::ServerAsyncResponseWriter<tafs::WriteReply>*, grpc::CompletionQueue*, grpc::ServerCompletionQueue*, void*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0x1588): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Service::ReadDir(grpc::ServerContext*, tafs::ReadDirReq const*, grpc::ServerWriter<tafs::ReadDirReply>*)':
+tafs.grpc.pb.cc:(.text+0x15e2): multiple definition of `tafs::ToyAFS::Service::ReadDir(grpc::ServerContext*, tafs::ReadDirReq const*, grpc::ServerWriter<tafs::ReadDirReply>*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0x15e2): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::AsyncService::RequestReadDir(grpc::ServerContext*, tafs::ReadDirReq*, grpc::ServerAsyncWriter<tafs::ReadDirReply>*, grpc::CompletionQueue*, grpc::ServerCompletionQueue*, void*)':
+tafs.grpc.pb.cc:(.text+0x1686): multiple definition of `tafs::ToyAFS::AsyncService::RequestReadDir(grpc::ServerContext*, tafs::ReadDirReq*, grpc::ServerAsyncWriter<tafs::ReadDirReply>*, grpc::CompletionQueue*, grpc::ServerCompletionQueue*, void*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0x1686): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Service::MkDir(grpc::ServerContext*, tafs::MkDirReq const*, tafs::MkDirReply*)':
+tafs.grpc.pb.cc:(.text+0x16e0): multiple definition of `tafs::ToyAFS::Service::MkDir(grpc::ServerContext*, tafs::MkDirReq const*, tafs::MkDirReply*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0x16e0): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::AsyncService::RequestMkDir(grpc::ServerContext*, tafs::MkDirReq*, grpc::ServerAsyncResponseWriter<tafs::MkDirReply>*, grpc::CompletionQueue*, grpc::ServerCompletionQueue*, void*)':
+tafs.grpc.pb.cc:(.text+0x1784): multiple definition of `tafs::ToyAFS::AsyncService::RequestMkDir(grpc::ServerContext*, tafs::MkDirReq*, grpc::ServerAsyncResponseWriter<tafs::MkDirReply>*, grpc::CompletionQueue*, grpc::ServerCompletionQueue*, void*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0x1784): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Service::RmDir(grpc::ServerContext*, tafs::RmDirReq const*, tafs::RmDirReply*)':
+tafs.grpc.pb.cc:(.text+0x17de): multiple definition of `tafs::ToyAFS::Service::RmDir(grpc::ServerContext*, tafs::RmDirReq const*, tafs::RmDirReply*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0x17de): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::AsyncService::RequestRmDir(grpc::ServerContext*, tafs::RmDirReq*, grpc::ServerAsyncResponseWriter<tafs::RmDirReply>*, grpc::CompletionQueue*, grpc::ServerCompletionQueue*, void*)':
+tafs.grpc.pb.cc:(.text+0x1882): multiple definition of `tafs::ToyAFS::AsyncService::RequestRmDir(grpc::ServerContext*, tafs::RmDirReq*, grpc::ServerAsyncResponseWriter<tafs::RmDirReply>*, grpc::CompletionQueue*, grpc::ServerCompletionQueue*, void*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0x1882): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Service::Unlink(grpc::ServerContext*, tafs::UnlinkReq const*, tafs::UnlinkReply*)':
+tafs.grpc.pb.cc:(.text+0x18dc): multiple definition of `tafs::ToyAFS::Service::Unlink(grpc::ServerContext*, tafs::UnlinkReq const*, tafs::UnlinkReply*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0x18dc): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::AsyncService::RequestUnlink(grpc::ServerContext*, tafs::UnlinkReq*, grpc::ServerAsyncResponseWriter<tafs::UnlinkReply>*, grpc::CompletionQueue*, grpc::ServerCompletionQueue*, void*)':
+tafs.grpc.pb.cc:(.text+0x1980): multiple definition of `tafs::ToyAFS::AsyncService::RequestUnlink(grpc::ServerContext*, tafs::UnlinkReq*, grpc::ServerAsyncResponseWriter<tafs::UnlinkReply>*, grpc::CompletionQueue*, grpc::ServerCompletionQueue*, void*)'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0x1980): first defined here
+tafs.grpc.pb.o: In function `tafs::ToyAFS::Service::service()':
+tafs.grpc.pb.cc:(.text+0x19da): multiple definition of `tafs::ToyAFS::Service::service()'
+tafs.grpc.pb.o:tafs.grpc.pb.cc:(.text+0x19da): first defined here
+/tmp/ccwWMDEt.o: In function `InitRPC(char const*)':
+fusexmp.c:(.text+0x9b): multiple definition of `InitRPC(char const*)'
+/tmp/cccQCusb.o:fusexmp.c:(.text+0x9b): first defined here
+/tmp/ccwWMDEt.o: In function `main':
+fusexmp.c:(.text+0x9ec): multiple definition of `main'
+/tmp/cccQCusb.o:fusexmp.c:(.text+0x9ec): first defined here
+collect2: error: ld returned 1 exit status
+make: *** [fusexmp] Error 1

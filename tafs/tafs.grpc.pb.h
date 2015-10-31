@@ -46,21 +46,54 @@ class ToyAFS GRPC_FINAL {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tafs::GetAttrReply>> AsyncGetAttr(::grpc::ClientContext* context, const ::tafs::GetAttrReq& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tafs::GetAttrReply>>(AsyncGetAttrRaw(context, request, cq));
     }
-    virtual ::grpc::Status Open(::grpc::ClientContext* context, const ::tafs::OpenReq& request, ::tafs::ErrNo* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tafs::ErrNo>> AsyncOpen(::grpc::ClientContext* context, const ::tafs::OpenReq& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tafs::ErrNo>>(AsyncOpenRaw(context, request, cq));
+    virtual ::grpc::Status Open(::grpc::ClientContext* context, const ::tafs::OpenReq& request, ::tafs::OpenReply* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tafs::OpenReply>> AsyncOpen(::grpc::ClientContext* context, const ::tafs::OpenReq& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tafs::OpenReply>>(AsyncOpenRaw(context, request, cq));
     }
     virtual ::grpc::Status Read(::grpc::ClientContext* context, const ::tafs::ReadReq& request, ::tafs::ReadReply* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tafs::ReadReply>> AsyncRead(::grpc::ClientContext* context, const ::tafs::ReadReq& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tafs::ReadReply>>(AsyncReadRaw(context, request, cq));
+    }
+    virtual ::grpc::Status Write(::grpc::ClientContext* context, const ::tafs::WriteReq& request, ::tafs::WriteReply* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tafs::WriteReply>> AsyncWrite(::grpc::ClientContext* context, const ::tafs::WriteReq& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tafs::WriteReply>>(AsyncWriteRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientReaderInterface< ::tafs::ReadDirReply>> ReadDir(::grpc::ClientContext* context, const ::tafs::ReadDirReq& request) {
+      return std::unique_ptr< ::grpc::ClientReaderInterface< ::tafs::ReadDirReply>>(ReadDirRaw(context, request));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::tafs::ReadDirReply>> AsyncReadDir(::grpc::ClientContext* context, const ::tafs::ReadDirReq& request, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::tafs::ReadDirReply>>(AsyncReadDirRaw(context, request, cq, tag));
+    }
+    virtual ::grpc::Status MkDir(::grpc::ClientContext* context, const ::tafs::MkDirReq& request, ::tafs::MkDirReply* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tafs::MkDirReply>> AsyncMkDir(::grpc::ClientContext* context, const ::tafs::MkDirReq& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tafs::MkDirReply>>(AsyncMkDirRaw(context, request, cq));
+    }
+    virtual ::grpc::Status RmDir(::grpc::ClientContext* context, const ::tafs::RmDirReq& request, ::tafs::RmDirReply* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tafs::RmDirReply>> AsyncRmDir(::grpc::ClientContext* context, const ::tafs::RmDirReq& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tafs::RmDirReply>>(AsyncRmDirRaw(context, request, cq));
+    }
+    virtual ::grpc::Status Unlink(::grpc::ClientContext* context, const ::tafs::UnlinkReq& request, ::tafs::UnlinkReply* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tafs::UnlinkReply>> AsyncUnlink(::grpc::ClientContext* context, const ::tafs::UnlinkReq& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tafs::UnlinkReply>>(AsyncUnlinkRaw(context, request, cq));
+    }
+    virtual ::grpc::Status Access(::grpc::ClientContext* context, const ::tafs::AccessReq& request, ::tafs::AccessReply* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tafs::AccessReply>> AsyncAccess(::grpc::ClientContext* context, const ::tafs::AccessReq& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tafs::AccessReply>>(AsyncAccessRaw(context, request, cq));
     }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::tafs::HelloReply>* AsyncSayHelloRaw(::grpc::ClientContext* context, const ::tafs::HelloRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::tafs::LoginReply>* AsyncLoginRaw(::grpc::ClientContext* context, const ::tafs::LoginRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::tafs::LoginReply>* AsyncTestBytesRaw(::grpc::ClientContext* context, const ::tafs::TestB& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::tafs::GetAttrReply>* AsyncGetAttrRaw(::grpc::ClientContext* context, const ::tafs::GetAttrReq& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::tafs::ErrNo>* AsyncOpenRaw(::grpc::ClientContext* context, const ::tafs::OpenReq& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::tafs::OpenReply>* AsyncOpenRaw(::grpc::ClientContext* context, const ::tafs::OpenReq& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::tafs::ReadReply>* AsyncReadRaw(::grpc::ClientContext* context, const ::tafs::ReadReq& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::tafs::WriteReply>* AsyncWriteRaw(::grpc::ClientContext* context, const ::tafs::WriteReq& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientReaderInterface< ::tafs::ReadDirReply>* ReadDirRaw(::grpc::ClientContext* context, const ::tafs::ReadDirReq& request) = 0;
+    virtual ::grpc::ClientAsyncReaderInterface< ::tafs::ReadDirReply>* AsyncReadDirRaw(::grpc::ClientContext* context, const ::tafs::ReadDirReq& request, ::grpc::CompletionQueue* cq, void* tag) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::tafs::MkDirReply>* AsyncMkDirRaw(::grpc::ClientContext* context, const ::tafs::MkDirReq& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::tafs::RmDirReply>* AsyncRmDirRaw(::grpc::ClientContext* context, const ::tafs::RmDirReq& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::tafs::UnlinkReply>* AsyncUnlinkRaw(::grpc::ClientContext* context, const ::tafs::UnlinkReq& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::tafs::AccessReply>* AsyncAccessRaw(::grpc::ClientContext* context, const ::tafs::AccessReq& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub GRPC_FINAL : public StubInterface {
    public:
@@ -81,13 +114,39 @@ class ToyAFS GRPC_FINAL {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tafs::GetAttrReply>> AsyncGetAttr(::grpc::ClientContext* context, const ::tafs::GetAttrReq& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tafs::GetAttrReply>>(AsyncGetAttrRaw(context, request, cq));
     }
-    ::grpc::Status Open(::grpc::ClientContext* context, const ::tafs::OpenReq& request, ::tafs::ErrNo* response) GRPC_OVERRIDE;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tafs::ErrNo>> AsyncOpen(::grpc::ClientContext* context, const ::tafs::OpenReq& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tafs::ErrNo>>(AsyncOpenRaw(context, request, cq));
+    ::grpc::Status Open(::grpc::ClientContext* context, const ::tafs::OpenReq& request, ::tafs::OpenReply* response) GRPC_OVERRIDE;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tafs::OpenReply>> AsyncOpen(::grpc::ClientContext* context, const ::tafs::OpenReq& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tafs::OpenReply>>(AsyncOpenRaw(context, request, cq));
     }
     ::grpc::Status Read(::grpc::ClientContext* context, const ::tafs::ReadReq& request, ::tafs::ReadReply* response) GRPC_OVERRIDE;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tafs::ReadReply>> AsyncRead(::grpc::ClientContext* context, const ::tafs::ReadReq& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tafs::ReadReply>>(AsyncReadRaw(context, request, cq));
+    }
+    ::grpc::Status Write(::grpc::ClientContext* context, const ::tafs::WriteReq& request, ::tafs::WriteReply* response) GRPC_OVERRIDE;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tafs::WriteReply>> AsyncWrite(::grpc::ClientContext* context, const ::tafs::WriteReq& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tafs::WriteReply>>(AsyncWriteRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientReader< ::tafs::ReadDirReply>> ReadDir(::grpc::ClientContext* context, const ::tafs::ReadDirReq& request) {
+      return std::unique_ptr< ::grpc::ClientReader< ::tafs::ReadDirReply>>(ReadDirRaw(context, request));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncReader< ::tafs::ReadDirReply>> AsyncReadDir(::grpc::ClientContext* context, const ::tafs::ReadDirReq& request, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncReader< ::tafs::ReadDirReply>>(AsyncReadDirRaw(context, request, cq, tag));
+    }
+    ::grpc::Status MkDir(::grpc::ClientContext* context, const ::tafs::MkDirReq& request, ::tafs::MkDirReply* response) GRPC_OVERRIDE;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tafs::MkDirReply>> AsyncMkDir(::grpc::ClientContext* context, const ::tafs::MkDirReq& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tafs::MkDirReply>>(AsyncMkDirRaw(context, request, cq));
+    }
+    ::grpc::Status RmDir(::grpc::ClientContext* context, const ::tafs::RmDirReq& request, ::tafs::RmDirReply* response) GRPC_OVERRIDE;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tafs::RmDirReply>> AsyncRmDir(::grpc::ClientContext* context, const ::tafs::RmDirReq& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tafs::RmDirReply>>(AsyncRmDirRaw(context, request, cq));
+    }
+    ::grpc::Status Unlink(::grpc::ClientContext* context, const ::tafs::UnlinkReq& request, ::tafs::UnlinkReply* response) GRPC_OVERRIDE;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tafs::UnlinkReply>> AsyncUnlink(::grpc::ClientContext* context, const ::tafs::UnlinkReq& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tafs::UnlinkReply>>(AsyncUnlinkRaw(context, request, cq));
+    }
+    ::grpc::Status Access(::grpc::ClientContext* context, const ::tafs::AccessReq& request, ::tafs::AccessReply* response) GRPC_OVERRIDE;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tafs::AccessReply>> AsyncAccess(::grpc::ClientContext* context, const ::tafs::AccessReq& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tafs::AccessReply>>(AsyncAccessRaw(context, request, cq));
     }
 
    private:
@@ -96,14 +155,27 @@ class ToyAFS GRPC_FINAL {
     ::grpc::ClientAsyncResponseReader< ::tafs::LoginReply>* AsyncLoginRaw(::grpc::ClientContext* context, const ::tafs::LoginRequest& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::tafs::LoginReply>* AsyncTestBytesRaw(::grpc::ClientContext* context, const ::tafs::TestB& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::tafs::GetAttrReply>* AsyncGetAttrRaw(::grpc::ClientContext* context, const ::tafs::GetAttrReq& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
-    ::grpc::ClientAsyncResponseReader< ::tafs::ErrNo>* AsyncOpenRaw(::grpc::ClientContext* context, const ::tafs::OpenReq& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncResponseReader< ::tafs::OpenReply>* AsyncOpenRaw(::grpc::ClientContext* context, const ::tafs::OpenReq& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::tafs::ReadReply>* AsyncReadRaw(::grpc::ClientContext* context, const ::tafs::ReadReq& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncResponseReader< ::tafs::WriteReply>* AsyncWriteRaw(::grpc::ClientContext* context, const ::tafs::WriteReq& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
+    ::grpc::ClientReader< ::tafs::ReadDirReply>* ReadDirRaw(::grpc::ClientContext* context, const ::tafs::ReadDirReq& request) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncReader< ::tafs::ReadDirReply>* AsyncReadDirRaw(::grpc::ClientContext* context, const ::tafs::ReadDirReq& request, ::grpc::CompletionQueue* cq, void* tag) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncResponseReader< ::tafs::MkDirReply>* AsyncMkDirRaw(::grpc::ClientContext* context, const ::tafs::MkDirReq& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncResponseReader< ::tafs::RmDirReply>* AsyncRmDirRaw(::grpc::ClientContext* context, const ::tafs::RmDirReq& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncResponseReader< ::tafs::UnlinkReply>* AsyncUnlinkRaw(::grpc::ClientContext* context, const ::tafs::UnlinkReq& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncResponseReader< ::tafs::AccessReply>* AsyncAccessRaw(::grpc::ClientContext* context, const ::tafs::AccessReq& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     const ::grpc::RpcMethod rpcmethod_SayHello_;
     const ::grpc::RpcMethod rpcmethod_Login_;
     const ::grpc::RpcMethod rpcmethod_TestBytes_;
     const ::grpc::RpcMethod rpcmethod_GetAttr_;
     const ::grpc::RpcMethod rpcmethod_Open_;
     const ::grpc::RpcMethod rpcmethod_Read_;
+    const ::grpc::RpcMethod rpcmethod_Write_;
+    const ::grpc::RpcMethod rpcmethod_ReadDir_;
+    const ::grpc::RpcMethod rpcmethod_MkDir_;
+    const ::grpc::RpcMethod rpcmethod_RmDir_;
+    const ::grpc::RpcMethod rpcmethod_Unlink_;
+    const ::grpc::RpcMethod rpcmethod_Access_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::Channel>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -115,8 +187,14 @@ class ToyAFS GRPC_FINAL {
     virtual ::grpc::Status Login(::grpc::ServerContext* context, const ::tafs::LoginRequest* request, ::tafs::LoginReply* response);
     virtual ::grpc::Status TestBytes(::grpc::ServerContext* context, const ::tafs::TestB* request, ::tafs::LoginReply* response);
     virtual ::grpc::Status GetAttr(::grpc::ServerContext* context, const ::tafs::GetAttrReq* request, ::tafs::GetAttrReply* response);
-    virtual ::grpc::Status Open(::grpc::ServerContext* context, const ::tafs::OpenReq* request, ::tafs::ErrNo* response);
+    virtual ::grpc::Status Open(::grpc::ServerContext* context, const ::tafs::OpenReq* request, ::tafs::OpenReply* response);
     virtual ::grpc::Status Read(::grpc::ServerContext* context, const ::tafs::ReadReq* request, ::tafs::ReadReply* response);
+    virtual ::grpc::Status Write(::grpc::ServerContext* context, const ::tafs::WriteReq* request, ::tafs::WriteReply* response);
+    virtual ::grpc::Status ReadDir(::grpc::ServerContext* context, const ::tafs::ReadDirReq* request, ::grpc::ServerWriter< ::tafs::ReadDirReply>* writer);
+    virtual ::grpc::Status MkDir(::grpc::ServerContext* context, const ::tafs::MkDirReq* request, ::tafs::MkDirReply* response);
+    virtual ::grpc::Status RmDir(::grpc::ServerContext* context, const ::tafs::RmDirReq* request, ::tafs::RmDirReply* response);
+    virtual ::grpc::Status Unlink(::grpc::ServerContext* context, const ::tafs::UnlinkReq* request, ::tafs::UnlinkReply* response);
+    virtual ::grpc::Status Access(::grpc::ServerContext* context, const ::tafs::AccessReq* request, ::tafs::AccessReply* response);
     ::grpc::RpcService* service() GRPC_OVERRIDE GRPC_FINAL;
    private:
     std::unique_ptr< ::grpc::RpcService> service_;
@@ -129,8 +207,14 @@ class ToyAFS GRPC_FINAL {
     void RequestLogin(::grpc::ServerContext* context, ::tafs::LoginRequest* request, ::grpc::ServerAsyncResponseWriter< ::tafs::LoginReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag);
     void RequestTestBytes(::grpc::ServerContext* context, ::tafs::TestB* request, ::grpc::ServerAsyncResponseWriter< ::tafs::LoginReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag);
     void RequestGetAttr(::grpc::ServerContext* context, ::tafs::GetAttrReq* request, ::grpc::ServerAsyncResponseWriter< ::tafs::GetAttrReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag);
-    void RequestOpen(::grpc::ServerContext* context, ::tafs::OpenReq* request, ::grpc::ServerAsyncResponseWriter< ::tafs::ErrNo>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag);
+    void RequestOpen(::grpc::ServerContext* context, ::tafs::OpenReq* request, ::grpc::ServerAsyncResponseWriter< ::tafs::OpenReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag);
     void RequestRead(::grpc::ServerContext* context, ::tafs::ReadReq* request, ::grpc::ServerAsyncResponseWriter< ::tafs::ReadReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag);
+    void RequestWrite(::grpc::ServerContext* context, ::tafs::WriteReq* request, ::grpc::ServerAsyncResponseWriter< ::tafs::WriteReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag);
+    void RequestReadDir(::grpc::ServerContext* context, ::tafs::ReadDirReq* request, ::grpc::ServerAsyncWriter< ::tafs::ReadDirReply>* writer, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag);
+    void RequestMkDir(::grpc::ServerContext* context, ::tafs::MkDirReq* request, ::grpc::ServerAsyncResponseWriter< ::tafs::MkDirReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag);
+    void RequestRmDir(::grpc::ServerContext* context, ::tafs::RmDirReq* request, ::grpc::ServerAsyncResponseWriter< ::tafs::RmDirReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag);
+    void RequestUnlink(::grpc::ServerContext* context, ::tafs::UnlinkReq* request, ::grpc::ServerAsyncResponseWriter< ::tafs::UnlinkReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag);
+    void RequestAccess(::grpc::ServerContext* context, ::tafs::AccessReq* request, ::grpc::ServerAsyncResponseWriter< ::tafs::AccessReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag);
   };
 };
 

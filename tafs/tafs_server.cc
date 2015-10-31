@@ -1,37 +1,5 @@
-/*
- *
- * Copyright 2015, Google Inc.
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are
- * met:
- *
- *     * Redistributions of source code must retain the above copyright
- * notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above
- * copyright notice, this list of conditions and the following disclaimer
- * in the documentation and/or other materials provided with the
- * distribution.
- *     * Neither the name of Google Inc. nor the names of its
- * contributors may be used to endorse or promote products derived from
- * this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- */
-
 #include <iostream>
+#include <cassert>
 #include <memory>
 #include <string>
 #include <sys/stat.h>
@@ -40,6 +8,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <fcntl.h>
+#include <dirent.h>
 
 #include <grpc++/grpc++.h>
 
@@ -48,13 +17,22 @@
 using grpc::Server;
 using grpc::ServerBuilder;
 using grpc::ServerContext;
+using grpc::ServerWriter;
 using grpc::Status;
 using tafs::HelloRequest;
 using tafs::HelloReply;
 using tafs::LoginRequest;
 using tafs::LoginReply;
+using tafs::OpenReq;
+using tafs::OpenReply;
+using tafs::AccessReq;
+using tafs::AccessReply;
 using tafs::ReadReq;
 using tafs::ReadReply;
+using tafs::ReadDirReq;
+using tafs::ReadDirReply;
+using tafs::MkDirReq;
+using tafs::MkDirReply;
 using tafs::GetAttrReq;
 using tafs::GetAttrReply;
 using tafs::ToyAFS;
@@ -63,7 +41,7 @@ using tafs::ToyAFS;
 class GreeterServiceImpl final : public ToyAFS::Service {
     public:
         const std::string path_prefix; 
-        GreeterServiceImpl(): path_prefix("/tmp/tafs/") {
+        GreeterServiceImpl(): path_prefix("/tmp/tafs") {
         }
 
         /** Sample
@@ -90,6 +68,27 @@ class GreeterServiceImpl final : public ToyAFS::Service {
         }
 
         /**
+         * Access
+         */
+        Status Access(ServerContext* context, const AccessReq* request,
+                AccessReply* reply) override {
+            // default errno = 0
+            reply->set_err(0);
+
+            std::string path = path_prefix + request->path();
+
+            int res;
+
+            res = access(path.c_str(), request->mode());
+            if (res == -1) {
+                reply->set_err(-errno);
+                return Status::OK;
+            }
+            reply->set_err(res);
+            return Status::OK;
+        }
+
+        /**
          * GetAttr
          */
         Status GetAttr(ServerContext* context, const GetAttrReq* request,
@@ -97,21 +96,50 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             // default errno = 0
             reply->set_err(0);
             int res;
-            struct stat *stbuf;
+            struct stat stbuf;
             std::string path = path_prefix + request->path();
-            res = lstat(path.c_str(), stbuf);
+
+            printf("PATH: %s \n", path.c_str());
+
+            res = lstat(path.c_str(), &stbuf);
             if (res == -1) {
                 reply->set_err(-errno);
+            } 
+            else {
+                std::string buf;
+
+                int stat_size = sizeof(struct stat);
+                printf("STAT_SIZE: %d \n", stat_size);
+                buf.resize(stat_size);
+
+                assert(buf.size() == sizeof(struct stat));
+                memcpy(&buf[0], &stbuf, buf.size());
+                reply->set_buf(buf);    
             }
-            std::string buf;
-            buf.resize(sizeof(struct stat));
-
-
-            memcpy(&buf[0], stbuf, sizeof(struct stat));
-            reply->set_buf(buf);    
             return Status::OK;
         }
+        
+        /**
+         * Open
+         */
+        Status Open(ServerContext* context, const OpenReq* request,
+                OpenReply* reply) override {
+            // default errno = 0
+            reply->set_err(0);
 
+            std::string path = path_prefix + request->path();
+
+            int res;
+
+            res = open(path.c_str(), request->flag()); 
+            if (res == -1) {
+                reply->set_err(-errno);
+                return Status::OK;
+            }
+            close(res);
+            reply->set_err(res);
+            return Status::OK;
+        }
 
         /**
          * Read
@@ -142,6 +170,58 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             close(fd);
             reply->set_buf(buf);
 
+            return Status::OK;
+        }
+
+        /**
+         * ReadDir
+         */
+        Status ReadDir(ServerContext* context, const ReadDirReq* request,
+                ServerWriter<ReadDirReply>* writer) override {
+            ReadDirReply* reply = new ReadDirReply();
+            // default errno = 0
+            reply->set_err(0);
+
+            std::string path = path_prefix + request->path();
+
+            DIR *dp;
+            struct dirent *de;
+
+            dp = opendir(path.c_str());
+            if (dp == NULL) {
+                reply->set_err(-errno);
+                return Status::OK;
+            }
+
+            while ((de = readdir(dp)) != NULL) {
+                std::string buf;
+                buf.resize(sizeof(struct dirent));
+                printf("HELLLLL: %s \n", de->d_name);
+                memcpy(&buf[0], de, buf.size());
+                reply->set_buf(buf);
+                writer->Write(*reply);
+            }
+
+            closedir(dp);
+            return Status::OK;
+        }
+
+        /**
+         * MkDir
+         */
+        Status MkDir(ServerContext* context, const MkDirReq* request,
+                MkDirReply* reply) override {
+            // default errno = 0
+            reply->set_err(0);
+            std::string path = path_prefix + request->path();
+            int res;
+
+            res = mkdir(path.c_str(), request->mode());
+            if (res == -1) {
+                reply->set_err(-errno);
+                return Status::OK;
+            }
+            reply->set_err(res);
             return Status::OK;
         }
 
