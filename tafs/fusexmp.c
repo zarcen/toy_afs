@@ -241,6 +241,8 @@ static int xmp_chown(const char *path, uid_t uid, gid_t gid)
 static int xmp_truncate(const char *path, off_t size)
 {
     printf("## START ## xmp_truncate\n");
+    return 0;
+    /*
 	int res;
 
 	res = truncate(path, size);
@@ -248,6 +250,7 @@ static int xmp_truncate(const char *path, off_t size)
 		return -errno;
 
 	return 0;
+	*/
 }
 
 static int xmp_open(const char *path, struct fuse_file_info *fi)
