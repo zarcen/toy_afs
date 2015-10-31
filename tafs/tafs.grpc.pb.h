@@ -80,6 +80,10 @@ class ToyAFS GRPC_FINAL {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tafs::AccessReply>> AsyncAccess(::grpc::ClientContext* context, const ::tafs::AccessReq& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tafs::AccessReply>>(AsyncAccessRaw(context, request, cq));
     }
+    virtual ::grpc::Status Flush(::grpc::ClientContext* context, const ::tafs::FlushReq& request, ::tafs::FlushReply* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tafs::FlushReply>> AsyncFlush(::grpc::ClientContext* context, const ::tafs::FlushReq& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tafs::FlushReply>>(AsyncFlushRaw(context, request, cq));
+    }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::tafs::HelloReply>* AsyncSayHelloRaw(::grpc::ClientContext* context, const ::tafs::HelloRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::tafs::LoginReply>* AsyncLoginRaw(::grpc::ClientContext* context, const ::tafs::LoginRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -94,6 +98,7 @@ class ToyAFS GRPC_FINAL {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::tafs::RmDirReply>* AsyncRmDirRaw(::grpc::ClientContext* context, const ::tafs::RmDirReq& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::tafs::UnlinkReply>* AsyncUnlinkRaw(::grpc::ClientContext* context, const ::tafs::UnlinkReq& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::tafs::AccessReply>* AsyncAccessRaw(::grpc::ClientContext* context, const ::tafs::AccessReq& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::tafs::FlushReply>* AsyncFlushRaw(::grpc::ClientContext* context, const ::tafs::FlushReq& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub GRPC_FINAL : public StubInterface {
    public:
@@ -148,6 +153,10 @@ class ToyAFS GRPC_FINAL {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tafs::AccessReply>> AsyncAccess(::grpc::ClientContext* context, const ::tafs::AccessReq& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tafs::AccessReply>>(AsyncAccessRaw(context, request, cq));
     }
+    ::grpc::Status Flush(::grpc::ClientContext* context, const ::tafs::FlushReq& request, ::tafs::FlushReply* response) GRPC_OVERRIDE;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tafs::FlushReply>> AsyncFlush(::grpc::ClientContext* context, const ::tafs::FlushReq& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tafs::FlushReply>>(AsyncFlushRaw(context, request, cq));
+    }
 
    private:
     std::shared_ptr< ::grpc::Channel> channel_;
@@ -164,6 +173,7 @@ class ToyAFS GRPC_FINAL {
     ::grpc::ClientAsyncResponseReader< ::tafs::RmDirReply>* AsyncRmDirRaw(::grpc::ClientContext* context, const ::tafs::RmDirReq& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::tafs::UnlinkReply>* AsyncUnlinkRaw(::grpc::ClientContext* context, const ::tafs::UnlinkReq& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::tafs::AccessReply>* AsyncAccessRaw(::grpc::ClientContext* context, const ::tafs::AccessReq& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncResponseReader< ::tafs::FlushReply>* AsyncFlushRaw(::grpc::ClientContext* context, const ::tafs::FlushReq& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     const ::grpc::RpcMethod rpcmethod_SayHello_;
     const ::grpc::RpcMethod rpcmethod_Login_;
     const ::grpc::RpcMethod rpcmethod_TestBytes_;
@@ -176,6 +186,7 @@ class ToyAFS GRPC_FINAL {
     const ::grpc::RpcMethod rpcmethod_RmDir_;
     const ::grpc::RpcMethod rpcmethod_Unlink_;
     const ::grpc::RpcMethod rpcmethod_Access_;
+    const ::grpc::RpcMethod rpcmethod_Flush_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::Channel>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -195,6 +206,7 @@ class ToyAFS GRPC_FINAL {
     virtual ::grpc::Status RmDir(::grpc::ServerContext* context, const ::tafs::RmDirReq* request, ::tafs::RmDirReply* response);
     virtual ::grpc::Status Unlink(::grpc::ServerContext* context, const ::tafs::UnlinkReq* request, ::tafs::UnlinkReply* response);
     virtual ::grpc::Status Access(::grpc::ServerContext* context, const ::tafs::AccessReq* request, ::tafs::AccessReply* response);
+    virtual ::grpc::Status Flush(::grpc::ServerContext* context, const ::tafs::FlushReq* request, ::tafs::FlushReply* response);
     ::grpc::RpcService* service() GRPC_OVERRIDE GRPC_FINAL;
    private:
     std::unique_ptr< ::grpc::RpcService> service_;
@@ -215,6 +227,7 @@ class ToyAFS GRPC_FINAL {
     void RequestRmDir(::grpc::ServerContext* context, ::tafs::RmDirReq* request, ::grpc::ServerAsyncResponseWriter< ::tafs::RmDirReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag);
     void RequestUnlink(::grpc::ServerContext* context, ::tafs::UnlinkReq* request, ::grpc::ServerAsyncResponseWriter< ::tafs::UnlinkReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag);
     void RequestAccess(::grpc::ServerContext* context, ::tafs::AccessReq* request, ::grpc::ServerAsyncResponseWriter< ::tafs::AccessReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag);
+    void RequestFlush(::grpc::ServerContext* context, ::tafs::FlushReq* request, ::grpc::ServerAsyncResponseWriter< ::tafs::FlushReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag);
   };
 };
 

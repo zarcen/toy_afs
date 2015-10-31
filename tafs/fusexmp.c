@@ -281,6 +281,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     res = greeter->Read(cpp_path, rpcbuf);
 	if (res < 0) {
 		res = -errno;
+		return res;
 	}
 	/*
 	if (offset < res) {
