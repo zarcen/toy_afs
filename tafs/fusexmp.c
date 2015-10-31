@@ -282,6 +282,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 	if (res < 0) {
 		res = -errno;
 	}
+	/*
 	if (offset < res) {
 	    if ((int)(offset + size) > (int)res) {
 	        size = res - offset;
@@ -290,7 +291,9 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 	} else {
 	    size = 0; 
 	} 
+	*/
 
+    memcpy(buf, &rpcbuf[0], size);
 	return size;
 }
 
@@ -394,8 +397,8 @@ int main(int argc, char** argv) {
 
     // Read
     std::string readbuf;
-    int read_reply = greeter.Read("1.txt", readbuf);
-    printf("%s\n", buf.c_str()); 
+    int read_reply = greeter->Read("1.txt", readbuf);
+    printf("%s\n", readbuf.c_str()); 
 
     umask(0);
     return fuse_main(argc, argv, &xmp_oper, NULL);
