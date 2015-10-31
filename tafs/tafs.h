@@ -132,8 +132,14 @@ class GreeterClient {
     ReadReply reply;
     ClientContext context;
     Status status = stub_->Read(&context, request, &reply);
-    buf = reply.buf();
-    return reply.num_bytes();
+    if (status.ok()) {
+        buf = reply.buf();
+        return reply.num_bytes();
+    }
+    else {
+        printf("SERVER NOT CALLED FAILLLL\n");
+        return -1;
+    }
   }
 
   // read directory
