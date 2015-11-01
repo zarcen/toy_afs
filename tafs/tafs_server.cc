@@ -114,7 +114,6 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             res = lstat(path.c_str(), &stbuf);
             if (res == -1) {
                 reply->set_err(-errno);
-                printf("GET_ATTR ERRNO: %d \n", errno);
             } 
             else {
                 std::string buf;
@@ -161,6 +160,8 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             reply->set_num_bytes(0);
             int res;
             std::string path = path_prefix + request->path();
+            int size = request->size();
+            int offset = request->offset();
 
             int fd = open(path.c_str(), O_RDONLY);
             if (fd == -1) {
@@ -169,20 +170,14 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             }
 
             std::string buf;
-            int size;
-            off_t currentPos = lseek(fd, (size_t)0, SEEK_CUR);
-            size = lseek(fd, (size_t)0, SEEK_END);
-
-            printf("READ size %d \n", size);
-
-            lseek(fd, currentPos, SEEK_SET);
             buf.resize(size);
-            res = read(fd, &buf[0], size);
+            res = pread(fd, &buf[0], size, offset);
             if (res == -1) {
-                reply->set_num_bytes(-1);
+                reply->set_num_bytes(-errno);
             }
             close(fd);
             reply->set_buf(buf);
+            reply->set_num_bytes(res);
 
             printf("READ data%s \n", buf.c_str());
             return Status::OK;
@@ -198,6 +193,8 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             std::string path = path_prefix + request->path();
             int fd;
             int res;
+            int size = request->size();
+            int offset = request->offset();
 
             fd = open(path.c_str(), O_WRONLY);
             if (fd == -1) {
@@ -206,8 +203,7 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             }
 
             std::string buf = request->buf();
-            int size = buf.size();
-            res = write(fd, &buf[0], size);
+            res = pwrite(fd, &buf[0], size, offset);
 
             if (res == -1) {
                 reply->set_num_bytes(-errno);
