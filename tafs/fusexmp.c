@@ -51,7 +51,7 @@ static int xmp_getattr(const char *path, struct stat *stbuf) {
     std::string cpp_path = path;
     res = greeter->GetAttr(cpp_path, rpcbuf);
 	if (res < 0) {
-		return -errno;
+		return res;
 	}
     // debug
 	printf("rpcbuf size: %lu, stat size: %lu \n", rpcbuf.size(), sizeof(struct stat));
