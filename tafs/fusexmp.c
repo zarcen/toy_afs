@@ -464,7 +464,12 @@ static int xmp_utimens(const char *path, const struct timespec ts[2])
 static int xmp_flush(const char *path, struct fuse_file_info *fi)
 {
     printf("## START ## xmp_flush\n");
-    return fsync(fi->fh);
+    int res = fsync(fi->fh);
+    int fd = open(path, O_RDONLY);
+    char filecontent[10000];
+    read(fd, filecontent, 10000, 0);
+    printf(" ----- After sync, file: %s\n",filecontent);
+    return 0;
 }
 
 static int xmp_release(const char *path, struct fuse_file_info *fi)
@@ -482,6 +487,7 @@ static int xmp_release(const char *path, struct fuse_file_info *fi)
             return -1;
         }
         // Sync back to server
+        printf("-- write local_buf %s back to server\n", local_buf.c_str());  
         res = greeter->Write(cpp_path, local_buf, local_buf.size(), 0 /*offset*/);
         if (res < 0) {
             return res;
