@@ -49,7 +49,7 @@ all: system-check tafs_server fusexmp
 tafs_server: tafs.pb.o tafs.grpc.pb.o tafs_server.o
 	$(CXX) $^ $(LDFLAGS) -o $@
 
-fusexmp: tafs.pb.o tafs.grpc.pb.o fusexmp.c 
+fusexmp: tafs.pb.o tafs.grpc.pb.o fusexmp.c
 	$(CXX) $^ -Wall $(LDFLAGS) $(CXXFLAGS) `pkg-config fuse --cflags --libs` -o $@
 
 %.grpc.pb.cc: %.proto

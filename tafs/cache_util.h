@@ -4,6 +4,9 @@
 #include <errno.h>
 #include <unistd.h>
 #include <string.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <stdio.h>
 //#include "sysstat.h"
 
 //
@@ -129,8 +132,21 @@ public:
         return 0;
     }
 
-    int SaveFile(const std::string& filepath, std::string& data, uint64_t& fd) {
-        fd = open(filepath.c_str(), O_WRONLY | O_CREAT | O_EXCL, 0644);
+    int ReadFile(uint64_t fd, std::string& buf) {
+        off_t currentPos = lseek(fd, (size_t)0, SEEK_CUR);
+        int size = lseek(fd, (size_t)0, SEEK_END);
+        lseek(fd, currentPos, SEEK_SET);
+        printf("--- ReadFile size: %d, fh: %d \n", size, fd);
+        buf.resize(size);
+        int res = read(fd, &buf[0], size);
+        if (res < 0) {
+            printf(" CACHE READ FAIL. ERRNO = %d\n", errno);
+        }
+        return res;
+    }
+
+    int SaveFile(const std::string& filepath, std::string& data, uint64_t& fh) {
+        int fd = open(filepath.c_str(), O_WRONLY | O_CREAT | O_EXCL, 0644);
         printf("open with O_CREAT\n");
         if ((fd == -1) && (EEXIST == errno)) {
             /* open the existing file with truncate flag */
@@ -140,11 +156,16 @@ public:
                 return -errno;
             } 
         }
+
+        fh = fd;
+        printf("In.... SaveFile filename = %s, fd = %d\n",filepath.c_str(), fd);
+
         int res = pwrite(fd, &data[0], data.size(), 0 /*offset*/);
         if (res == -1) {
             close(fd);
             return -errno;
         } 
+        return 0;
     }
 
 };
