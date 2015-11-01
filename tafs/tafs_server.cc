@@ -33,10 +33,14 @@ using tafs::WriteReq;
 using tafs::WriteReply;
 using tafs::MknodReq;
 using tafs::MknodReply;
+using tafs::UnlinkReq;
+using tafs::UnlinkReply;
 using tafs::ReadDirReq;
 using tafs::ReadDirReply;
 using tafs::MkDirReq;
 using tafs::MkDirReply;
+using tafs::RmDirReq;
+using tafs::RmDirReply;
 using tafs::GetAttrReq;
 using tafs::GetAttrReply;
 using tafs::ToyAFS;
@@ -123,7 +127,7 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             }
             return Status::OK;
         }
-        
+
         /**
          * Open
          */
@@ -290,6 +294,44 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             int res;
 
             res = mkdir(path.c_str(), request->mode());
+            if (res == -1) {
+                reply->set_err(-errno);
+                return Status::OK;
+            }
+            reply->set_err(res);
+            return Status::OK;
+        }
+
+        /**
+         * RmDir
+         */
+        Status RmDir(ServerContext* context, const RmDirReq* request,
+                RmDirReply* reply) override {
+            // default errno = 0
+            reply->set_err(0);
+            std::string path = path_prefix + request->path();
+            int res;
+
+            res = rmdir(path.c_str());
+            if (res == -1) {
+                reply->set_err(-errno);
+                return Status::OK;
+            }
+
+            reply->set_err(res);
+            return Status::OK;
+        }
+
+        /**
+         * Unlink
+         */
+        Status Unlink(ServerContext* context, const UnlinkReq* request,
+                UnlinkReply* reply) override {
+            // default errno = 0
+            reply->set_err(0);
+            std::string path = path_prefix + request->path();
+            int res;
+            res = unlink(path.c_str());
             if (res == -1) {
                 reply->set_err(-errno);
                 return Status::OK;
