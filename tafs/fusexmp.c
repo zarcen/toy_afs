@@ -317,15 +317,17 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 
     //-----------------------
     // check if existed
+    // 
     // if so
-    //    rpc getattr and local attr
+    //    get rpc attr
+    //    get local attr
     //    check if the same
     //    if so
     //       load local data
-    //    else
-    //       rpc read
-    // else
+    // if local not exited 
     //   rpc read
+    //   save to disk: file and attr
+    //
     std::string localfile_path = CachePrefix + cpp_path;
     std::string localattr_path = CachePrefix + cpp_path + ".attr";
     CacheUtil cu;
