@@ -152,37 +152,51 @@ static int xmp_mknod(const char *path, mode_t mode, dev_t rdev)
 static int xmp_mkdir(const char *path, mode_t mode)
 {
     printf("## START ## xmp_mkdir\n");
-	int res;
 
+    std::string cpp_path = path;
+	int res = greeter->MkDir(cpp_path, mode);
+
+    return res == -1 ? -errno : 0;    
+
+    /*
 	res = mkdir(path, mode);
 	if (res == -1)
 		return -errno;
 
 	return 0;
+	*/
 }
 
 static int xmp_unlink(const char *path)
 {
     printf("## START ## xmp_unlink\n");
-	int res;
+    std::string cpp_path = path;
+	int res = greeter->Unlink(cpp_path);
 
+    return res == -1 ? -errno : 0;
+    /*
 	res = unlink(path);
 	if (res == -1)
 		return -errno;
 
 	return 0;
+	*/
 }
 
 static int xmp_rmdir(const char *path)
 {
     printf("## START ## xmp_rmdir\n");
-	int res;
+    std::string cpp_path = path;
+	int res = greeter->RmDir(cpp_path);
 
+    return res == -1 ? -errno : 0;    
+    /*
 	res = rmdir(path);
 	if (res == -1)
 		return -errno;
 
 	return 0;
+	*/
 }
 
 static int xmp_symlink(const char *from, const char *to)
