@@ -3,7 +3,7 @@ A toy filesystem which is AFS-like
 
 ## Todo
 - (Done) build grpc (https://github.com/grpc/grpc)
-- (Done) build protobuf (https://github.com/google/protobuf/releases/download/v3.0.0-alpha-1/protobuf-cpp-3.0.0-alpha-1.tar.gz)
+- (Done) build protobuf (https://github.com/google/protobuf/releases)
 - (Done) build Fuse (http://fuse.sourceforge.net)
 - rewrite the sync_files.sh
 - implement the user-level filesystem
@@ -21,6 +21,9 @@ A toy filesystem which is AFS-like
 - int tafs_getattr(const char *path, struct stat *stbuf)
 
 ## Important References:
+- fuse_operations Struct Reference
+  - http://fuse.sourceforge.net/doxygen/structfuse__operations.html
+  
 - How to initialize a struct using the c style while using the g++ compiler? 
 
   This is to solve the `static struct fuse_operations` problem, which cause a error message of 'non-trivial designated initializers not supported' when compiled with g++.
