@@ -439,19 +439,11 @@ static int xmp_write(const char *path, const char *buf, size_t size,
         return -errno;
     }
     int res = pwrite(fd, buf, size, offset);
-    printf("-- write fd = %d\n", fd);
-    CacheUtil cu;
-    std::string tmpread;
-    cu.ReadFile(fd, tmpread);
-    printf("-- after write, gettiing %s\n", tmpread.c_str());
     if (res == -1) {
+        fi->flags = 0;
         return -errno;
     }
-    // Sync back to server
-    std::string rpcbuf;
-    rpcbuf.resize(size);
-    memcpy(&rpcbuf[0], buf, size);
-    res = greeter->Write(cpp_path, rpcbuf, size, offset);
+    fi->flags = size;
     return res;
 }
 
@@ -472,25 +464,33 @@ static int xmp_utimens(const char *path, const struct timespec ts[2])
     return 0;
 }
 
-static int xmp_release(const char *path, struct fuse_file_info *fi)
-{
-    printf("## START ## xmp_release\n");
-    /* Just a stub.	 This method is optional and can safely be left
-       unimplemented */
-
-    (void) path;
-    (void) fi;
-    if (fi->fh != -1) {
-        int ret = close(fi->fh);
-        printf("-- relase ret: %d \n", ret);
-    }
-    return 0;
-}
-
 static int xmp_flush(const char *path, struct fuse_file_info *fi)
 {
     printf("## START ## xmp_flush\n");
-    return 0;
+    return fsync(fi->fh);
+}
+
+static int xmp_release(const char *path, struct fuse_file_info *fi)
+{
+    printf("## START ## xmp_release\n");
+    (void) path;
+    (void) fi;
+    CacheUtil cu;
+    std::string local_buf;
+    int res = 0;
+    if ((int)fi->fh != -1) {
+        if (cu.ReadFile(fi->fh, local_buf) < 0) {
+            printf("-- readfile fail at xmp_release when fd = %d\n", (int)fi->fh);
+            return -1;
+        }
+        // Sync back to server
+        res = greeter->Write(cpp_path, local_buf, local_buf.size(), 0 /*offset*/);
+        if (res < 0) {
+            return res;
+        }
+        ret = close(fi->fh);
+    }
+    return res;
 }
 
 static int xmp_fsync(const char *path, int isdatasync,
