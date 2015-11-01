@@ -59,7 +59,7 @@ fusexmp: tafs.pb.o tafs.grpc.pb.o fusexmp.c
 	$(PROTOC) -I $(PROTOS_PATH) --cpp_out=. $<
 
 clean:
-	rm -f *.o *.pb.cc *.pb.h tafs_client tafs_server
+	rm -f *.o *.pb.cc *.pb.h tafs_client tafs_server fusexmp
 
 
 # The following is to test your system and ensure a smoother experience.
