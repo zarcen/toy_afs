@@ -162,6 +162,8 @@ message OpenReply{
 
 message ReadReq {
     string path = 1;
+    int32  size = 2;
+    int32  offset = 3;
 }
 
 message ReadReply {
@@ -171,7 +173,9 @@ message ReadReply {
 
 message WriteReq {
     string path = 1;
-    bytes buf = 2;
+    bytes  buf = 2;
+    int32  size = 3;
+    int32  offset = 4;
 }
 
 message WriteReply {
