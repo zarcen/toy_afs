@@ -374,7 +374,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
       printf("-- readfile fail when fd = %d\n", (int)fi->fh);
       return -1;
     }
-    printf("-- readfile success\n");
+    //printf("-- readfile size:%d, success: %s \n", local_buf.size(), local_buf.c_str());
     memcpy(buf, &local_buf[0]+offset, size);
     return size;
 
@@ -440,6 +440,11 @@ static int xmp_write(const char *path, const char *buf, size_t size,
         fi->flags = 0;
         return -errno;
     }
+
+    std::string buf0;
+    CacheUtil().ReadFile(fi->fh, buf0);
+    printf(" -- after write, file: %s\n", buf0.c_str());
+
     fi->flags = size;
     return res;
 }
@@ -464,11 +469,14 @@ static int xmp_utimens(const char *path, const struct timespec ts[2])
 static int xmp_flush(const char *path, struct fuse_file_info *fi)
 {
     printf("## START ## xmp_flush\n");
+
     int res = fsync(fi->fh);
-    int fd = open(path, O_RDONLY);
-    char filecontent[10000];
-    read(fd, filecontent, 10000, 0);
-    printf(" ----- After sync, file: %s\n",filecontent);
+    if (res < 0) {
+      printf(" -- flush fail -- \n");
+      return -1;
+    }
+    else {
+    }
     return 0;
 }
 
