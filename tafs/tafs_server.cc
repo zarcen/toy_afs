@@ -225,7 +225,7 @@ class GreeterServiceImpl final : public ToyAFS::Service {
         Status Truncate(ServerContext* context, const TruncateReq* request,
                 TruncateReply* reply) override {
             // default errno = 0
-            reply->set_num_bytes(-errno);
+            reply->set_err(-errno);
             std::string path = path_prefix + request->path();
             int res;
 
