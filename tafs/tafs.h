@@ -139,9 +139,11 @@ class GreeterClient {
   }
 
   // put file in buf
-  int Read(const std::string& path, std::string& buf) {
+  int Read(const std::string& path, std::string& buf, int size, int offset) {
     ReadReq request;
     request.set_path(path);
+    request.set_size(size);
+    request.set_offset(offset);
 
     ReadReply reply;
     ClientContext context;
@@ -226,10 +228,12 @@ class GreeterClient {
   }
 
 
-  int Write(const std::string& path, std::string& data) {
+  int Write(const std::string& path, std::string& data, int size, int offset) {
     WriteReq request;
     request.set_path(path);
     request.set_buf(data);
+    request.set_size(size);
+    request.set_offset(offset);
 
     WriteReply reply;
     ClientContext context;

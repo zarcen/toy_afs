@@ -311,7 +311,8 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     // Read
     std::string rpcbuf;
     std::string cpp_path = path;
-    res = greeter->Read(cpp_path, rpcbuf);
+
+    res = greeter->Read(cpp_path, rpcbuf, size, offset);
 	if (res < 0) {
 		res = -errno;
 		return res;
@@ -339,8 +340,9 @@ static int xmp_write(const char *path, const char *buf, size_t size,
     std::string cpp_path = path;
     std::string rpcbuf;
     rpcbuf.resize(size);
+
     memcpy(&rpcbuf[0], buf, size);
-    int res = greeter->Write(cpp_path, rpcbuf);
+    int res = greeter->Write(cpp_path, rpcbuf, size, offset);
 
     if (res < 0) {
        res = -errno;
@@ -449,11 +451,12 @@ int main(int argc, char** argv) {
     int login_reply = greeter->Login(739);                                                                                                                                      
     std::cout << "Login Replied: " << login_reply << std::endl;                                                                                                                
 
+    /*
     // Read
     std::string readbuf;
-
     greeter->Read("1.txt", readbuf);
     printf("%s\n", readbuf.c_str()); 
+    */
 
     umask(0);
     return fuse_main(argc, argv, &xmp_oper, NULL);
