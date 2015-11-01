@@ -65,6 +65,8 @@ using tafs::AccessReq;
 using tafs::AccessReply;
 using tafs::FlushReq;
 using tafs::FlushReply;
+using tafs::UnlinkReq;
+using tafs::UnlinkReply;
 
 
 class GreeterClient {
@@ -206,6 +208,15 @@ class GreeterClient {
     return reply.err();
   }
 
+  int Unlink(const std::string& path) {
+    UnlinkReq request;
+    request.set_path(path);
+
+    UnlinkReply reply;
+    ClientContext context;
+    Status status = stub_->Unlink(&context, request, &reply);
+    return reply.err();
+  }
  private:
   std::unique_ptr<ToyAFS::Stub> stub_;
 };
