@@ -107,6 +107,46 @@ public:
         return fp != NULL;
     }
 
+    int GetLocalAttr(std::unordered_map<std::string, std::string>& stat_hash, 
+        std::string& attrpath, std::string& stbuf) {
+        const auto& it = stat_hash.find(attrpath);
+        // check if it's in hash
+        // if so, return from hash
+        // otherwise
+        //   check if it existd in local disk
+        //   if so, read it and hash it
+        //   otherwise, return -1
+        if (it == stat_hash.end()) {
+            stbuf = GetFile(attrpath);
+            if (stbuf.size() == 0) {
+                return -1;
+            }
+            stat_hash.insert({attrpath, stbuf});
+        }
+        else {
+            stbuf = it->second;
+        }
+        return 0;
+    }
+
+    int SaveFile(const std::string& filepath, std::string& data, uint64_t& fd) {
+        fd = open(filepath.c_str(), O_WRONLY | O_CREAT | O_EXCL, 0644);
+        printf("open with O_CREAT\n");
+        if ((fd == -1) && (EEXIST == errno)) {
+            /* open the existing file with truncate flag */
+            fd = open(filepath.c_str(), O_TRUNC | O_WRONLY);
+            printf("open with O_TRUNC\n");
+            if (fd == -1) {
+                return -errno;
+            } 
+        }
+        int res = pwrite(fd, &data[0], data.size(), 0 /*offset*/);
+        if (res == -1) {
+            close(fd);
+            return -errno;
+        } 
+    }
+
 };
 
 #endif
