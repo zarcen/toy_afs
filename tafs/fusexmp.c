@@ -37,7 +37,7 @@ gcc -Wall fusexmp.c `pkg-config fuse --cflags --libs` -o fusexmp
 static std::string CachePrefix = "/tmp/cache";
 
 static GreeterClient* greeter = NULL;
-static char* cache_prefix = "/tmp/cache/";
+static char* cache_prefix = "/tmp/cache";
 
 void InitRPC(const char* serverhost) {
     if (greeter == NULL) {
@@ -312,19 +312,24 @@ static int xmp_open(const char *path, struct fuse_file_info *fi)
         if (res < 0) {
             return res;
         }
-        int fd = open(path, O_WRONLY | O_CREAT | O_EXCL, 0644);
+        int fd = open(cache_path.c_str(), O_WRONLY | O_CREAT | O_EXCL, 0644);
+        printf("open with O_CREAT\n");
         if ((fd == -1) && (EEXIST == errno)) {
             /* open the existing file with truncate flag */
-            fd = open(path, O_TRUNC);
-            if (res == -1) {
+            fd = open(cache_path.c_str(), O_TRUNC | O_WRONLY);
+            printf("open with O_TRUNC\n");
+            if (fd == -1) {
                 return -errno;
             } 
         }
         res = pwrite(fd, &rpcbuf[0], size, 0 /*offset*/);
         if (res == -1) {
+            close(fd);
             return -errno;
         } 
+        close(fd);
     } 
+    printf("## END ## xmp_open\n");
     return 0;
 }
 
