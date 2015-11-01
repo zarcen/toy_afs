@@ -346,6 +346,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
             std::string local_buf = cu.GetFile(localfile_path);
             memcpy(buf, &local_buf[0]+offset, size);
             local_read = true;
+            printf("== Read from local ==\n");
         }
     }
 
@@ -355,10 +356,19 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         if (res < 0) {
             return res;
         }
+        std::string rpc_attr;
+        res = greeter->GetAttr(cpp_path, rpc_attr);
+        if (res < 0) {
+            return res;
+        }
+
         memcpy(buf, &rpcbuf[0]+offset, size);
         // save to local disk
         cu.mkfolder(localfile_path);
+        cu.mkfolder(localattr_path);
         cu.SaveToDisk(localfile_path, rpcbuf);
+        cu.SaveToDisk(localattr_path, rpc_attr);
+        printf("== Read from server and save ==\n");
     }
 	return size;
 
@@ -480,7 +490,7 @@ static struct tafs_fuse_operations xmp_oper;
 
 int main(int argc, char** argv) {                                                                                                                                            
 
-
+    /*
     std::string ts = "/tmp/path/t1.txt";
     std::string cp = CachePrefix + ts;
     CacheUtil cu;
@@ -492,6 +502,7 @@ int main(int argc, char** argv) {
         fclose(file);
     }
     return 0;
+    */
 
     /*if (argc < 2) {
         printf("Please provide the serverhost to connect\n");

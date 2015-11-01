@@ -80,7 +80,7 @@ public:
     }
 
     std::string GetFile(std::string filepath) {
-        FILE* fp = fopen(filepath.c_str(), "ro");
+        FILE* fp = fopen(filepath.c_str(), "rb");
         if (fp != NULL) {
             fseek(fp, 0L, SEEK_END);
             int sz = ftell(fp);
@@ -98,10 +98,11 @@ public:
     }
 
     bool SaveToDisk(std::string filepath, std::string& data) {
-        FILE* fp = fopen(filepath.c_str(), "ro");
+        FILE* fp = fopen(filepath.c_str(), "wb");
         if (fp != NULL) {
           fwrite(&data[0], 1, data.size(), fp);
           fclose(fp);
+          printf("== Save file: %s \n", filepath.c_str());
         }
         return fp != NULL;
     }
