@@ -36,12 +36,8 @@ void protobuf_AddDesc_tafs_2eproto();
 void protobuf_AssignDesc_tafs_2eproto();
 void protobuf_ShutdownFile_tafs_2eproto();
 
-class AccessReply;
-class AccessReq;
-class Buf;
-class ErrNo;
-class FlushReply;
 class FlushReq;
+<<<<<<< HEAD
 class GetAttrReply;
 class GetAttrReq;
 class HelloReply;
@@ -55,16 +51,34 @@ class MknodReq;
 class OpenReply;
 class OpenReq;
 class ReadDirReply;
+=======
+class FlushReply;
+class AccessReq;
+class AccessReply;
+>>>>>>> b8eda0c466e8e75843c00ca63613a959d55395a8
 class ReadDirReq;
-class ReadReply;
-class ReadReq;
-class RmDirReply;
+class ReadDirReply;
+class MkDirReq;
+class MkDirReply;
 class RmDirReq;
-class TestB;
-class UnlinkReply;
+class RmDirReply;
 class UnlinkReq;
-class WriteReply;
+class UnlinkReply;
+class HelloRequest;
+class HelloReply;
+class GetAttrReq;
+class GetAttrReply;
+class OpenReq;
+class OpenReply;
+class ReadReq;
+class ReadReply;
 class WriteReq;
+class WriteReply;
+class ErrNo;
+class Buf;
+class LoginRequest;
+class LoginReply;
+class TestB;
 
 // ===================================================================
 
@@ -300,15 +314,15 @@ class FlushReq : public ::google::protobuf::Message {
   // accessors -------------------------------------------------------
 
   // optional string path = 1;
-  void clear_path();
+  inline void clear_path();
   static const int kPathFieldNumber = 1;
-  const ::std::string& path() const;
-  void set_path(const ::std::string& value);
-  void set_path(const char* value);
-  void set_path(const char* value, size_t size);
-  ::std::string* mutable_path();
-  ::std::string* release_path();
-  void set_allocated_path(::std::string* path);
+  inline const ::std::string& path() const;
+  inline void set_path(const ::std::string& value);
+  inline void set_path(const char* value);
+  inline void set_path(const char* value, size_t size);
+  inline ::std::string* mutable_path();
+  inline ::std::string* release_path();
+  inline void set_allocated_path(::std::string* path);
 
   // @@protoc_insertion_point(class_scope:tafs.FlushReq)
  private:
@@ -383,10 +397,10 @@ class FlushReply : public ::google::protobuf::Message {
   // accessors -------------------------------------------------------
 
   // optional int32 err = 1;
-  void clear_err();
+  inline void clear_err();
   static const int kErrFieldNumber = 1;
-  ::google::protobuf::int32 err() const;
-  void set_err(::google::protobuf::int32 value);
+  inline ::google::protobuf::int32 err() const;
+  inline void set_err(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:tafs.FlushReply)
  private:
@@ -461,21 +475,21 @@ class AccessReq : public ::google::protobuf::Message {
   // accessors -------------------------------------------------------
 
   // optional string path = 1;
-  void clear_path();
+  inline void clear_path();
   static const int kPathFieldNumber = 1;
-  const ::std::string& path() const;
-  void set_path(const ::std::string& value);
-  void set_path(const char* value);
-  void set_path(const char* value, size_t size);
-  ::std::string* mutable_path();
-  ::std::string* release_path();
-  void set_allocated_path(::std::string* path);
+  inline const ::std::string& path() const;
+  inline void set_path(const ::std::string& value);
+  inline void set_path(const char* value);
+  inline void set_path(const char* value, size_t size);
+  inline ::std::string* mutable_path();
+  inline ::std::string* release_path();
+  inline void set_allocated_path(::std::string* path);
 
   // optional int32 mode = 2;
-  void clear_mode();
+  inline void clear_mode();
   static const int kModeFieldNumber = 2;
-  ::google::protobuf::int32 mode() const;
-  void set_mode(::google::protobuf::int32 value);
+  inline ::google::protobuf::int32 mode() const;
+  inline void set_mode(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:tafs.AccessReq)
  private:
@@ -551,10 +565,10 @@ class AccessReply : public ::google::protobuf::Message {
   // accessors -------------------------------------------------------
 
   // optional int32 err = 1;
-  void clear_err();
+  inline void clear_err();
   static const int kErrFieldNumber = 1;
-  ::google::protobuf::int32 err() const;
-  void set_err(::google::protobuf::int32 value);
+  inline ::google::protobuf::int32 err() const;
+  inline void set_err(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:tafs.AccessReply)
  private:
@@ -629,15 +643,15 @@ class ReadDirReq : public ::google::protobuf::Message {
   // accessors -------------------------------------------------------
 
   // optional string path = 1;
-  void clear_path();
+  inline void clear_path();
   static const int kPathFieldNumber = 1;
-  const ::std::string& path() const;
-  void set_path(const ::std::string& value);
-  void set_path(const char* value);
-  void set_path(const char* value, size_t size);
-  ::std::string* mutable_path();
-  ::std::string* release_path();
-  void set_allocated_path(::std::string* path);
+  inline const ::std::string& path() const;
+  inline void set_path(const ::std::string& value);
+  inline void set_path(const char* value);
+  inline void set_path(const char* value, size_t size);
+  inline ::std::string* mutable_path();
+  inline ::std::string* release_path();
+  inline void set_allocated_path(::std::string* path);
 
   // @@protoc_insertion_point(class_scope:tafs.ReadDirReq)
  private:
@@ -712,21 +726,21 @@ class ReadDirReply : public ::google::protobuf::Message {
   // accessors -------------------------------------------------------
 
   // optional int32 err = 1;
-  void clear_err();
+  inline void clear_err();
   static const int kErrFieldNumber = 1;
-  ::google::protobuf::int32 err() const;
-  void set_err(::google::protobuf::int32 value);
+  inline ::google::protobuf::int32 err() const;
+  inline void set_err(::google::protobuf::int32 value);
 
   // optional bytes buf = 2;
-  void clear_buf();
+  inline void clear_buf();
   static const int kBufFieldNumber = 2;
-  const ::std::string& buf() const;
-  void set_buf(const ::std::string& value);
-  void set_buf(const char* value);
-  void set_buf(const void* value, size_t size);
-  ::std::string* mutable_buf();
-  ::std::string* release_buf();
-  void set_allocated_buf(::std::string* buf);
+  inline const ::std::string& buf() const;
+  inline void set_buf(const ::std::string& value);
+  inline void set_buf(const char* value);
+  inline void set_buf(const void* value, size_t size);
+  inline ::std::string* mutable_buf();
+  inline ::std::string* release_buf();
+  inline void set_allocated_buf(::std::string* buf);
 
   // @@protoc_insertion_point(class_scope:tafs.ReadDirReply)
  private:
@@ -802,21 +816,21 @@ class MkDirReq : public ::google::protobuf::Message {
   // accessors -------------------------------------------------------
 
   // optional string path = 1;
-  void clear_path();
+  inline void clear_path();
   static const int kPathFieldNumber = 1;
-  const ::std::string& path() const;
-  void set_path(const ::std::string& value);
-  void set_path(const char* value);
-  void set_path(const char* value, size_t size);
-  ::std::string* mutable_path();
-  ::std::string* release_path();
-  void set_allocated_path(::std::string* path);
+  inline const ::std::string& path() const;
+  inline void set_path(const ::std::string& value);
+  inline void set_path(const char* value);
+  inline void set_path(const char* value, size_t size);
+  inline ::std::string* mutable_path();
+  inline ::std::string* release_path();
+  inline void set_allocated_path(::std::string* path);
 
   // optional int32 mode = 2;
-  void clear_mode();
+  inline void clear_mode();
   static const int kModeFieldNumber = 2;
-  ::google::protobuf::int32 mode() const;
-  void set_mode(::google::protobuf::int32 value);
+  inline ::google::protobuf::int32 mode() const;
+  inline void set_mode(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:tafs.MkDirReq)
  private:
@@ -892,10 +906,10 @@ class MkDirReply : public ::google::protobuf::Message {
   // accessors -------------------------------------------------------
 
   // optional int32 err = 1;
-  void clear_err();
+  inline void clear_err();
   static const int kErrFieldNumber = 1;
-  ::google::protobuf::int32 err() const;
-  void set_err(::google::protobuf::int32 value);
+  inline ::google::protobuf::int32 err() const;
+  inline void set_err(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:tafs.MkDirReply)
  private:
@@ -970,15 +984,15 @@ class RmDirReq : public ::google::protobuf::Message {
   // accessors -------------------------------------------------------
 
   // optional string path = 1;
-  void clear_path();
+  inline void clear_path();
   static const int kPathFieldNumber = 1;
-  const ::std::string& path() const;
-  void set_path(const ::std::string& value);
-  void set_path(const char* value);
-  void set_path(const char* value, size_t size);
-  ::std::string* mutable_path();
-  ::std::string* release_path();
-  void set_allocated_path(::std::string* path);
+  inline const ::std::string& path() const;
+  inline void set_path(const ::std::string& value);
+  inline void set_path(const char* value);
+  inline void set_path(const char* value, size_t size);
+  inline ::std::string* mutable_path();
+  inline ::std::string* release_path();
+  inline void set_allocated_path(::std::string* path);
 
   // @@protoc_insertion_point(class_scope:tafs.RmDirReq)
  private:
@@ -1053,10 +1067,10 @@ class RmDirReply : public ::google::protobuf::Message {
   // accessors -------------------------------------------------------
 
   // optional int32 err = 1;
-  void clear_err();
+  inline void clear_err();
   static const int kErrFieldNumber = 1;
-  ::google::protobuf::int32 err() const;
-  void set_err(::google::protobuf::int32 value);
+  inline ::google::protobuf::int32 err() const;
+  inline void set_err(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:tafs.RmDirReply)
  private:
@@ -1131,15 +1145,15 @@ class UnlinkReq : public ::google::protobuf::Message {
   // accessors -------------------------------------------------------
 
   // optional string path = 1;
-  void clear_path();
+  inline void clear_path();
   static const int kPathFieldNumber = 1;
-  const ::std::string& path() const;
-  void set_path(const ::std::string& value);
-  void set_path(const char* value);
-  void set_path(const char* value, size_t size);
-  ::std::string* mutable_path();
-  ::std::string* release_path();
-  void set_allocated_path(::std::string* path);
+  inline const ::std::string& path() const;
+  inline void set_path(const ::std::string& value);
+  inline void set_path(const char* value);
+  inline void set_path(const char* value, size_t size);
+  inline ::std::string* mutable_path();
+  inline ::std::string* release_path();
+  inline void set_allocated_path(::std::string* path);
 
   // @@protoc_insertion_point(class_scope:tafs.UnlinkReq)
  private:
@@ -1214,10 +1228,10 @@ class UnlinkReply : public ::google::protobuf::Message {
   // accessors -------------------------------------------------------
 
   // optional int32 err = 1;
-  void clear_err();
+  inline void clear_err();
   static const int kErrFieldNumber = 1;
-  ::google::protobuf::int32 err() const;
-  void set_err(::google::protobuf::int32 value);
+  inline ::google::protobuf::int32 err() const;
+  inline void set_err(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:tafs.UnlinkReply)
  private:
@@ -1292,15 +1306,15 @@ class HelloRequest : public ::google::protobuf::Message {
   // accessors -------------------------------------------------------
 
   // optional string name = 1;
-  void clear_name();
+  inline void clear_name();
   static const int kNameFieldNumber = 1;
-  const ::std::string& name() const;
-  void set_name(const ::std::string& value);
-  void set_name(const char* value);
-  void set_name(const char* value, size_t size);
-  ::std::string* mutable_name();
-  ::std::string* release_name();
-  void set_allocated_name(::std::string* name);
+  inline const ::std::string& name() const;
+  inline void set_name(const ::std::string& value);
+  inline void set_name(const char* value);
+  inline void set_name(const char* value, size_t size);
+  inline ::std::string* mutable_name();
+  inline ::std::string* release_name();
+  inline void set_allocated_name(::std::string* name);
 
   // @@protoc_insertion_point(class_scope:tafs.HelloRequest)
  private:
@@ -1375,15 +1389,15 @@ class HelloReply : public ::google::protobuf::Message {
   // accessors -------------------------------------------------------
 
   // optional string message = 1;
-  void clear_message();
+  inline void clear_message();
   static const int kMessageFieldNumber = 1;
-  const ::std::string& message() const;
-  void set_message(const ::std::string& value);
-  void set_message(const char* value);
-  void set_message(const char* value, size_t size);
-  ::std::string* mutable_message();
-  ::std::string* release_message();
-  void set_allocated_message(::std::string* message);
+  inline const ::std::string& message() const;
+  inline void set_message(const ::std::string& value);
+  inline void set_message(const char* value);
+  inline void set_message(const char* value, size_t size);
+  inline ::std::string* mutable_message();
+  inline ::std::string* release_message();
+  inline void set_allocated_message(::std::string* message);
 
   // @@protoc_insertion_point(class_scope:tafs.HelloReply)
  private:
@@ -1458,26 +1472,26 @@ class GetAttrReq : public ::google::protobuf::Message {
   // accessors -------------------------------------------------------
 
   // optional string path = 1;
-  void clear_path();
+  inline void clear_path();
   static const int kPathFieldNumber = 1;
-  const ::std::string& path() const;
-  void set_path(const ::std::string& value);
-  void set_path(const char* value);
-  void set_path(const char* value, size_t size);
-  ::std::string* mutable_path();
-  ::std::string* release_path();
-  void set_allocated_path(::std::string* path);
+  inline const ::std::string& path() const;
+  inline void set_path(const ::std::string& value);
+  inline void set_path(const char* value);
+  inline void set_path(const char* value, size_t size);
+  inline ::std::string* mutable_path();
+  inline ::std::string* release_path();
+  inline void set_allocated_path(::std::string* path);
 
   // optional bytes buf = 2;
-  void clear_buf();
+  inline void clear_buf();
   static const int kBufFieldNumber = 2;
-  const ::std::string& buf() const;
-  void set_buf(const ::std::string& value);
-  void set_buf(const char* value);
-  void set_buf(const void* value, size_t size);
-  ::std::string* mutable_buf();
-  ::std::string* release_buf();
-  void set_allocated_buf(::std::string* buf);
+  inline const ::std::string& buf() const;
+  inline void set_buf(const ::std::string& value);
+  inline void set_buf(const char* value);
+  inline void set_buf(const void* value, size_t size);
+  inline ::std::string* mutable_buf();
+  inline ::std::string* release_buf();
+  inline void set_allocated_buf(::std::string* buf);
 
   // @@protoc_insertion_point(class_scope:tafs.GetAttrReq)
  private:
@@ -1553,21 +1567,21 @@ class GetAttrReply : public ::google::protobuf::Message {
   // accessors -------------------------------------------------------
 
   // optional bytes buf = 2;
-  void clear_buf();
+  inline void clear_buf();
   static const int kBufFieldNumber = 2;
-  const ::std::string& buf() const;
-  void set_buf(const ::std::string& value);
-  void set_buf(const char* value);
-  void set_buf(const void* value, size_t size);
-  ::std::string* mutable_buf();
-  ::std::string* release_buf();
-  void set_allocated_buf(::std::string* buf);
+  inline const ::std::string& buf() const;
+  inline void set_buf(const ::std::string& value);
+  inline void set_buf(const char* value);
+  inline void set_buf(const void* value, size_t size);
+  inline ::std::string* mutable_buf();
+  inline ::std::string* release_buf();
+  inline void set_allocated_buf(::std::string* buf);
 
   // optional int32 err = 1;
-  void clear_err();
+  inline void clear_err();
   static const int kErrFieldNumber = 1;
-  ::google::protobuf::int32 err() const;
-  void set_err(::google::protobuf::int32 value);
+  inline ::google::protobuf::int32 err() const;
+  inline void set_err(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:tafs.GetAttrReply)
  private:
@@ -1643,21 +1657,21 @@ class OpenReq : public ::google::protobuf::Message {
   // accessors -------------------------------------------------------
 
   // optional string path = 1;
-  void clear_path();
+  inline void clear_path();
   static const int kPathFieldNumber = 1;
-  const ::std::string& path() const;
-  void set_path(const ::std::string& value);
-  void set_path(const char* value);
-  void set_path(const char* value, size_t size);
-  ::std::string* mutable_path();
-  ::std::string* release_path();
-  void set_allocated_path(::std::string* path);
+  inline const ::std::string& path() const;
+  inline void set_path(const ::std::string& value);
+  inline void set_path(const char* value);
+  inline void set_path(const char* value, size_t size);
+  inline ::std::string* mutable_path();
+  inline ::std::string* release_path();
+  inline void set_allocated_path(::std::string* path);
 
   // optional int32 flag = 2;
-  void clear_flag();
+  inline void clear_flag();
   static const int kFlagFieldNumber = 2;
-  ::google::protobuf::int32 flag() const;
-  void set_flag(::google::protobuf::int32 value);
+  inline ::google::protobuf::int32 flag() const;
+  inline void set_flag(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:tafs.OpenReq)
  private:
@@ -1733,10 +1747,10 @@ class OpenReply : public ::google::protobuf::Message {
   // accessors -------------------------------------------------------
 
   // optional int32 err = 1;
-  void clear_err();
+  inline void clear_err();
   static const int kErrFieldNumber = 1;
-  ::google::protobuf::int32 err() const;
-  void set_err(::google::protobuf::int32 value);
+  inline ::google::protobuf::int32 err() const;
+  inline void set_err(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:tafs.OpenReply)
  private:
@@ -1811,15 +1825,15 @@ class ReadReq : public ::google::protobuf::Message {
   // accessors -------------------------------------------------------
 
   // optional string path = 1;
-  void clear_path();
+  inline void clear_path();
   static const int kPathFieldNumber = 1;
-  const ::std::string& path() const;
-  void set_path(const ::std::string& value);
-  void set_path(const char* value);
-  void set_path(const char* value, size_t size);
-  ::std::string* mutable_path();
-  ::std::string* release_path();
-  void set_allocated_path(::std::string* path);
+  inline const ::std::string& path() const;
+  inline void set_path(const ::std::string& value);
+  inline void set_path(const char* value);
+  inline void set_path(const char* value, size_t size);
+  inline ::std::string* mutable_path();
+  inline ::std::string* release_path();
+  inline void set_allocated_path(::std::string* path);
 
   // @@protoc_insertion_point(class_scope:tafs.ReadReq)
  private:
@@ -1894,21 +1908,21 @@ class ReadReply : public ::google::protobuf::Message {
   // accessors -------------------------------------------------------
 
   // optional int32 num_bytes = 1;
-  void clear_num_bytes();
+  inline void clear_num_bytes();
   static const int kNumBytesFieldNumber = 1;
-  ::google::protobuf::int32 num_bytes() const;
-  void set_num_bytes(::google::protobuf::int32 value);
+  inline ::google::protobuf::int32 num_bytes() const;
+  inline void set_num_bytes(::google::protobuf::int32 value);
 
   // optional bytes buf = 2;
-  void clear_buf();
+  inline void clear_buf();
   static const int kBufFieldNumber = 2;
-  const ::std::string& buf() const;
-  void set_buf(const ::std::string& value);
-  void set_buf(const char* value);
-  void set_buf(const void* value, size_t size);
-  ::std::string* mutable_buf();
-  ::std::string* release_buf();
-  void set_allocated_buf(::std::string* buf);
+  inline const ::std::string& buf() const;
+  inline void set_buf(const ::std::string& value);
+  inline void set_buf(const char* value);
+  inline void set_buf(const void* value, size_t size);
+  inline ::std::string* mutable_buf();
+  inline ::std::string* release_buf();
+  inline void set_allocated_buf(::std::string* buf);
 
   // @@protoc_insertion_point(class_scope:tafs.ReadReply)
  private:
@@ -1984,26 +1998,26 @@ class WriteReq : public ::google::protobuf::Message {
   // accessors -------------------------------------------------------
 
   // optional string path = 1;
-  void clear_path();
+  inline void clear_path();
   static const int kPathFieldNumber = 1;
-  const ::std::string& path() const;
-  void set_path(const ::std::string& value);
-  void set_path(const char* value);
-  void set_path(const char* value, size_t size);
-  ::std::string* mutable_path();
-  ::std::string* release_path();
-  void set_allocated_path(::std::string* path);
+  inline const ::std::string& path() const;
+  inline void set_path(const ::std::string& value);
+  inline void set_path(const char* value);
+  inline void set_path(const char* value, size_t size);
+  inline ::std::string* mutable_path();
+  inline ::std::string* release_path();
+  inline void set_allocated_path(::std::string* path);
 
   // optional bytes buf = 2;
-  void clear_buf();
+  inline void clear_buf();
   static const int kBufFieldNumber = 2;
-  const ::std::string& buf() const;
-  void set_buf(const ::std::string& value);
-  void set_buf(const char* value);
-  void set_buf(const void* value, size_t size);
-  ::std::string* mutable_buf();
-  ::std::string* release_buf();
-  void set_allocated_buf(::std::string* buf);
+  inline const ::std::string& buf() const;
+  inline void set_buf(const ::std::string& value);
+  inline void set_buf(const char* value);
+  inline void set_buf(const void* value, size_t size);
+  inline ::std::string* mutable_buf();
+  inline ::std::string* release_buf();
+  inline void set_allocated_buf(::std::string* buf);
 
   // @@protoc_insertion_point(class_scope:tafs.WriteReq)
  private:
@@ -2079,10 +2093,10 @@ class WriteReply : public ::google::protobuf::Message {
   // accessors -------------------------------------------------------
 
   // optional int32 num_bytes = 1;
-  void clear_num_bytes();
+  inline void clear_num_bytes();
   static const int kNumBytesFieldNumber = 1;
-  ::google::protobuf::int32 num_bytes() const;
-  void set_num_bytes(::google::protobuf::int32 value);
+  inline ::google::protobuf::int32 num_bytes() const;
+  inline void set_num_bytes(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:tafs.WriteReply)
  private:
@@ -2157,10 +2171,10 @@ class ErrNo : public ::google::protobuf::Message {
   // accessors -------------------------------------------------------
 
   // optional int32 err = 1;
-  void clear_err();
+  inline void clear_err();
   static const int kErrFieldNumber = 1;
-  ::google::protobuf::int32 err() const;
-  void set_err(::google::protobuf::int32 value);
+  inline ::google::protobuf::int32 err() const;
+  inline void set_err(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:tafs.ErrNo)
  private:
@@ -2235,15 +2249,15 @@ class Buf : public ::google::protobuf::Message {
   // accessors -------------------------------------------------------
 
   // optional bytes data = 1;
-  void clear_data();
+  inline void clear_data();
   static const int kDataFieldNumber = 1;
-  const ::std::string& data() const;
-  void set_data(const ::std::string& value);
-  void set_data(const char* value);
-  void set_data(const void* value, size_t size);
-  ::std::string* mutable_data();
-  ::std::string* release_data();
-  void set_allocated_data(::std::string* data);
+  inline const ::std::string& data() const;
+  inline void set_data(const ::std::string& value);
+  inline void set_data(const char* value);
+  inline void set_data(const void* value, size_t size);
+  inline ::std::string* mutable_data();
+  inline ::std::string* release_data();
+  inline void set_allocated_data(::std::string* data);
 
   // @@protoc_insertion_point(class_scope:tafs.Buf)
  private:
@@ -2318,10 +2332,10 @@ class LoginRequest : public ::google::protobuf::Message {
   // accessors -------------------------------------------------------
 
   // optional int32 num = 1;
-  void clear_num();
+  inline void clear_num();
   static const int kNumFieldNumber = 1;
-  ::google::protobuf::int32 num() const;
-  void set_num(::google::protobuf::int32 value);
+  inline ::google::protobuf::int32 num() const;
+  inline void set_num(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:tafs.LoginRequest)
  private:
@@ -2396,10 +2410,10 @@ class LoginReply : public ::google::protobuf::Message {
   // accessors -------------------------------------------------------
 
   // optional int32 num = 1;
-  void clear_num();
+  inline void clear_num();
   static const int kNumFieldNumber = 1;
-  ::google::protobuf::int32 num() const;
-  void set_num(::google::protobuf::int32 value);
+  inline ::google::protobuf::int32 num() const;
+  inline void set_num(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:tafs.LoginReply)
  private:
@@ -2474,15 +2488,15 @@ class TestB : public ::google::protobuf::Message {
   // accessors -------------------------------------------------------
 
   // optional bytes mydata = 1;
-  void clear_mydata();
+  inline void clear_mydata();
   static const int kMydataFieldNumber = 1;
-  const ::std::string& mydata() const;
-  void set_mydata(const ::std::string& value);
-  void set_mydata(const char* value);
-  void set_mydata(const void* value, size_t size);
-  ::std::string* mutable_mydata();
-  ::std::string* release_mydata();
-  void set_allocated_mydata(::std::string* mydata);
+  inline const ::std::string& mydata() const;
+  inline void set_mydata(const ::std::string& value);
+  inline void set_mydata(const char* value);
+  inline void set_mydata(const void* value, size_t size);
+  inline ::std::string* mutable_mydata();
+  inline ::std::string* release_mydata();
+  inline void set_allocated_mydata(::std::string* mydata);
 
   // @@protoc_insertion_point(class_scope:tafs.TestB)
  private:
@@ -2503,6 +2517,7 @@ class TestB : public ::google::protobuf::Message {
 
 // ===================================================================
 
+<<<<<<< HEAD
 #if !PROTOBUF_INLINE_NOT_IN_HEADERS
 // MknodReq
 
@@ -2597,6 +2612,8 @@ inline void MknodReply::set_err(::google::protobuf::int32 value) {
 
 // -------------------------------------------------------------------
 
+=======
+>>>>>>> b8eda0c466e8e75843c00ca63613a959d55395a8
 // FlushReq
 
 // optional string path = 1;
@@ -3744,67 +3761,26 @@ inline void TestB::set_allocated_mydata(::std::string* mydata) {
   // @@protoc_insertion_point(field_set_allocated:tafs.TestB.mydata)
 }
 
-#endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
 
 // @@protoc_insertion_point(namespace_scope)
 
 }  // namespace tafs
+
+<<<<<<< HEAD
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+=======
+#ifndef SWIG
+namespace google {
+namespace protobuf {
+>>>>>>> b8eda0c466e8e75843c00ca63613a959d55395a8
+
+
+}  // namespace protobuf
+}  // namespace google
+#endif  // SWIG
 
 // @@protoc_insertion_point(global_scope)
 
