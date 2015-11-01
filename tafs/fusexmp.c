@@ -331,9 +331,6 @@ static int xmp_open(const char *path, struct fuse_file_info *fi)
            return -1;
         }
 
-
-        printf("-- Open and Save FH: %d \n", fi->fh);
-
         uint64_t dummy;
         cu.mkfolder(localattr_path);
         if (cu.SaveFile(localattr_path, server_stat, dummy) < 0) {
@@ -475,6 +472,7 @@ static int xmp_release(const char *path, struct fuse_file_info *fi)
     printf("## START ## xmp_release\n");
     (void) path;
     (void) fi;
+    std::string cpp_path = path;
     CacheUtil cu;
     std::string local_buf;
     int res = 0;
@@ -488,7 +486,7 @@ static int xmp_release(const char *path, struct fuse_file_info *fi)
         if (res < 0) {
             return res;
         }
-        ret = close(fi->fh);
+        res = close(fi->fh);
     }
     return res;
 }

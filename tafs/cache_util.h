@@ -145,7 +145,6 @@ public:
         if (ret == -1) {
            printf("-- SEEK FAIL !!! --\n");
         }
-        printf("--- ReadFile size: %d, fh: %d \n", size, fd);
         buf.resize(size);
         int res = read(fd, &buf[0], size);
         if (res < 0) {
@@ -171,7 +170,7 @@ public:
         printf("In.... SaveFile filename = %s, fd = %d\n",filepath.c_str(), fd);
 
         int res = pwrite(fd, &data[0], data.size(), 0 /*offset*/);
-        off_t currentPos = lseek(fd, (size_t)0, SEEK_CUR);
+        lseek(fd, (size_t)0, SEEK_CUR);
         if (res == -1) {
             close(fd);
             return -errno;
