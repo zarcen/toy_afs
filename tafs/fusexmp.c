@@ -398,21 +398,12 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 
     /*
     res = greeter->Read(cpp_path, rpcbuf, size, offset);
-<<<<<<< HEAD
 	if (res < 0) {
 		return res;
 	}
     memcpy(buf, &rpcbuf[0]+offset, size);
 	return size;
 	*/
-=======
-    if (res < 0) {
-        res = -errno;
-        return res;
-    }
-    memcpy(buf, &rpcbuf[0]+offset, size);
-    return size;
->>>>>>> origin/v2
 }
 
 static int xmp_write(const char *path, const char *buf, size_t size,
