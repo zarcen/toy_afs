@@ -36,26 +36,12 @@ void protobuf_AddDesc_tafs_2eproto();
 void protobuf_AssignDesc_tafs_2eproto();
 void protobuf_ShutdownFile_tafs_2eproto();
 
-class FlushReq;
-<<<<<<< HEAD
-class GetAttrReply;
-class GetAttrReq;
-class HelloReply;
-class HelloRequest;
-class LoginReply;
-class LoginRequest;
-class MkDirReply;
-class MkDirReq;
-class MknodReply;
 class MknodReq;
-class OpenReply;
-class OpenReq;
-class ReadDirReply;
-=======
+class MknodReply;
+class FlushReq;
 class FlushReply;
 class AccessReq;
 class AccessReply;
->>>>>>> b8eda0c466e8e75843c00ca63613a959d55395a8
 class ReadDirReq;
 class ReadDirReply;
 class MkDirReq;
@@ -139,27 +125,27 @@ class MknodReq : public ::google::protobuf::Message {
   // accessors -------------------------------------------------------
 
   // optional string path = 1;
-  void clear_path();
+  inline void clear_path();
   static const int kPathFieldNumber = 1;
-  const ::std::string& path() const;
-  void set_path(const ::std::string& value);
-  void set_path(const char* value);
-  void set_path(const char* value, size_t size);
-  ::std::string* mutable_path();
-  ::std::string* release_path();
-  void set_allocated_path(::std::string* path);
+  inline const ::std::string& path() const;
+  inline void set_path(const ::std::string& value);
+  inline void set_path(const char* value);
+  inline void set_path(const char* value, size_t size);
+  inline ::std::string* mutable_path();
+  inline ::std::string* release_path();
+  inline void set_allocated_path(::std::string* path);
 
   // optional int32 mode = 2;
-  void clear_mode();
+  inline void clear_mode();
   static const int kModeFieldNumber = 2;
-  ::google::protobuf::int32 mode() const;
-  void set_mode(::google::protobuf::int32 value);
+  inline ::google::protobuf::int32 mode() const;
+  inline void set_mode(::google::protobuf::int32 value);
 
   // optional int32 rdev = 3;
-  void clear_rdev();
+  inline void clear_rdev();
   static const int kRdevFieldNumber = 3;
-  ::google::protobuf::int32 rdev() const;
-  void set_rdev(::google::protobuf::int32 value);
+  inline ::google::protobuf::int32 rdev() const;
+  inline void set_rdev(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:tafs.MknodReq)
  private:
@@ -236,10 +222,10 @@ class MknodReply : public ::google::protobuf::Message {
   // accessors -------------------------------------------------------
 
   // optional int32 err = 1;
-  void clear_err();
+  inline void clear_err();
   static const int kErrFieldNumber = 1;
-  ::google::protobuf::int32 err() const;
-  void set_err(::google::protobuf::int32 value);
+  inline ::google::protobuf::int32 err() const;
+  inline void set_err(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:tafs.MknodReply)
  private:
@@ -2517,8 +2503,6 @@ class TestB : public ::google::protobuf::Message {
 
 // ===================================================================
 
-<<<<<<< HEAD
-#if !PROTOBUF_INLINE_NOT_IN_HEADERS
 // MknodReq
 
 // optional string path = 1;
@@ -2612,8 +2596,6 @@ inline void MknodReply::set_err(::google::protobuf::int32 value) {
 
 // -------------------------------------------------------------------
 
-=======
->>>>>>> b8eda0c466e8e75843c00ca63613a959d55395a8
 // FlushReq
 
 // optional string path = 1;
@@ -3766,16 +3748,9 @@ inline void TestB::set_allocated_mydata(::std::string* mydata) {
 
 }  // namespace tafs
 
-<<<<<<< HEAD
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-=======
 #ifndef SWIG
 namespace google {
 namespace protobuf {
->>>>>>> b8eda0c466e8e75843c00ca63613a959d55395a8
 
 
 }  // namespace protobuf

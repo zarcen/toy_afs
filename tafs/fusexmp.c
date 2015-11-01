@@ -358,6 +358,11 @@ static int xmp_statfs(const char *path, struct statvfs *stbuf)
 	return 0;
 }
 
+static int xmp_utimens(const char *path, const struct timespec ts[2])
+{
+	return 0;
+}
+
 static int xmp_release(const char *path, struct fuse_file_info *fi)
 {
     printf("## START ## xmp_release\n");
@@ -399,6 +404,7 @@ struct tafs_fuse_operations:fuse_operations {
             chmod		= xmp_chmod;
             chown		= xmp_chown;
             truncate	= xmp_truncate;
+	        utimens	    = xmp_utimens,
             open		= xmp_open;
             read		= xmp_read;
             write		= xmp_write;
