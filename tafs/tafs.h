@@ -69,6 +69,9 @@ using tafs::MknodReq;
 using tafs::MknodReply;
 using tafs::UnlinkReq;
 using tafs::UnlinkReply;
+using tafs::TruncateReq;
+using tafs::TruncateReply;
+
 
 
 class GreeterClient {
@@ -258,6 +261,18 @@ class GreeterClient {
     Status status = stub_->Unlink(&context, request, &reply);
     return reply.err();
   } 
+
+  int Truncate(const std::string& path, int size) {
+    TruncateReq request;
+    request.set_path(path);
+    request.set_size(size);
+
+    TruncateReply reply;
+    ClientContext context;
+    Status status = stub_->Truncate(&context, request, &reply);
+
+    return status.ok() ? reply.err() : -1;
+  }
 
  private:
   std::unique_ptr<ToyAFS::Stub> stub_;

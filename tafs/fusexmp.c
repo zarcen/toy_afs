@@ -261,7 +261,12 @@ static int xmp_chown(const char *path, uid_t uid, gid_t gid)
 static int xmp_truncate(const char *path, off_t size)
 {
     printf("## START ## xmp_truncate\n");
-    return 0;
+
+    std::string cpp_path = path;
+	int res = greeter->Truncate(cpp_path, size);
+
+    return res == -1 ? -errno : 0;    
+
     /*
 	int res;
 

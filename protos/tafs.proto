@@ -50,6 +50,17 @@ service ToyAFS {
   rpc Access(AccessReq) returns (AccessReply) {}
   rpc Flush(FlushReq) returns (FlushReply) {}
   rpc Mknod(MknodReq) returns (MknodReply) {}
+  rpc Truncate(TruncateReq) returns (TruncateReply) {}
+}
+
+// Truncate
+message TruncateReq {
+  string path = 1;
+  int32  size = 2;
+}
+
+message TruncateReply {
+  int32  err = 1;
 }
 
 // Mknod
