@@ -30,6 +30,7 @@ gcc -Wall fusexmp.c `pkg-config fuse --cflags --libs` -o fusexmp
 #include <errno.h>
 #include <sys/time.h>
 #include <cassert>
+#include <unordered_map>
 
 #include "tafs.h"
 #include "cache_util.h"
@@ -38,6 +39,9 @@ static std::string CachePrefix = "/tmp/cache";
 
 static GreeterClient* greeter = NULL;
 static char* cache_prefix = "/tmp/cache";
+
+// <path, stat>
+static std::unordered_map<std::string, std::string> stat_hash;
 
 void InitRPC(const char* serverhost) {
     if (greeter == NULL) {
@@ -285,52 +289,58 @@ static int xmp_open(const char *path, struct fuse_file_info *fi)
     std::string cpp_path = path;
     std::string cache_path = cache_prefix + cpp_path;
     printf("XMP_OPEN: cache_path -> %s\n", cache_path.c_str());
-    // F_OK: check file exist
-    // W_OK: check write permission
-    // R_OK: check read permission
-    // X_OK: check execute permission
-    int local_res;
-    struct stat local_stbuf;
-    memset(&local_stbuf, 1, sizeof(struct stat)); 
-    // get remote-stat from remote server via rpc call
-    struct stat stbuf;
-    std::string rpcbuf;
-    int res = greeter->GetAttr(cpp_path, rpcbuf);
+
+    std::string localfile_path = cache_prefix + cpp_path;
+    std::string localattr_path = cache_prefix + cpp_path + ".attr";
+
+    // get server attr
+    std::string server_stat;
+    int res = greeter->GetAttr(cpp_path, server_stat);
     if (res < 0) {
         return res;
     }
-    memset(&stbuf, 0, sizeof(struct stat)); 
-    memcpy(&stbuf, &rpcbuf[0], rpcbuf.size());
-    // end get remote-stat
 
-    // if local disk cache exists, compare difference; if the same, then return
-    if ( (local_res = lstat(cache_path.c_str(), &local_stbuf)) == -1 
-            || memcmp (&stbuf, &local_stbuf, sizeof(struct stat)) != 0) {  
-        // Sync file from remote
-        off_t size = stbuf.st_size; // the server-side file size
-        res = greeter->Read(cpp_path, rpcbuf, (int)size, 0 /*offset*/);
+    // read from local disk
+    bool local_existed = false;
+
+    CacheUtil cu;
+
+    if (cu.IsExisted(localfile_path) && cu.IsExisted(localattr_path)) {
+        std::string local_stat;
+        if (cu.GetLocalAttr(stat_hash, localattr_path, local_stat) >= 0
+                && server_stat.compare(local_stat) == 0) {
+            local_existed  = true;
+            printf("== File existed in local ==\n");
+        }
+    }
+
+    // read from server
+    if (!local_existed) {
+        std::string rpcbuf;
+        struct stat st;
+        memcpy(&st, &server_stat[0], sizeof(struct stat));
+        int size = st.st_size;
+        res = greeter->Read(cpp_path, rpcbuf, size, 0);
         if (res < 0) {
             return res;
         }
-        int fd = open(cache_path.c_str(), O_WRONLY | O_CREAT | O_EXCL, 0644);
-        printf("open with O_CREAT\n");
-        if ((fd == -1) && (EEXIST == errno)) {
-            /* open the existing file with truncate flag */
-            fd = open(cache_path.c_str(), O_TRUNC | O_WRONLY);
-            printf("open with O_TRUNC\n");
-            if (fd == -1) {
-                return -errno;
-            } 
+        // save to local disk
+        cu.mkfolder(localfile_path);
+        cu.mkfolder(localattr_path);
+        if (cu.SaveFile(localfile_path, rpcbuf, fi->fh) < 0) {
+           return -1;
         }
-        res = pwrite(fd, &rpcbuf[0], size, 0 /*offset*/);
-        if (res == -1) {
-            close(fd);
-            return -errno;
-        } 
-        close(fd);
-    } 
-    printf("## END ## xmp_open\n");
-    return 0;
+
+        uint64_t dummy;
+        if (cu.SaveFile(localattr_path, server_stat, dummy) < 0) {
+            close(dummy);
+            return -1;
+        }
+        close(dummy);
+        //cu.SaveToDisk(localattr_path, server_stat);
+        printf("== Read from server and save ==\n");
+    }
+	return 0;
 }
 
 static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
