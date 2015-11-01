@@ -31,6 +31,8 @@ using tafs::ReadReq;
 using tafs::ReadReply;
 using tafs::WriteReq;
 using tafs::WriteReply;
+using tafs::TruncateReq;
+using tafs::TruncateReply;
 using tafs::MknodReq;
 using tafs::MknodReply;
 using tafs::UnlinkReq;
@@ -214,6 +216,25 @@ class GreeterServiceImpl final : public ToyAFS::Service {
 
             close(fd);
             reply->set_num_bytes(res);
+            return Status::OK;
+        }
+
+        /**
+         * Truncate
+         */
+        Status Truncate(ServerContext* context, const TruncateReq* request,
+                TruncateReply* reply) override {
+            // default errno = 0
+            reply->set_num_bytes(-errno);
+            std::string path = path_prefix + request->path();
+            int res;
+
+            res = truncate(path.c_str(), request->size());
+            if (res == -1) {
+                reply->set_err(-errno);
+                return Status::OK;
+            }
+            reply->set_err(res);
             return Status::OK;
         }
 
