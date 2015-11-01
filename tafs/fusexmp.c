@@ -47,14 +47,14 @@ void InitRPC(const char* serverhost) {
 static int xmp_getattr(const char *path, struct stat *stbuf) {
     printf("## START ## xmp_getattr\n");
 	int res;
-  //int GetAttr(const std::string& path, std::string& buf) {
     std::string rpcbuf;
     std::string cpp_path = path;
     res = greeter->GetAttr(cpp_path, rpcbuf);
 	if (res < 0) {
 		return -errno;
 	}
-	printf("rpcbuf size: %d, stat size: %d \n", rpcbuf.size(), sizeof(struct stat));
+    // debug
+	printf("rpcbuf size: %lu, stat size: %lu \n", rpcbuf.size(), sizeof(struct stat));
     assert(rpcbuf.size() == sizeof(struct stat));
 
 	memset(stbuf, 0, sizeof(struct stat)); 
@@ -126,9 +126,14 @@ static int xmp_mknod(const char *path, mode_t mode, dev_t rdev)
 {
     printf("## START ## xmp_mknod\n");
 	int res;
+    std::string cpp_path = path;
+    res = greeter->Mknod(cpp_path, mode, rdev);
+
+    return res == -1 ? -errno : 0;    
 
 	/* On Linux this could just be 'mknod(path, mode, rdev)' but this
 	   is more portable */
+	/*
 	if (S_ISREG(mode)) {
 		res = open(path, O_CREAT | O_EXCL | O_WRONLY, mode);
 		if (res >= 0)
@@ -139,8 +144,9 @@ static int xmp_mknod(const char *path, mode_t mode, dev_t rdev)
 		res = mknod(path, mode, rdev);
 	if (res == -1)
 		return -errno;
-
+    
 	return 0;
+	*/
 }
 
 static int xmp_mkdir(const char *path, mode_t mode)
@@ -420,7 +426,8 @@ int main(int argc, char** argv) {
 
     // Read
     std::string readbuf;
-    int read_reply = greeter->Read("1.txt", readbuf);
+
+    greeter->Read("1.txt", readbuf);
     printf("%s\n", readbuf.c_str()); 
 
     umask(0);

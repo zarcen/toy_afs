@@ -49,6 +49,18 @@ service ToyAFS {
   rpc Unlink (UnlinkReq) returns (UnlinkReply) {}
   rpc Access(AccessReq) returns (AccessReply) {}
   rpc Flush(FlushReq) returns (FlushReply) {}
+  rpc Mknod(MknodReq) returns (MknodReply) {}
+}
+
+// Mknod
+message MknodReq {
+  string path = 1;
+  int32  mode = 2;
+  int32  rdev = 3;
+}
+
+message MknodReply {
+  int32 err = 1;
 }
 
 // flush

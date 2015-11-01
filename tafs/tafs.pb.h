@@ -50,6 +50,8 @@ class LoginReply;
 class LoginRequest;
 class MkDirReply;
 class MkDirReq;
+class MknodReply;
+class MknodReq;
 class OpenReply;
 class OpenReq;
 class ReadDirReply;
@@ -65,6 +67,181 @@ class WriteReply;
 class WriteReq;
 
 // ===================================================================
+
+class MknodReq : public ::google::protobuf::Message {
+ public:
+  MknodReq();
+  virtual ~MknodReq();
+
+  MknodReq(const MknodReq& from);
+
+  inline MknodReq& operator=(const MknodReq& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const MknodReq& default_instance();
+
+  void Swap(MknodReq* other);
+
+  // implements Message ----------------------------------------------
+
+  inline MknodReq* New() const { return New(NULL); }
+
+  MknodReq* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const MknodReq& from);
+  void MergeFrom(const MknodReq& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(MknodReq* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional string path = 1;
+  void clear_path();
+  static const int kPathFieldNumber = 1;
+  const ::std::string& path() const;
+  void set_path(const ::std::string& value);
+  void set_path(const char* value);
+  void set_path(const char* value, size_t size);
+  ::std::string* mutable_path();
+  ::std::string* release_path();
+  void set_allocated_path(::std::string* path);
+
+  // optional int32 mode = 2;
+  void clear_mode();
+  static const int kModeFieldNumber = 2;
+  ::google::protobuf::int32 mode() const;
+  void set_mode(::google::protobuf::int32 value);
+
+  // optional int32 rdev = 3;
+  void clear_rdev();
+  static const int kRdevFieldNumber = 3;
+  ::google::protobuf::int32 rdev() const;
+  void set_rdev(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:tafs.MknodReq)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::internal::ArenaStringPtr path_;
+  ::google::protobuf::int32 mode_;
+  ::google::protobuf::int32 rdev_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_tafs_2eproto();
+  friend void protobuf_AssignDesc_tafs_2eproto();
+  friend void protobuf_ShutdownFile_tafs_2eproto();
+
+  void InitAsDefaultInstance();
+  static MknodReq* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class MknodReply : public ::google::protobuf::Message {
+ public:
+  MknodReply();
+  virtual ~MknodReply();
+
+  MknodReply(const MknodReply& from);
+
+  inline MknodReply& operator=(const MknodReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const MknodReply& default_instance();
+
+  void Swap(MknodReply* other);
+
+  // implements Message ----------------------------------------------
+
+  inline MknodReply* New() const { return New(NULL); }
+
+  MknodReply* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const MknodReply& from);
+  void MergeFrom(const MknodReply& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(MknodReply* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional int32 err = 1;
+  void clear_err();
+  static const int kErrFieldNumber = 1;
+  ::google::protobuf::int32 err() const;
+  void set_err(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:tafs.MknodReply)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::int32 err_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_tafs_2eproto();
+  friend void protobuf_AssignDesc_tafs_2eproto();
+  friend void protobuf_ShutdownFile_tafs_2eproto();
+
+  void InitAsDefaultInstance();
+  static MknodReply* default_instance_;
+};
+// -------------------------------------------------------------------
 
 class FlushReq : public ::google::protobuf::Message {
  public:
@@ -2327,6 +2504,99 @@ class TestB : public ::google::protobuf::Message {
 // ===================================================================
 
 #if !PROTOBUF_INLINE_NOT_IN_HEADERS
+// MknodReq
+
+// optional string path = 1;
+inline void MknodReq::clear_path() {
+  path_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& MknodReq::path() const {
+  // @@protoc_insertion_point(field_get:tafs.MknodReq.path)
+  return path_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void MknodReq::set_path(const ::std::string& value) {
+  
+  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:tafs.MknodReq.path)
+}
+inline void MknodReq::set_path(const char* value) {
+  
+  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:tafs.MknodReq.path)
+}
+inline void MknodReq::set_path(const char* value, size_t size) {
+  
+  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:tafs.MknodReq.path)
+}
+inline ::std::string* MknodReq::mutable_path() {
+  
+  // @@protoc_insertion_point(field_mutable:tafs.MknodReq.path)
+  return path_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* MknodReq::release_path() {
+  
+  return path_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void MknodReq::set_allocated_path(::std::string* path) {
+  if (path != NULL) {
+    
+  } else {
+    
+  }
+  path_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path);
+  // @@protoc_insertion_point(field_set_allocated:tafs.MknodReq.path)
+}
+
+// optional int32 mode = 2;
+inline void MknodReq::clear_mode() {
+  mode_ = 0;
+}
+inline ::google::protobuf::int32 MknodReq::mode() const {
+  // @@protoc_insertion_point(field_get:tafs.MknodReq.mode)
+  return mode_;
+}
+inline void MknodReq::set_mode(::google::protobuf::int32 value) {
+  
+  mode_ = value;
+  // @@protoc_insertion_point(field_set:tafs.MknodReq.mode)
+}
+
+// optional int32 rdev = 3;
+inline void MknodReq::clear_rdev() {
+  rdev_ = 0;
+}
+inline ::google::protobuf::int32 MknodReq::rdev() const {
+  // @@protoc_insertion_point(field_get:tafs.MknodReq.rdev)
+  return rdev_;
+}
+inline void MknodReq::set_rdev(::google::protobuf::int32 value) {
+  
+  rdev_ = value;
+  // @@protoc_insertion_point(field_set:tafs.MknodReq.rdev)
+}
+
+// -------------------------------------------------------------------
+
+// MknodReply
+
+// optional int32 err = 1;
+inline void MknodReply::clear_err() {
+  err_ = 0;
+}
+inline ::google::protobuf::int32 MknodReply::err() const {
+  // @@protoc_insertion_point(field_get:tafs.MknodReply.err)
+  return err_;
+}
+inline void MknodReply::set_err(::google::protobuf::int32 value) {
+  
+  err_ = value;
+  // @@protoc_insertion_point(field_set:tafs.MknodReply.err)
+}
+
+// -------------------------------------------------------------------
+
 // FlushReq
 
 // optional string path = 1;
@@ -3475,6 +3745,10 @@ inline void TestB::set_allocated_mydata(::std::string* mydata) {
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
