@@ -134,8 +134,17 @@ public:
 
     int ReadFile(uint64_t fd, std::string& buf) {
         off_t currentPos = lseek(fd, (size_t)0, SEEK_CUR);
+        if (currentPos == -1) {
+           printf("-- SEEK FAIL !!! --\n");
+        }
         int size = lseek(fd, (size_t)0, SEEK_END);
-        lseek(fd, currentPos, SEEK_SET);
+        if (size == -1) {
+           printf("-- SEEK FAIL !!! --\n");
+        }
+        int ret = lseek(fd, currentPos, SEEK_SET);
+        if (ret == -1) {
+           printf("-- SEEK FAIL !!! --\n");
+        }
         printf("--- ReadFile size: %d, fh: %d \n", size, fd);
         buf.resize(size);
         int res = read(fd, &buf[0], size);
@@ -146,11 +155,12 @@ public:
     }
 
     int SaveFile(const std::string& filepath, std::string& data, uint64_t& fh) {
-        int fd = open(filepath.c_str(), O_WRONLY | O_CREAT | O_EXCL, 0644);
+        int fd = open(filepath.c_str(), O_RDWR | O_CREAT | O_EXCL, 0644);
+        //int fd = open(filepath.c_str(), O_RDWR);
         printf("open with O_CREAT\n");
         if ((fd == -1) && (EEXIST == errno)) {
             /* open the existing file with truncate flag */
-            fd = open(filepath.c_str(), O_TRUNC | O_WRONLY);
+            fd = open(filepath.c_str(), O_TRUNC | O_RDWR);
             printf("open with O_TRUNC\n");
             if (fd == -1) {
                 return -errno;
@@ -161,6 +171,7 @@ public:
         printf("In.... SaveFile filename = %s, fd = %d\n",filepath.c_str(), fd);
 
         int res = pwrite(fd, &data[0], data.size(), 0 /*offset*/);
+        off_t currentPos = lseek(fd, (size_t)0, SEEK_CUR);
         if (res == -1) {
             close(fd);
             return -errno;

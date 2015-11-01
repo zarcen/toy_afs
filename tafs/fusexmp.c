@@ -285,9 +285,6 @@ static int xmp_open(const char *path, struct fuse_file_info *fi)
 {
     printf("## START ## xmp_open\n");
     std::string cpp_path = path;
-    std::string cache_path = cache_prefix + cpp_path;
-    printf("XMP_OPEN: cache_path -> %s\n", cache_path.c_str());
-
     std::string localfile_path = cache_prefix + cpp_path;
     std::string localattr_path = cache_prefix + cpp_path + ".attr";
 
@@ -298,24 +295,22 @@ static int xmp_open(const char *path, struct fuse_file_info *fi)
         return res;
     }
 
-    // read from local disk
-    bool local_existed = false;
-
     CacheUtil cu;
 
+    fi->fh = (int)-1;
+
+    // read from local disk
+    bool local_existed = false;
     if (cu.IsExisted(localfile_path) && cu.IsExisted(localattr_path)) {
         std::string local_stat;
         if (cu.GetLocalAttr(stat_hash, localattr_path, local_stat) >= 0
-                && server_stat.compare(local_stat) == 0) {
+            && server_stat.compare(local_stat) == 0) {
+
             local_existed  = true;
 
             fi->fh = open(localfile_path.c_str(), O_RDWR);
         
-            std::string ttt;
-            ttt.resize(100);
-            pread(fi->fh, &ttt[0], 18, 0);
-            printf("-- str: %s \n", ttt.c_str());
-            printf("== File existed in local ==\n");
+            printf("== File existed in local, fh: %d ==\n", (int)fi->fh);
         }
     }
 
@@ -329,21 +324,23 @@ static int xmp_open(const char *path, struct fuse_file_info *fi)
         if (res < 0) {
             return res;
         }
+
         // save to local disk
         cu.mkfolder(localfile_path);
-        cu.mkfolder(localattr_path);
         if (cu.SaveFile(localfile_path, rpcbuf, fi->fh) < 0) {
            return -1;
         }
+
+
         printf("-- Open and Save FH: %d \n", fi->fh);
 
         uint64_t dummy;
+        cu.mkfolder(localattr_path);
         if (cu.SaveFile(localattr_path, server_stat, dummy) < 0) {
             close(dummy);
             return -1;
         }
         close(dummy);
-        //cu.SaveToDisk(localattr_path, server_stat);
         printf("== Read from server and save ==\n");
     }
 	return 0;
@@ -374,12 +371,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     //std::string localfile_path = CachePrefix + cpp_path;
     //std::string localattr_path = CachePrefix + cpp_path + ".attr";
     CacheUtil cu;
-    
     std::string local_buf;
-
-
-    int fh = fi->fh;
-    printf("-- fh: %d \n", fh);
 
     if (cu.ReadFile(fi->fh, local_buf) < 0) {
       printf("-- readfile fail when fd = %d\n", (int)fi->fh);
