@@ -134,22 +134,14 @@ public:
 
     int ReadFile(uint64_t fd, std::string& buf) {
         off_t currentPos = lseek(fd, (size_t)0, SEEK_CUR);
-        if (currentPos == -1) {
-           printf("-- SEEK FAIL !!! --\n");
-        }
         int size = lseek(fd, (size_t)0, SEEK_END);
-        if (size == -1) {
-           printf("-- SEEK FAIL !!! --\n");
-        }
-        int ret = lseek(fd, currentPos, SEEK_SET);
-        if (ret == -1) {
-           printf("-- SEEK FAIL !!! --\n");
-        }
         buf.resize(size);
+        lseek(fd, 0, SEEK_SET);
         int res = read(fd, &buf[0], size);
         if (res < 0) {
             printf(" CACHE READ FAIL. ERRNO = %d\n", errno);
         }
+        //printf("--- ReadFile size:%u, str:%s \n", buf.size(), buf.c_str());
         return res;
     }
 
