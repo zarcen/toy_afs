@@ -374,7 +374,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
       printf("-- readfile fail when fd = %d\n", (int)fi->fh);
       return -1;
     }
-    //printf("-- readfile size:%d, success: %s \n", local_buf.size(), local_buf.c_str());
+    printf("-- readfile success\n");
     memcpy(buf, &local_buf[0]+offset, size);
     return size;
 
@@ -440,11 +440,6 @@ static int xmp_write(const char *path, const char *buf, size_t size,
         fi->flags = 0;
         return -errno;
     }
-
-    std::string buf0;
-    CacheUtil().ReadFile(fi->fh, buf0);
-    printf(" -- after write, file: %s\n", buf0.c_str());
-
     fi->flags = size;
     return res;
 }
@@ -469,14 +464,7 @@ static int xmp_utimens(const char *path, const struct timespec ts[2])
 static int xmp_flush(const char *path, struct fuse_file_info *fi)
 {
     printf("## START ## xmp_flush\n");
-
     int res = fsync(fi->fh);
-    if (res < 0) {
-      printf(" -- flush fail -- \n");
-      return -1;
-    }
-    else {
-    }
     return 0;
 }
 
@@ -549,42 +537,13 @@ struct tafs_fuse_operations:fuse_operations {
 static struct tafs_fuse_operations xmp_oper;
 
 int main(int argc, char** argv) {                                                                                                                                            
-
-    /*
-    std::string ts = "/tmp/path/t1.txt";
-    std::string cp = CachePrefix + ts;
-    CacheUtil cu;
-    std::string tt =  cp.substr(0, cp.find_last_of("\\/"));
-    cu.mkpath(tt.c_str(), 0700);
-   
-    FILE* file = fopen(cp.c_str(), "wo");
-    if (file != NULL) {
-        fclose(file);
-    }
-    return 0;
-    */
-
-    /*if (argc < 2) {
-      printf("Please provide the serverhost to connect\n");
-      }
-      char* serverhost = argv[1];
-      */
     //InitRPC(serverhost);
     InitRPC("node1:50051");
 
     // Login                                                                                                                                                                   
     int login_reply = greeter->Login(739);                                                                                                                                      
     std::cout << "Login Replied: " << login_reply << std::endl;                                                                                                                
-
-    /*
-    // Read
-    std::string readbuf;
-    greeter->Read("1.txt", readbuf);
-    printf("%s\n", readbuf.c_str()); 
-    */
-
-
+    
     umask(0);
     return fuse_main(argc, argv, &xmp_oper, NULL);
-
 }

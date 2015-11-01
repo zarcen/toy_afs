@@ -133,7 +133,7 @@ public:
     }
 
     int ReadFile(uint64_t fd, std::string& buf) {
-        off_t currentPos = lseek(fd, (size_t)0, SEEK_CUR);
+        lseek(fd, (size_t)0, SEEK_CUR);
         int size = lseek(fd, (size_t)0, SEEK_END);
         buf.resize(size);
         lseek(fd, 0, SEEK_SET);
@@ -141,13 +141,11 @@ public:
         if (res < 0) {
             printf(" CACHE READ FAIL. ERRNO = %d\n", errno);
         }
-        //printf("--- ReadFile size:%u, str:%s \n", buf.size(), buf.c_str());
         return res;
     }
 
     int SaveFile(const std::string& filepath, std::string& data, uint64_t& fh) {
         int fd = open(filepath.c_str(), O_RDWR | O_CREAT | O_EXCL, 0644);
-        //int fd = open(filepath.c_str(), O_RDWR);
         printf("open with O_CREAT\n");
         if ((fd == -1) && (EEXIST == errno)) {
             /* open the existing file with truncate flag */
