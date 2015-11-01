@@ -106,6 +106,7 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             res = lstat(path.c_str(), &stbuf);
             if (res == -1) {
                 reply->set_err(-errno);
+                printf("GET_ATTR ERRNO: %d \n", errno);
             } 
             else {
                 std::string buf;

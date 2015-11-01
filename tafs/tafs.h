@@ -65,6 +65,8 @@ using tafs::AccessReq;
 using tafs::AccessReply;
 using tafs::WriteReq;
 using tafs::WriteReply;
+using tafs::MknodReq;
+using tafs::MknodReply;
 
 class GreeterClient {
  enum ErrorCode {
@@ -166,12 +168,8 @@ class GreeterClient {
     }
 
     Status status = reader->Finish();
-    if (status.ok()) {
-        return reply.err();
-    }
-    else {
-        return -1;
-    }
+
+    return status.ok() ? reply.err() : -1;
   }
 
   int MkDir(const std::string& path, int mode) {
@@ -183,12 +181,7 @@ class GreeterClient {
     ClientContext context;
     Status status = stub_->MkDir(&context, request, &reply);
 
-    if (status.ok()) {
-        return reply.err();
-    }
-    else {
-        return -1;
-    }
+    return status.ok() ? reply.err() : -1;
   }
 
   int Open(const std::string& path, int flag) {
@@ -200,12 +193,7 @@ class GreeterClient {
     ClientContext context;
     Status status = stub_->Open(&context, request, &reply);
 
-    if (status.ok()) {
-        return reply.err();
-    }
-    else {
-        return -1;
-    }
+    return status.ok() ? reply.err() : -1;
   }
 
   int RmDir(const std::string& path) {
@@ -216,12 +204,7 @@ class GreeterClient {
     ClientContext context;
     Status status = stub_->RmDir(&context, request, &reply);
 
-    if (status.ok()) {
-        return reply.err();
-    }
-    else {
-        return -1;
-    }
+    return status.ok() ? reply.err() : -1;
   }
 
   int Access(const std::string& path, int mode) {
@@ -233,12 +216,7 @@ class GreeterClient {
     ClientContext context;
     Status status = stub_->Access(&context, request, &reply);
 
-    if (status.ok()) {
-        return reply.err();
-    }
-    else {
-        return -1;
-    }
+    return status.ok() ? reply.err() : -1;
   }
 
 
@@ -251,14 +229,24 @@ class GreeterClient {
     ClientContext context;
     Status status = stub_->Write(&context, request, &reply);
 
-    if (status.ok()) {
-        return reply.num_bytes();
-    }
-    else {
-        return -1;
-    }
+    return status.ok() ? reply.num_bytes() : -1;
   }
 
+
+  int Mknod(const std::string& path, int mode, int rdev) {
+    MknodReq request;
+    request.set_path(path);
+    request.set_mode(mode);
+    request.set_rdev(rdev);
+
+    MknodReply reply;
+    ClientContext context;
+    Status status = stub_->Mknod(&context, request, &reply);
+
+    return status.ok() ? reply.err() : -1;
+  }
+
+  
 
  private:
   std::unique_ptr<ToyAFS::Stub> stub_;
