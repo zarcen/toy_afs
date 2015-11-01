@@ -21,6 +21,9 @@ A toy filesystem which is AFS-like
 - int tafs_getattr(const char *path, struct stat *stbuf)
 
 ## Important References:
+- fuse_operations Struct Reference
+  - http://fuse.sourceforge.net/doxygen/structfuse__operations.html
+  
 - How to initialize a struct using the c style while using the g++ compiler? 
 
   This is to solve the `static struct fuse_operations` problem, which cause a error message of 'non-trivial designated initializers not supported' when compiled with g++.
