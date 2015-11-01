@@ -67,6 +67,9 @@ using tafs::WriteReq;
 using tafs::WriteReply;
 using tafs::MknodReq;
 using tafs::MknodReply;
+using tafs::UnlinkReq;
+using tafs::UnlinkReply;
+
 
 class GreeterClient {
  enum ErrorCode {
@@ -246,7 +249,15 @@ class GreeterClient {
     return status.ok() ? reply.err() : -1;
   }
 
-  
+  int Unlink(const std::string& path) {
+    UnlinkReq request;
+    request.set_path(path);
+
+    UnlinkReply reply;
+    ClientContext context;
+    Status status = stub_->Unlink(&context, request, &reply);
+    return reply.err();
+  } 
 
  private:
   std::unique_ptr<ToyAFS::Stub> stub_;
