@@ -35,6 +35,9 @@
 #endif
 
 #include "tafs.h"
+#include "cache_util.h"
+
+static std::string CachePrefix = "/tmp/cache";
 
 static GreeterClient* greeter = NULL;
 
@@ -312,24 +315,61 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     std::string rpcbuf;
     std::string cpp_path = path;
 
+    //-----------------------
+    // check if existed
+    // if so
+    //    rpc getattr and local attr
+    //    check if the same
+    //    if so
+    //       load local data
+    //    else
+    //       rpc read
+    // else
+    //   rpc read
+    std::string localfile_path = CachePrefix + cpp_path;
+    std::string localattr_path = CachePrefix + cpp_path + ".attr";
+    CacheUtil cu;
+
+    bool local_read = false;
+
+    // read from local disk
+    if (cu.IsExisted(localfile_path) && cu.IsExisted(localattr_path)) {
+        std::string rpc_attr;
+        int res = greeter->GetAttr(cpp_path, rpc_attr);
+        if (res < 0) {
+            return res;
+        }
+        std::string local_attr = cu.GetFile(localattr_path);
+
+        // check if the same attr
+        if (rpc_attr.compare(local_attr) == 0) {
+            std::string local_buf = cu.GetFile(localfile_path);
+            memcpy(buf, &local_buf[0]+offset, size);
+            local_read = true;
+        }
+    }
+
+    // read from server
+    if (!local_read){
+        res = greeter->Read(cpp_path, rpcbuf, size, offset);
+        if (res < 0) {
+            return res;
+        }
+        memcpy(buf, &rpcbuf[0]+offset, size);
+        // save to local disk
+        cu.mkfolder(localfile_path);
+        cu.SaveToDisk(localfile_path, rpcbuf);
+    }
+	return size;
+
+    /*
     res = greeter->Read(cpp_path, rpcbuf, size, offset);
 	if (res < 0) {
-		res = -errno;
 		return res;
 	}
-	/*
-	if (offset < res) {
-	    if ((int)(offset + size) > (int)res) {
-	        size = res - offset;
-	    }
-        memcpy(buf, &rpcbuf[0] + offset, size);
-	} else {
-	    size = 0; 
-	} 
-	*/
-
     memcpy(buf, &rpcbuf[0]+offset, size);
 	return size;
+	*/
 }
 
 static int xmp_write(const char *path, const char *buf, size_t size,
@@ -439,6 +479,20 @@ struct tafs_fuse_operations:fuse_operations {
 static struct tafs_fuse_operations xmp_oper;
 
 int main(int argc, char** argv) {                                                                                                                                            
+
+
+    std::string ts = "/tmp/path/t1.txt";
+    std::string cp = CachePrefix + ts;
+    CacheUtil cu;
+    std::string tt =  cp.substr(0, cp.find_last_of("\\/"));
+    cu.mkpath(tt.c_str(), 0700);
+   
+    FILE* file = fopen(cp.c_str(), "wo");
+    if (file != NULL) {
+        fclose(file);
+    }
+    return 0;
+
     /*if (argc < 2) {
         printf("Please provide the serverhost to connect\n");
     }
@@ -457,6 +511,7 @@ int main(int argc, char** argv) {
     greeter->Read("1.txt", readbuf);
     printf("%s\n", readbuf.c_str()); 
     */
+
 
     umask(0);
     return fuse_main(argc, argv, &xmp_oper, NULL);
