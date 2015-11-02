@@ -35,10 +35,12 @@ gcc -Wall fusexmp.c `pkg-config fuse --cflags --libs` -o fusexmp
 #include "tafs.h"
 #include "cache_util.h"
 
-static GreeterClient* greeter = NULL;
-
-// <path, stat>
-static std::unordered_map<std::string, std::string> stat_hash;
+// rpc caller object                                                                                                                                                        
+static GreeterClient* greeter = NULL;                                                                                                                                       
+// memory cache for file stat; <path, stat>                                                                                                                                 
+static std::unordered_map<std::string, std::string> stat_hash;                                                                                                              
+// flag for release() to decide to contact server or not                                                                                                                    
+static int writeback_flag = -1;
 
 void InitRPC(const char* serverhost) {
     if (greeter == NULL) {
@@ -65,8 +67,7 @@ static int xmp_getattr(const char *path, struct stat *stbuf) {
     return 0;
 }
 
-static int xmp_access(const char *path, int mask)
-{
+static int xmp_access(const char *path, int mask) {
     printf("## START ## xmp_access\n");
     return 0;
     /*
@@ -151,27 +152,36 @@ static int xmp_mknod(const char *path, mode_t mode, dev_t rdev)
        */
 }
 
-static int xmp_mkdir(const char *path, mode_t mode)
-{
+static int xmp_mkdir(const char *path, mode_t mode) {
     printf("## START ## xmp_mkdir\n");
     std::string cpp_path = path;
     int res = greeter->MkDir(cpp_path, mode);
     return res == -1 ? -errno : 0;    
 }
 
-static int xmp_unlink(const char *path)
-{
+static int xmp_unlink(const char *path) {
     printf("## START ## xmp_unlink\n");
+    CacheUtil cu;
     std::string cpp_path = path;
     int res = greeter->Unlink(cpp_path);
+    if (res != -1) {                                                                                                                                                        
+        res = unlink(cu.ToCacheFileName(path).c_str());                                                                                                                     
+        res = unlink(cu.ToCacheAttrName(path).c_str());                                                                                                                     
+        res = unlink(cu.ToCacheReleName(path).c_str());                                                                                                                     
+    }                                                                                                                                                                       
     return res == -1 ? -errno : 0;
 }
 
-static int xmp_rmdir(const char *path)
-{
+static int xmp_rmdir(const char *path) {
     printf("## START ## xmp_rmdir\n");
+    CacheUtil cu;
     std::string cpp_path = path;
     int res = greeter->RmDir(cpp_path);
+    if (res != -1) {                                                                                                                                                        
+        res = rmdir(cu.ToCacheFileName(path).c_str());                                                                                                                      
+        res = rmdir(cu.ToCacheAttrName(path).c_str());                                                                                                                      
+        res = rmdir(cu.ToCacheReleName(path).c_str());                                                                                                                      
+    }
     return res == -1 ? -errno : 0;    
 }
 
@@ -234,8 +244,7 @@ static int xmp_chown(const char *path, uid_t uid, gid_t gid)
     return 0;
 }
 
-static int xmp_truncate(const char *path, off_t size)
-{
+static int xmp_truncate(const char *path, off_t size) {
     printf("## START ## xmp_truncate\n");
 
     std::string cpp_path = path;
@@ -243,8 +252,7 @@ static int xmp_truncate(const char *path, off_t size)
     return res == -1 ? -errno : 0;    
 }
 
-static int xmp_open(const char *path, struct fuse_file_info *fi)
-{
+static int xmp_open(const char *path, struct fuse_file_info *fi) {
     printf("## START ## xmp_open\n");
     CacheUtil cu;
 
@@ -286,12 +294,12 @@ static int xmp_open(const char *path, struct fuse_file_info *fi)
     if (cu.IsExisted(localfile_path) && cu.IsExisted(localattr_path)) {
         std::string local_stat;
         if (cu.GetLocalAttr(stat_hash, localattr_path, local_stat) >= 0
-            && server_stat.compare(local_stat) == 0) {
+                && server_stat.compare(local_stat) == 0) {
 
             local_existed  = true;
 
             fi->fh = open(localfile_path.c_str(), O_RDWR);
-        
+
             printf("== File existed in local, fh: %d ==\n", (int)fi->fh);
         }
     }
@@ -310,7 +318,7 @@ static int xmp_open(const char *path, struct fuse_file_info *fi)
         // save to local disk
         cu.mkfolder(localfile_path);
         if (cu.SaveFile(localfile_path, rpcbuf, fi->fh) < 0) {
-           return -1;
+            return -1;
         }
 
         uint64_t dummy;
@@ -322,19 +330,18 @@ static int xmp_open(const char *path, struct fuse_file_info *fi)
         close(dummy);
         printf("== Read from server and save ==\n");
     }
-	return 0;
+    return 0;
 }
 
 static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
-        struct fuse_file_info *fi)
-{
+        struct fuse_file_info *fi) {
     printf("## START ## xmp_read\n");
     CacheUtil cu;
     std::string local_buf;
 
     if (cu.ReadFile(fi->fh, local_buf) < 0) {
-      printf("-- readfile fail when fd = %d\n", (int)fi->fh);
-      return -1;
+        printf("-- readfile fail when fd = %d\n", (int)fi->fh);
+        return -1;
     }
     printf("-- readfile success\n");
     memcpy(buf, &local_buf[0]+offset, size);
@@ -342,8 +349,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 }
 
 static int xmp_write(const char *path, const char *buf, size_t size,
-        off_t offset, struct fuse_file_info *fi)
-{
+        off_t offset, struct fuse_file_info *fi) {
     printf("## START ## xmp_write\n");
     std::string cpp_path = path;
     std::string cache_path = CacheUtil().ToCacheFileName(path);
@@ -354,15 +360,15 @@ static int xmp_write(const char *path, const char *buf, size_t size,
     }
     int res = pwrite(fd, buf, size, offset);
     if (res == -1) {
-        fi->flags = 0;
+        writeback_flag = -1;
         return -errno;
     }
-    fi->flags = size;
+    writeback_flag = 1;                                                                                                 
+    printf("@@@@@ Changing sth in xmp_write, writebackflags = %d\n", writeback_flag);
     return res;
 }
 
-static int xmp_statfs(const char *path, struct statvfs *stbuf)
-{
+static int xmp_statfs(const char *path, struct statvfs *stbuf) {
     printf("## START ## xmp_statfs\n");
     int res;
 
@@ -373,20 +379,18 @@ static int xmp_statfs(const char *path, struct statvfs *stbuf)
     return 0;
 }
 
-static int xmp_utimens(const char *path, const struct timespec ts[2])
-{
+static int xmp_utimens(const char *path, const struct timespec ts[2]) {
     return 0;
 }
 
-static int xmp_flush(const char *path, struct fuse_file_info *fi)
-{
+static int xmp_flush(const char *path, struct fuse_file_info *fi) {
     printf("## START ## xmp_flush\n");
     int ret = fsync(fi->fh);
 
     // with fsync inside
     std::string rele = CacheUtil().ToCacheReleName(path);
     if (CacheUtil().IsExisted(rele)) {
-       printf("--!--!-- %s already exists\n", rele.c_str());
+        printf("--!--!-- %s already exists\n", rele.c_str());
     }
     else if (CacheUtil().Touch(rele) < 0) {
         printf("--!--!-- Fail to cache_repaly file: %s \n", path);
@@ -396,41 +400,42 @@ static int xmp_flush(const char *path, struct fuse_file_info *fi)
 
 int j2 = 0;
 
-static int xmp_release(const char *path, struct fuse_file_info *fi)
-{
-    if (j2 == 0) {
-        j2 = 1;
-        return 0;
-    } else {
-        j2 = 0;
-    }
-
+static int xmp_release(const char *path, struct fuse_file_info *fi) {
     printf("## START ## xmp_release\n");
     std::string cpp_path = path;
     int res = 0;
     if ((int)fi->fh != -1) {
-        CacheUtil cu;
-        std::string local_buf;
-        if (cu.ReadFile(fi->fh, local_buf) < 0) {
-            printf("-- readfile fail at xmp_release when fd = %d\n", (int)fi->fh);
-            return -1;
+        if (writeback_flag == 1) {
+            printf("ACTION(xmp_release) - write %s back to server\n", path);                                                                                                
+            CacheUtil cu;                                                                                                                                                   
+            std::string local_buf;
+            if (cu.ReadFile(fi->fh, local_buf) < 0) {                                                                                                                       
+                fprintf(stderr,                                                                                                                                             
+                        "ERROR(xmp_release) - failed at fetching cache from disk: %s\n",                                                                                    
+                        strerror(errno));                                                                                                                                   
+                return -1;                                                                                                                                                  
+            }                                                                                                                                                               
+            // Sync back to server                                                                                                                                          
+            res = greeter->Write(cpp_path, local_buf, local_buf.size(), 0 /*offset*/);                                                                                      
+            if (res < 0) {                                                                                                                                                  
+                fprintf(stderr,                                                                                                                                             
+                        "ERROR(xmp_release) - failed at writing to server RPC call: %s\n",                                                                                  
+                        strerror(errno));                                                                                                                                   
+                return res;                                                                                                                                                 
+            }
+
+            if (cu.Unlink(cu.ToCacheReleName(path))){ 
+                printf("--!--!-- Fail to unlink file: %s \n", path);
+            }
         }
-        // Sync back to server
-        res = greeter->Write(cpp_path, local_buf, local_buf.size(), 0 /*offset*/);
-        if (res < 0) {
-            return res;
-        }
+        writeback_flag = -1;
         res = close(fi->fh);
-        if (cu.Unlink(cu.ToCacheReleName(path))){ 
-            printf("--!--!-- Fail to unlink file: %s \n", path);
-        }
     }
     return res;
 }
 
 static int xmp_fsync(const char *path, int isdatasync,
-        struct fuse_file_info *fi)
-{
+        struct fuse_file_info *fi) {
     printf("## START ## xmp_fsync\n");
     /* Just a stub.	 This method is optional and can safely be left
        unimplemented */
@@ -471,14 +476,19 @@ struct tafs_fuse_operations:fuse_operations {
 
 static struct tafs_fuse_operations xmp_oper;
 
-int main(int argc, char** argv) {                                                                                                                                            
-    //InitRPC(serverhost);
-    InitRPC("node1:50051");
+int main(int argc, char** argv) {                                                                                                                                          
+    const char* default_server = "node1:50051";                                                                                                                             
+    FILE* fp = fopen("./server", "r");                                                                                                                                      
+    if (fp != NULL) {                                                                                                                                                       
+        char host_to_connect[200];                                                                                                                                          
+        fscanf(fp, "%s", host_to_connect);                                                                                                                                  
+        printf("connecting to... %s\n", host_to_connect);                                                                                                                   
+        InitRPC(host_to_connect);                                                                                                                                           
+    } else {                                                                                                                                                                
+        printf("connecting to... %s\n", default_server);                                                                                                                    
+        InitRPC(default_server);                                                                                                                                            
+    }                                                                                                                                                                       
 
-    // Login                                                                                                                                                                   
-    int login_reply = greeter->Login(739);                                                                                                                                      
-    std::cout << "Login Replied: " << login_reply << std::endl;                                                                                                                
-    
-    umask(0);
+    umask(0);                                                                                                                                                               
     return fuse_main(argc, argv, &xmp_oper, NULL);
 }
