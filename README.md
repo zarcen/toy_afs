@@ -23,6 +23,9 @@ A toy filesystem which is AFS-like
 ## Important References:
 - fuse_operations Struct Reference
   - http://fuse.sourceforge.net/doxygen/structfuse__operations.html
+
+- Protocol Buffer Language Guide (proto3)
+  - https://developers.google.com/protocol-buffers/docs/proto3?hl=en
   
 - How to initialize a struct using the c style while using the g++ compiler? 
 
