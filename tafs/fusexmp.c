@@ -36,7 +36,6 @@ gcc -Wall fusexmp.c `pkg-config fuse --cflags --libs` -o fusexmp
 #include "cache_util.h"
 
 static GreeterClient* greeter = NULL;
-static const char* cache_prefix = "/tmp/cache";
 
 // <path, stat>
 static std::unordered_map<std::string, std::string> stat_hash;
@@ -155,19 +154,9 @@ static int xmp_mknod(const char *path, mode_t mode, dev_t rdev)
 static int xmp_mkdir(const char *path, mode_t mode)
 {
     printf("## START ## xmp_mkdir\n");
-
     std::string cpp_path = path;
     int res = greeter->MkDir(cpp_path, mode);
-
     return res == -1 ? -errno : 0;    
-
-    /*
-       res = mkdir(path, mode);
-       if (res == -1)
-       return -errno;
-
-       return 0;
-       */
 }
 
 static int xmp_unlink(const char *path)
@@ -175,15 +164,7 @@ static int xmp_unlink(const char *path)
     printf("## START ## xmp_unlink\n");
     std::string cpp_path = path;
     int res = greeter->Unlink(cpp_path);
-
     return res == -1 ? -errno : 0;
-    /*
-       res = unlink(path);
-       if (res == -1)
-       return -errno;
-
-       return 0;
-       */
 }
 
 static int xmp_rmdir(const char *path)
@@ -191,15 +172,7 @@ static int xmp_rmdir(const char *path)
     printf("## START ## xmp_rmdir\n");
     std::string cpp_path = path;
     int res = greeter->RmDir(cpp_path);
-
     return res == -1 ? -errno : 0;    
-    /*
-       res = rmdir(path);
-       if (res == -1)
-       return -errno;
-
-       return 0;
-       */
 }
 
 static int xmp_symlink(const char *from, const char *to)
@@ -267,26 +240,38 @@ static int xmp_truncate(const char *path, off_t size)
 
     std::string cpp_path = path;
     int res = greeter->Truncate(cpp_path, size);
-
     return res == -1 ? -errno : 0;    
-
-    /*
-       int res;
-
-       res = truncate(path, size);
-       if (res == -1)
-       return -errno;
-
-       return 0;
-       */
 }
 
 static int xmp_open(const char *path, struct fuse_file_info *fi)
 {
     printf("## START ## xmp_open\n");
+    CacheUtil cu;
+
     std::string cpp_path = path;
-    std::string localfile_path = cache_prefix + cpp_path;
-    std::string localattr_path = cache_prefix + cpp_path + ".attr";
+    std::string localfile_path = cu.ToCacheFileName(path);
+    std::string localattr_path = cu.ToCacheAttrName(path);
+
+    // check if there's anything in cache to release to server
+    if (cu.IsExisted(cu.ToCacheReleName(path))) {
+        if (!cu.IsExisted(localfile_path)) {
+            cu.Unlink(localfile_path);
+        }
+        else {
+            int fd = open(localfile_path.c_str(), O_RDONLY, 0644);
+            std::string local_buf;
+            if (cu.ReadFile(fd, local_buf) < 0) {
+                printf("--!-- Fail to read cache in open: %s \n", localfile_path.c_str());
+                return -1;
+            }
+            // Sync back to server
+            int res = greeter->Write(cpp_path, local_buf, local_buf.size(), 0 /*offset*/);
+            if (res < 0) {
+                return res;
+            }
+            res = close(fd);
+        }
+    }
 
     // get server attr
     std::string server_stat;
@@ -295,11 +280,8 @@ static int xmp_open(const char *path, struct fuse_file_info *fi)
         return res;
     }
 
-    CacheUtil cu;
-
-    fi->fh = (int)-1;
-
     // read from local disk
+    fi->fh = (int)-1;
     bool local_existed = false;
     if (cu.IsExisted(localfile_path) && cu.IsExisted(localattr_path)) {
         std::string local_stat;
@@ -347,26 +329,6 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         struct fuse_file_info *fi)
 {
     printf("## START ## xmp_read\n");
-    //int res;
-    // Read
-    //std::string rpcbuf;
-    //std::string cpp_path = path;
-
-    //-----------------------
-    // check if existed
-    // 
-    // if so
-    //    get rpc attr
-    //    get local attr
-    //    check if the same
-    //    if so
-    //       load local data
-    // if local not exited 
-    //   rpc read
-    //   save to disk: file and attr
-    //
-    //std::string localfile_path = CachePrefix + cpp_path;
-    //std::string localattr_path = CachePrefix + cpp_path + ".attr";
     CacheUtil cu;
     std::string local_buf;
 
@@ -377,50 +339,6 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     printf("-- readfile success\n");
     memcpy(buf, &local_buf[0]+offset, size);
     return size;
-
-    /*
-    bool local_read = false;
-
-    // read from local disk
-    if (cu.IsExisted(localfile_path) && cu.IsExisted(localattr_path)) {
-        std::string rpc_attr;
-        int res = greeter->GetAttr(cpp_path, rpc_attr);
-        if (res < 0) {
-            return res;
-        }
-        std::string local_attr = cu.GetFile(localattr_path);
-
-        // check if the same attr
-        if (rpc_attr.compare(local_attr) == 0) {
-            std::string local_buf = cu.GetFile(localfile_path);
-            memcpy(buf, &local_buf[0]+offset, size);
-            local_read = true;
-            printf("== Read from local ==\n");
-        }
-    }
-
-    // read from server
-    if (!local_read){
-        res = greeter->Read(cpp_path, rpcbuf, size, offset);
-        if (res < 0) {
-            return res;
-        }
-        std::string rpc_attr;
-        res = greeter->GetAttr(cpp_path, rpc_attr);
-        if (res < 0) {
-            return res;
-        }
-
-        memcpy(buf, &rpcbuf[0]+offset, size);
-        // save to local disk
-        cu.mkfolder(localfile_path);
-        cu.mkfolder(localattr_path);
-        cu.SaveToDisk(localfile_path, rpcbuf);
-        cu.SaveToDisk(localattr_path, rpc_attr);
-        printf("== Read from server and save ==\n");
-    }
-	return size;
-	*/
 }
 
 static int xmp_write(const char *path, const char *buf, size_t size,
@@ -428,9 +346,8 @@ static int xmp_write(const char *path, const char *buf, size_t size,
 {
     printf("## START ## xmp_write\n");
     std::string cpp_path = path;
-    std::string cache_path = cache_prefix + cpp_path;
-    printf("XMP_WRITE: cache_path -> %s\n", cache_path.c_str());
-    //int fd = open(cache_path.c_str(), O_WRONLY);
+    std::string cache_path = CacheUtil().ToCacheFileName(path);
+
     int fd = fi->fh;
     if (fd == -1) {
         return -errno;
@@ -464,30 +381,49 @@ static int xmp_utimens(const char *path, const struct timespec ts[2])
 static int xmp_flush(const char *path, struct fuse_file_info *fi)
 {
     printf("## START ## xmp_flush\n");
-    return fsync(fi->fh);
+    int ret = fsync(fi->fh);
+
+    // with fsync inside
+    std::string rele = CacheUtil().ToCacheReleName(path);
+    if (CacheUtil().IsExisted(rele)) {
+       printf("--!--!-- %s already exists\n", rele.c_str());
+    }
+    else if (CacheUtil().Touch(rele) < 0) {
+        printf("--!--!-- Fail to cache_repaly file: %s \n", path);
+    }
+    return ret;
 }
+
+int j2 = 0;
 
 static int xmp_release(const char *path, struct fuse_file_info *fi)
 {
+    if (j2 == 0) {
+        j2 = 1;
+        return 0;
+    } else {
+        j2 = 0;
+    }
+
     printf("## START ## xmp_release\n");
-    (void) path;
-    (void) fi;
     std::string cpp_path = path;
-    CacheUtil cu;
-    std::string local_buf;
     int res = 0;
     if ((int)fi->fh != -1) {
+        CacheUtil cu;
+        std::string local_buf;
         if (cu.ReadFile(fi->fh, local_buf) < 0) {
             printf("-- readfile fail at xmp_release when fd = %d\n", (int)fi->fh);
             return -1;
         }
         // Sync back to server
-        printf("-- write local_buf %s back to server\n", local_buf.c_str());  
         res = greeter->Write(cpp_path, local_buf, local_buf.size(), 0 /*offset*/);
         if (res < 0) {
             return res;
         }
         res = close(fi->fh);
+        if (cu.Unlink(cu.ToCacheReleName(path))){ 
+            printf("--!--!-- Fail to unlink file: %s \n", path);
+        }
     }
     return res;
 }
