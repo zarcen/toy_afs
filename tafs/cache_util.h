@@ -7,7 +7,10 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <stdio.h>
-//#include "sysstat.h"
+
+static const char* cache_prefix = "/tmp/cache";
+static const char* prefix_rele = ".rele"; // to release
+static const char* prefix_attr = ".attr";
 
 //
 // ref: http://stackoverflow.com/questions/675039/how-can-i-create-directory-tree-in-c-linux
@@ -17,6 +20,19 @@ class CacheUtil
     typedef struct stat Stat;
 
 public:
+
+    std::string ToCacheFileName(std::string str) {
+        return cache_prefix + str;
+    }
+
+    std::string ToCacheAttrName(std::string str) {
+        return cache_prefix + str + prefix_attr;
+    }
+
+    std::string ToCacheReleName(std::string str) {
+        return cache_prefix + str + prefix_rele;
+    }
+
     int do_mkdir(const char *path, mode_t mode)
     {
         Stat            st;
@@ -98,6 +114,19 @@ public:
             printf("Warning: file %s is zero size \n", filepath.c_str());
             return std::string();
         }
+    }
+
+    int Touch(std::string path) {
+        int fd = open(path.c_str(), O_RDWR | O_CREAT | O_EXCL, 0644);
+        if (fsync(fd) < 0 || close(fd) != 0) {
+            return -1;
+        }
+        return 0;
+    }
+
+    int Unlink(std::string path) {
+        int ret = unlink(path.c_str());
+        return ret < 0 ? -errno : 0;
     }
 
     bool SaveToDisk(std::string filepath, std::string& data) {
