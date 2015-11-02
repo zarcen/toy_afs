@@ -1,5 +1,6 @@
 # toy_afs
-A toy filesystem which is AFS-like
+A toy version of AFS-like user-space filesystem implemented by [FUSE](http://fuse.sourceforge.net/) and [gRPC](https://github.com/grpc/grpc) (Google RPC)
+
 
 ## Todo
 - (Done) build grpc (https://github.com/grpc/grpc)
