@@ -464,8 +464,7 @@ static int xmp_utimens(const char *path, const struct timespec ts[2])
 static int xmp_flush(const char *path, struct fuse_file_info *fi)
 {
     printf("## START ## xmp_flush\n");
-    int res = fsync(fi->fh);
-    return 0;
+    return fsync(fi->fh);
 }
 
 static int xmp_release(const char *path, struct fuse_file_info *fi)
