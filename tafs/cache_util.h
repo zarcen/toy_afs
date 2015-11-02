@@ -174,11 +174,9 @@ public:
 
     int SaveFile(const std::string& filepath, std::string& data, uint64_t& fh) {
         int fd = open(filepath.c_str(), O_RDWR | O_CREAT | O_EXCL, 0644);
-        printf("open with O_CREAT\n");
         if ((fd == -1) && (EEXIST == errno)) {
             /* open the existing file with truncate flag */
             fd = open(filepath.c_str(), O_TRUNC | O_RDWR);
-            printf("open with O_TRUNC\n");
             if (fd == -1) {
                 return -errno;
             } 
