@@ -2,24 +2,23 @@
 A toy version of AFS-like user-space filesystem implemented by [FUSE](http://fuse.sourceforge.net/) and [gRPC](https://github.com/grpc/grpc) (Google RPC)
 
 
-## Todo
-- (Done) build grpc (https://github.com/grpc/grpc)
-- (Done) build protobuf (https://github.com/google/protobuf/releases)
-- (Done) build Fuse (http://fuse.sourceforge.net)
-- rewrite the sync_files.sh
-- implement the user-level filesystem
-- implement the local update protocol for crash consistency
+## Get Started
 
+### Env Requirement
+- Build grpc (https://github.com/grpc/grpc)
+- Build protobuf (https://github.com/google/protobuf/releases)
+- Build Fuse (http://fuse.sourceforge.net)
+- Install `pkg-config` via `sudo apt-get install pkg-config` (needed when compiling fuse programs)
 
-## Func
-- int open(const char *path, int oflags);
-- int  read(  int  handle,  void  *buffer,  int  nbyte );
-- int  write(  int  handle,  void  *buffer,  int  nbyte  );
+### Build the server and client side programs
+1. `cd toy_afs/tafs`
+2. `make`
+3. start server on the machine you like `./tafs_server`
+4. edit the file `toy_afs/tafs/server` to specify the host:port of the server you ran
+5. start client-side program, which is integrated into Fuse, and set mount point you like. e.g., `./fusetafs /tmp/afs/ -d`
+   - verbose mode(for debug/demo): `./fusetafs /tmp/afs/ -d`
+   - silent mode: `./fusetafs /tmp/afs/ -d`
 
-## RPC Calls
-- int tafs_read(const char *path, char *buf, size_t size)
-- int tafs_open(const char *path, int flag)
-- int tafs_getattr(const char *path, struct stat *stbuf)
 
 ## Important References:
 - fuse_operations Struct Reference
@@ -42,3 +41,7 @@ A toy version of AFS-like user-space filesystem implemented by [FUSE](http://fus
 
 - An IBM example of using FUSE+RPC to realize a AFS
   - https://www.ibm.com/developerworks/library/l-fuse/
+
+
+## Known Bugs
+- When calling gRPC func too fast, transferred data would sometimes be corrupt
