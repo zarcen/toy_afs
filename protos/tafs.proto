@@ -36,9 +36,6 @@ package tafs;
 // The greeting service definition.
 service ToyAFS {
     // Sends a greeting
-    rpc SayHello (HelloRequest) returns (HelloReply) {}
-    rpc Login (LoginRequest) returns (LoginReply) {}
-    rpc TestBytes (TestB) returns (LoginReply) {}
     rpc GetAttr (GetAttrReq) returns (GetAttrReply) {}
     rpc Open (OpenReq) returns (OpenReply) {}
     rpc Read (ReadReq) returns (ReadReply) {}
@@ -191,24 +188,4 @@ message WriteReq {
 
 message WriteReply {
     int32 num_bytes = 1;
-}
-
-message ErrNo {
-    int32 err = 1;
-}
-
-message Buf {
-    bytes data = 1;
-}
-
-message LoginRequest{
-    int32 num = 1;
-}
-
-message LoginReply{
-    int32 num = 1;
-}
-
-message TestB {
-    bytes mydata = 1;
 }
