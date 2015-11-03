@@ -50,16 +50,15 @@ void InitRPC(const char* serverhost) {
 }
 
 int IsCrash(const char* filename) {
-  FILE* fp = fopen(filename, "r");
-  int crash = 0;
-  if (fp != NULL) {                                                                                                                                                       
-      fscanf(fp, "%d", &crash);                                                                                                                                  
-      printf("Simulating CRASH...\n");                                                                                                                   
-  } else {                                                                                                                                                                
-      printf("FAIL OPEN FILE for CRASH \n");                                                                                                                   
-  }                                                                                                                                                                       
-  fclose(fp);
-  return crash;
+    FILE* fp = fopen(filename, "r");
+    int crash = 0;
+    if (fp != NULL) {                                                                                                                                                       
+        fscanf(fp, "%d", &crash);                                                                                                                                  
+    } else {                                                                                                                                                                
+        printf("FAIL OPEN FILE for CRASH \n");                                                                                                                   
+    }                                                                                                                                                                       
+    fclose(fp);
+    return crash;
 }
 
 static int xmp_getattr(const char *path, struct stat *stbuf) {
@@ -90,7 +89,7 @@ static int xmp_getattr(const char *path, struct stat *stbuf) {
                 return res;
             }
             else {
-               printf(" -- cached existed, write back to server success\n");
+                printf(" -- cached existed, write back to server success\n");
             }
             res = close(fd);
         }
@@ -401,7 +400,7 @@ static int xmp_write(const char *path, const char *buf, size_t size,
 
     // validate fh
     if (-1 == cu.ValidateCacheFh(fi->fh, path)) {
-       printf("--!-- Fail to validate %s\n", path); return -1;
+        printf("--!-- Fail to validate %s\n", path); return -1;
     }
 
     int fd = fi->fh;
@@ -437,7 +436,7 @@ static int xmp_flush(const char *path, struct fuse_file_info *fi) {
 
     // validate fh
     if (-1 == cu.ValidateCacheFh(fi->fh, path)) {
-       printf("--!-- flush: Fail to validate %s\n", path); return -1;
+        printf("--!-- flush: Fail to validate %s\n", path); return -1;
     }
 
     int ret = fsync(fi->fh);
@@ -461,44 +460,49 @@ static int xmp_release(const char *path, struct fuse_file_info *fi) {
     std::string cpp_path = path;
 #ifdef CRASH_TEST
     if (IsCrash("crash_config.txt")) {
+        printf("Simulating CRASH Case...\n");                                                                                                                   
         kill(getpid(), SIGINT);
         return 0;
     }
+    else {
 #endif
 
-    CacheUtil cu;                                                                                                                                                   
-    if (-1 == cu.ValidateCacheFh(fi->fh, path)) {
-        printf("--!-- Release: Fail to validate %s\n", path); return -1;
-    }
-
-    int res = 0;
-    if ((int)fi->fh != -1) {
-        if (writeback_flag == 1) {
-            printf("ACTION(xmp_release) - write %s back to server\n", path);                                                                                                
-            std::string local_buf;
-            if (cu.ReadFile(fi->fh, local_buf) < 0) {                                                                                                                       
-                fprintf(stderr,                                                                                                                                             
-                        "ERROR(xmp_release) - failed at fetching cache from disk: %s\n",                                                                                    
-                        strerror(errno));                                                                                                                                   
-                return -1;                                                                                                                                                  
-            }                                                                                                                                                               
-            // Sync back to server                                                                                                                                          
-            res = greeter->Write(cpp_path, local_buf, local_buf.size(), 0 /*offset*/);                                                                                      
-            if (res < 0) {                                                                                                                                                  
-                fprintf(stderr,                                                                                                                                             
-                        "ERROR(xmp_release) - failed at writing to server RPC call: %s\n",                                                                                  
-                        strerror(errno));                                                                                                                                   
-                return res;                                                                                                                                                 
-            }
-
-            if (cu.Unlink(cu.ToCacheReleName(path))){ 
-                printf("--!--!-- Fail to unlink file: %s \n", path);
-            }
+        CacheUtil cu;                                                                                                                                                   
+        if (-1 == cu.ValidateCacheFh(fi->fh, path)) {
+            printf("--!-- Release: Fail to validate %s\n", path); return -1;
         }
-        writeback_flag = -1;
-        res = close(fi->fh);
+
+        int res = 0;
+        if ((int)fi->fh != -1) {
+            if (writeback_flag == 1) {
+                printf("ACTION(xmp_release) - write %s back to server\n", path);                                                                                                
+                std::string local_buf;
+                if (cu.ReadFile(fi->fh, local_buf) < 0) {                                                                                                                       
+                    fprintf(stderr,                                                                                                                                             
+                            "ERROR(xmp_release) - failed at fetching cache from disk: %s\n",                                                                                    
+                            strerror(errno));                                                                                                                                   
+                    return -1;                                                                                                                                                  
+                }                                                                                                                                                               
+                // Sync back to server                                                                                                                                          
+                res = greeter->Write(cpp_path, local_buf, local_buf.size(), 0 /*offset*/);                                                                                      
+                if (res < 0) {                                                                                                                                                  
+                    fprintf(stderr,                                                                                                                                             
+                            "ERROR(xmp_release) - failed at writing to server RPC call: %s\n",                                                                                  
+                            strerror(errno));                                                                                                                                   
+                    return res;                                                                                                                                                 
+                }
+
+                if (cu.Unlink(cu.ToCacheReleName(path))){ 
+                    printf("--!--!-- Fail to unlink file: %s \n", path);
+                }
+            }
+            writeback_flag = -1;
+            res = close(fi->fh);
+        }
+        return res;
+#ifdef CRASH_TEST
     }
-    return res;
+#endif
 }
 
 static int xmp_fsync(const char *path, int isdatasync,
@@ -531,7 +535,7 @@ struct tafs_fuse_operations:fuse_operations {
         chown		= xmp_chown;
         truncate	= xmp_truncate;
         utimens	    = xmp_utimens,
-        open		= xmp_open;
+                    open		= xmp_open;
         read		= xmp_read;
         write		= xmp_write;
         statfs		= xmp_statfs;
