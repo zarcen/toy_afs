@@ -20,6 +20,7 @@ gcc -Wall fusexmp.c `pkg-config fuse --cflags --libs` -o fusexmp
 #define _XOPEN_SOURCE 700
 #endif
 
+#include <signal.h>
 #include <fuse.h>
 #include <stdio.h>
 #include <string.h>
@@ -466,42 +467,44 @@ static int xmp_release(const char *path, struct fuse_file_info *fi) {
     printf("= = = =  START = = = =  xmp_release\n");
     std::string cpp_path = path;
     if (IsCrash("crash_config.txt")) {
-        exit(0);
+        kill(getpid(), SIGINT);
+        return 0;
     }
-
-    CacheUtil cu;                                                                                                                                                   
-    if (-1 == cu.ValidateCacheFh(fi->fh, path)) {
-       printf("--!-- Release: Fail to validate %s\n", path); return -1;
-    }
-
-    int res = 0;
-    if ((int)fi->fh != -1) {
-        if (writeback_flag == 1) {
-            printf("ACTION(xmp_release) - write %s back to server\n", path);                                                                                                
-            std::string local_buf;
-            if (cu.ReadFile(fi->fh, local_buf) < 0) {                                                                                                                       
-                fprintf(stderr,                                                                                                                                             
-                        "ERROR(xmp_release) - failed at fetching cache from disk: %s\n",                                                                                    
-                        strerror(errno));                                                                                                                                   
-                return -1;                                                                                                                                                  
-            }                                                                                                                                                               
-            // Sync back to server                                                                                                                                          
-            res = greeter->Write(cpp_path, local_buf, local_buf.size(), 0 /*offset*/);                                                                                      
-            if (res < 0) {                                                                                                                                                  
-                fprintf(stderr,                                                                                                                                             
-                        "ERROR(xmp_release) - failed at writing to server RPC call: %s\n",                                                                                  
-                        strerror(errno));                                                                                                                                   
-                return res;                                                                                                                                                 
-            }
-
-            if (cu.Unlink(cu.ToCacheReleName(path))){ 
-                printf("--!--!-- Fail to unlink file: %s \n", path);
-            }
+    else {
+        CacheUtil cu;                                                                                                                                                   
+        if (-1 == cu.ValidateCacheFh(fi->fh, path)) {
+            printf("--!-- Release: Fail to validate %s\n", path); return -1;
         }
-        writeback_flag = -1;
-        res = close(fi->fh);
+
+        int res = 0;
+        if ((int)fi->fh != -1) {
+            if (writeback_flag == 1) {
+                printf("ACTION(xmp_release) - write %s back to server\n", path);                                                                                                
+                std::string local_buf;
+                if (cu.ReadFile(fi->fh, local_buf) < 0) {                                                                                                                       
+                    fprintf(stderr,                                                                                                                                             
+                            "ERROR(xmp_release) - failed at fetching cache from disk: %s\n",                                                                                    
+                            strerror(errno));                                                                                                                                   
+                    return -1;                                                                                                                                                  
+                }                                                                                                                                                               
+                // Sync back to server                                                                                                                                          
+                res = greeter->Write(cpp_path, local_buf, local_buf.size(), 0 /*offset*/);                                                                                      
+                if (res < 0) {                                                                                                                                                  
+                    fprintf(stderr,                                                                                                                                             
+                            "ERROR(xmp_release) - failed at writing to server RPC call: %s\n",                                                                                  
+                            strerror(errno));                                                                                                                                   
+                    return res;                                                                                                                                                 
+                }
+
+                if (cu.Unlink(cu.ToCacheReleName(path))){ 
+                    printf("--!--!-- Fail to unlink file: %s \n", path);
+                }
+            }
+            writeback_flag = -1;
+            res = close(fi->fh);
+        }
+        return res;
     }
-    return res;
 }
 
 static int xmp_fsync(const char *path, int isdatasync,
