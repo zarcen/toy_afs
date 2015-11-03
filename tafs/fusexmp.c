@@ -154,8 +154,12 @@ static int xmp_mknod(const char *path, mode_t mode, dev_t rdev)
 
 static int xmp_mkdir(const char *path, mode_t mode) {
     printf("## START ## xmp_mkdir\n");
+    CacheUtil cu;
     std::string cpp_path = path;
     int res = greeter->MkDir(cpp_path, mode);
+    if (res != -1) {                                                                                                                                                        
+        res = mkdir(cu.ToCacheFileName(path).c_str(), mode);
+    }
     return res == -1 ? -errno : 0;    
 }
 
@@ -179,8 +183,6 @@ static int xmp_rmdir(const char *path) {
     int res = greeter->RmDir(cpp_path);
     if (res != -1) {                                                                                                                                                        
         res = rmdir(cu.ToCacheFileName(path).c_str());                                                                                                                      
-        res = rmdir(cu.ToCacheAttrName(path).c_str());                                                                                                                      
-        res = rmdir(cu.ToCacheReleName(path).c_str());                                                                                                                      
     }
     return res == -1 ? -errno : 0;    
 }
@@ -199,9 +201,18 @@ static int xmp_symlink(const char *from, const char *to)
 static int xmp_rename(const char *from, const char *to)
 {
     printf("## START ## xmp_rename\n");
+    CacheUtil cu;
     std::string cpp_from = from;
     std::string cpp_to = to;
     int res = greeter->Rename(cpp_from, cpp_to);
+    if (res != -1) {                                                                                                                                                        
+        res = rename(cu.ToCacheFileName(from).c_str(), 
+                cu.ToCacheFileName(from).c_str() );
+        res = rename(cu.ToCacheAttrName(from).c_str(), 
+                cu.ToCacheAttrName(from).c_str() );
+        res = rename(cu.ToCacheReleName(from).c_str(), 
+                cu.ToCacheReleName(from).c_str() );
+    }
     return res == -1 ? -errno : 0;
 }
 
