@@ -49,10 +49,39 @@ void InitRPC(const char* serverhost) {
 }
 
 static int xmp_getattr(const char *path, struct stat *stbuf) {
-    printf("## START ## xmp_getattr\n");
+    printf("= = = =  START = = = =  xmp_getattr\n");
     int res;
     std::string rpcbuf;
     std::string cpp_path = path;
+    CacheUtil cu;
+    std::string localfile_path = cu.ToCacheFileName(path);
+    std::string localattr_path = cu.ToCacheAttrName(path);
+
+    // check if there's anything in cache to release to server
+    if (cu.IsExisted(cu.ToCacheReleName(path))) {
+        if (!cu.IsExisted(localfile_path)) {
+            cu.Unlink(localfile_path);
+        }
+        else {
+            int fd = open(localfile_path.c_str(), O_RDONLY);
+            std::string local_buf;
+            if (cu.ReadFile(fd, local_buf) < 0) {
+                printf("--!-- Fail to read cache in open: %s \n", localfile_path.c_str());
+                return -1;
+            }
+            // Sync back to server
+            int res = greeter->Write(cpp_path, local_buf, local_buf.size(), 0 /*offset*/);
+            if (res < 0) {
+                printf("-- cache existed, fail write back--\n");
+                return res;
+            }
+            else {
+               printf(" -- cached existed, write back:\n%s \n", local_buf.c_str());
+            }
+            res = close(fd);
+        }
+    }
+
     res = greeter->GetAttr(cpp_path, rpcbuf);
     if (res < 0) {
         return res;
@@ -68,7 +97,7 @@ static int xmp_getattr(const char *path, struct stat *stbuf) {
 }
 
 static int xmp_access(const char *path, int mask) {
-    printf("## START ## xmp_access\n");
+    printf("= = = =  START = = = =  xmp_access\n");
     return 0;
     /*
        int res;
@@ -97,7 +126,7 @@ static int xmp_readlink(const char *path, char *buf, size_t size)
 static int xmp_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
         off_t offset, struct fuse_file_info *fi)
 {
-    printf("## START ## xmp_readdir\n");
+    printf("= = = =  START = = = =  xmp_readdir\n");
     (void) offset;
     (void) fi;
     //
@@ -127,7 +156,7 @@ static int xmp_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
 
 static int xmp_mknod(const char *path, mode_t mode, dev_t rdev)
 {
-    printf("## START ## xmp_mknod\n");
+    printf("= = = =  START = = = =  xmp_mknod\n");
     int res;
     std::string cpp_path = path;
     res = greeter->Mknod(cpp_path, mode, rdev);
@@ -153,14 +182,14 @@ static int xmp_mknod(const char *path, mode_t mode, dev_t rdev)
 }
 
 static int xmp_mkdir(const char *path, mode_t mode) {
-    printf("## START ## xmp_mkdir\n");
+    printf("= = = =  START = = = =  xmp_mkdir\n");
     std::string cpp_path = path;
     int res = greeter->MkDir(cpp_path, mode);
     return res == -1 ? -errno : 0;    
 }
 
 static int xmp_unlink(const char *path) {
-    printf("## START ## xmp_unlink\n");
+    printf("= = = =  START = = = =  xmp_unlink\n");
     CacheUtil cu;
     std::string cpp_path = path;
     int res = greeter->Unlink(cpp_path);
@@ -173,7 +202,7 @@ static int xmp_unlink(const char *path) {
 }
 
 static int xmp_rmdir(const char *path) {
-    printf("## START ## xmp_rmdir\n");
+    printf("= = = =  START = = = =  xmp_rmdir\n");
     CacheUtil cu;
     std::string cpp_path = path;
     int res = greeter->RmDir(cpp_path);
@@ -198,7 +227,7 @@ static int xmp_symlink(const char *from, const char *to)
 
 static int xmp_rename(const char *from, const char *to)
 {
-    printf("## START ## xmp_rename\n");
+    printf("= = = =  START = = = =  xmp_rename\n");
     std::string cpp_from = from;
     std::string cpp_to = to;
     int res = greeter->Rename(cpp_from, cpp_to);
@@ -207,7 +236,7 @@ static int xmp_rename(const char *from, const char *to)
 
 static int xmp_link(const char *from, const char *to)
 {
-    printf("## START ## xmp_link\n");
+    printf("= = = =  START = = = =  xmp_link\n");
     int res;
 
     res = link(from, to);
@@ -219,7 +248,7 @@ static int xmp_link(const char *from, const char *to)
 
 static int xmp_chmod(const char *path, mode_t mode)
 {
-    printf("## START ## xmp_chmod\n");
+    printf("= = = =  START = = = =  xmp_chmod\n");
     int res;
 
     res = chmod(path, mode);
@@ -231,7 +260,7 @@ static int xmp_chmod(const char *path, mode_t mode)
 
 static int xmp_chown(const char *path, uid_t uid, gid_t gid)
 {
-    printf("## START ## xmp_chown\n");
+    printf("= = = =  START = = = =  xmp_chown\n");
     int res;
 
     res = lchown(path, uid, gid);
@@ -242,7 +271,7 @@ static int xmp_chown(const char *path, uid_t uid, gid_t gid)
 }
 
 static int xmp_truncate(const char *path, off_t size) {
-    printf("## START ## xmp_truncate\n");
+    printf("= = = =  START = = = =  xmp_truncate\n");
 
     CacheUtil cu;
     std::string cpp_path = path;
@@ -258,33 +287,12 @@ static int xmp_truncate(const char *path, off_t size) {
 }
 
 static int xmp_open(const char *path, struct fuse_file_info *fi) {
-    printf("## START ## xmp_open\n");
+    printf("= = = =  START = = = =  xmp_open\n");
     CacheUtil cu;
 
     std::string cpp_path = path;
     std::string localfile_path = cu.ToCacheFileName(path);
     std::string localattr_path = cu.ToCacheAttrName(path);
-
-    // check if there's anything in cache to release to server
-    if (cu.IsExisted(cu.ToCacheReleName(path))) {
-        if (!cu.IsExisted(localfile_path)) {
-            cu.Unlink(localfile_path);
-        }
-        else {
-            int fd = open(localfile_path.c_str(), O_RDONLY, 0644);
-            std::string local_buf;
-            if (cu.ReadFile(fd, local_buf) < 0) {
-                printf("--!-- Fail to read cache in open: %s \n", localfile_path.c_str());
-                return -1;
-            }
-            // Sync back to server
-            int res = greeter->Write(cpp_path, local_buf, local_buf.size(), 0 /*offset*/);
-            if (res < 0) {
-                return res;
-            }
-            res = close(fd);
-        }
-    }
 
     // get server attr
     std::string server_stat;
@@ -302,9 +310,7 @@ static int xmp_open(const char *path, struct fuse_file_info *fi) {
                 && server_stat.compare(local_stat) == 0) {
 
             local_existed  = true;
-
             fi->fh = open(localfile_path.c_str(), O_RDWR);
-
             printf("== File existed in local, fh: %d ==\n", (int)fi->fh);
         }
     }
@@ -315,6 +321,7 @@ static int xmp_open(const char *path, struct fuse_file_info *fi) {
         struct stat st;
         memcpy(&st, &server_stat[0], sizeof(struct stat));
         int size = st.st_size;
+        printf("--- st size: %d\n", size);
         res = greeter->Read(cpp_path, rpcbuf, size, 0);
         if (res < 0) {
             return res;
@@ -332,6 +339,7 @@ static int xmp_open(const char *path, struct fuse_file_info *fi) {
             close(dummy);
             return -1;
         }
+
         close(dummy);
         printf("== Read from server and save ==\n");
     }
@@ -340,7 +348,7 @@ static int xmp_open(const char *path, struct fuse_file_info *fi) {
 
 static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         struct fuse_file_info *fi) {
-    printf("## START ## xmp_read\n");
+    printf("= = = =  START = = = =  xmp_read\n");
     CacheUtil cu;
     std::string local_buf;
 
@@ -355,15 +363,24 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 
 static int xmp_write(const char *path, const char *buf, size_t size,
         off_t offset, struct fuse_file_info *fi) {
-    printf("## START ## xmp_write\n");
+    printf("= = = =  START = = = =  xmp_write\n");
+    CacheUtil cu;
     std::string cpp_path = path;
-    std::string cache_path = CacheUtil().ToCacheFileName(path);
+    std::string cache_path = cu.ToCacheFileName(path);
+
+    // validate fh
+    if (-1 == cu.ValidateCacheFh(fi->fh, path)) {
+       printf("--!-- Fail to validate %s\n", path); return -1;
+    }
+
+    cu.PrintFile(fi->fh, "-- before wirte");
 
     int fd = fi->fh;
-    if (fd == -1) {
-        return -errno;
-    }
     int res = pwrite(fd, buf, size, offset);
+    printf("wirte:%s, size:%d, offset:%d\n", buf, size, offset);
+
+    cu.PrintFile(fi->fh, "-- after wirte");
+
     if (res == -1) {
         writeback_flag = -1;
         return -errno;
@@ -374,7 +391,7 @@ static int xmp_write(const char *path, const char *buf, size_t size,
 }
 
 static int xmp_statfs(const char *path, struct statvfs *stbuf) {
-    printf("## START ## xmp_statfs\n");
+    printf("= = = =  START = = = =  xmp_statfs\n");
     int res;
 
     res = statvfs(path, stbuf);
@@ -389,8 +406,17 @@ static int xmp_utimens(const char *path, const struct timespec ts[2]) {
 }
 
 static int xmp_flush(const char *path, struct fuse_file_info *fi) {
-    printf("## START ## xmp_flush\n");
+    printf("= = = =  START = = = =  xmp_flush\n");
+    CacheUtil cu;
+
+    // validate fh
+    if (-1 == cu.ValidateCacheFh(fi->fh, path)) {
+       printf("--!-- flush: Fail to validate %s\n", path); return -1;
+    }
+
     int ret = fsync(fi->fh);
+
+    close(fi->fh);
 
     // with fsync inside
     std::string rele = CacheUtil().ToCacheReleName(path);
@@ -406,13 +432,28 @@ static int xmp_flush(const char *path, struct fuse_file_info *fi) {
 int j2 = 0;
 
 static int xmp_release(const char *path, struct fuse_file_info *fi) {
-    printf("## START ## xmp_release\n");
+    printf("= = = =  START = = = =  xmp_release\n");
     std::string cpp_path = path;
+
+    if (j2 == 0) {
+      j2 = 1;
+      printf("--!-- Fake release \n");
+      return 0;
+    }
+    else {
+      j2 = 0;
+      printf("--!-- True release \n");
+    }
+
+    CacheUtil cu;                                                                                                                                                   
+    if (-1 == cu.ValidateCacheFh(fi->fh, path)) {
+       printf("--!-- Release: Fail to validate %s\n", path); return -1;
+    }
+
     int res = 0;
     if ((int)fi->fh != -1) {
         if (writeback_flag == 1) {
             printf("ACTION(xmp_release) - write %s back to server\n", path);                                                                                                
-            CacheUtil cu;                                                                                                                                                   
             std::string local_buf;
             if (cu.ReadFile(fi->fh, local_buf) < 0) {                                                                                                                       
                 fprintf(stderr,                                                                                                                                             
@@ -441,7 +482,7 @@ static int xmp_release(const char *path, struct fuse_file_info *fi) {
 
 static int xmp_fsync(const char *path, int isdatasync,
         struct fuse_file_info *fi) {
-    printf("## START ## xmp_fsync\n");
+    printf("= = = =  START = = = =  xmp_fsync\n");
     /* Just a stub.	 This method is optional and can safely be left
        unimplemented */
 

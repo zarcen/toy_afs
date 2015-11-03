@@ -172,6 +172,16 @@ public:
         return res;
     }
 
+    int PrintFile(uint64_t fd, std::string str) {
+        std::string buf;
+        if (ReadFile(fd, buf) < 0) {
+          return -1;
+        }
+        printf("%s\n", str.c_str());
+        printf("%s\n", buf.c_str());
+        return 0;
+    }
+
     int SaveFile(const std::string& filepath, std::string& data, uint64_t& fh) {
         int fd = open(filepath.c_str(), O_RDWR | O_CREAT | O_EXCL, 0644);
         if ((fd == -1) && (EEXIST == errno)) {
@@ -183,7 +193,7 @@ public:
         }
 
         fh = fd;
-        printf("In.... SaveFile filename = %s, fd = %d\n",filepath.c_str(), fd);
+        //printf("In.... SaveFile filename = %s, fd = %d\n",filepath.c_str(), fd);
 
         int res = pwrite(fd, &data[0], data.size(), 0 /*offset*/);
         lseek(fd, (size_t)0, SEEK_CUR);
@@ -193,6 +203,28 @@ public:
         } 
         return 0;
     }
+
+    // return -1 if not valid fh
+    int FhStatus(int fd) {
+        return fcntl(fd, F_GETFD);
+    }
+
+    int GetFileFh(std::string path) {
+        return open(path.c_str(), O_RDWR, 0644);
+    }
+
+    int ValidateCacheFh(uint64_t& fh, const char* path) {
+        if (-1 == FhStatus(fh)) {
+            int fd = GetFileFh(ToCacheFileName(path));
+            if (fd < 0) {
+                printf("-- Fail to GetFileFh\n");
+                return -1;
+            }
+            fh = fd;
+        }
+        return 0;
+    }
+
 
 };
 
