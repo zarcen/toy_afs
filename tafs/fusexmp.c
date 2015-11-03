@@ -48,6 +48,19 @@ void InitRPC(const char* serverhost) {
     }
 }
 
+int IsCrash(const char* filename) {
+  FILE* fp = fopen(filename, "r");
+  int crash = 0;
+  if (fp != NULL) {                                                                                                                                                       
+      fscanf(fp, "%d", &crash);                                                                                                                                  
+      printf("Will CRASH \n");                                                                                                                   
+  } else {                                                                                                                                                                
+      printf("FAIL OPEN FILE for CRASH \n");                                                                                                                   
+  }                                                                                                                                                                       
+  fclose(fp);
+  return crash;
+}
+
 static int xmp_getattr(const char *path, struct stat *stbuf) {
     printf("= = = =  START = = = =  xmp_getattr\n");
     int res;
@@ -182,9 +195,13 @@ static int xmp_mknod(const char *path, mode_t mode, dev_t rdev)
 }
 
 static int xmp_mkdir(const char *path, mode_t mode) {
-    printf("= = = =  START = = = =  xmp_mkdir\n");
+    printf("## START ## xmp_mkdir\n");
+    CacheUtil cu;
     std::string cpp_path = path;
     int res = greeter->MkDir(cpp_path, mode);
+    if (res != -1) {                                                                                                                                                        
+        res = mkdir(cu.ToCacheFileName(path).c_str(), mode);
+    }
     return res == -1 ? -errno : 0;    
 }
 
@@ -196,7 +213,9 @@ static int xmp_unlink(const char *path) {
     if (res != -1) {                                                                                                                                                        
         res = unlink(cu.ToCacheFileName(path).c_str());                                                                                                                     
         res = unlink(cu.ToCacheAttrName(path).c_str());                                                                                                                     
-        res = unlink(cu.ToCacheReleName(path).c_str());                                                                                                                     
+        if (cu.IsExisted(cu.ToCacheReleName(path))) {
+            res = unlink(cu.ToCacheReleName(path).c_str());                                                                                                                     
+        }
     }                                                                                                                                                                       
     return res == -1 ? -errno : 0;
 }
@@ -208,8 +227,6 @@ static int xmp_rmdir(const char *path) {
     int res = greeter->RmDir(cpp_path);
     if (res != -1) {                                                                                                                                                        
         res = rmdir(cu.ToCacheFileName(path).c_str());                                                                                                                      
-        res = rmdir(cu.ToCacheAttrName(path).c_str());                                                                                                                      
-        res = rmdir(cu.ToCacheReleName(path).c_str());                                                                                                                      
     }
     return res == -1 ? -errno : 0;    
 }
@@ -227,10 +244,25 @@ static int xmp_symlink(const char *from, const char *to)
 
 static int xmp_rename(const char *from, const char *to)
 {
-    printf("= = = =  START = = = =  xmp_rename\n");
+    printf("## START ## xmp_rename\n");
+    CacheUtil cu;
     std::string cpp_from = from;
     std::string cpp_to = to;
     int res = greeter->Rename(cpp_from, cpp_to);
+    if (res != -1) {                                                                                                                                                        
+        if (CacheUtil().IsExisted(cu.ToCacheFileName(from))) {
+            res = rename(cu.ToCacheFileName(from).c_str(), 
+                    cu.ToCacheFileName(to).c_str() );
+        }
+        if (CacheUtil().IsExisted(cu.ToCacheAttrName(from))) {
+            res = rename(cu.ToCacheAttrName(from).c_str(), 
+                    cu.ToCacheAttrName(to).c_str() );
+        }
+        if (CacheUtil().IsExisted(cu.ToCacheReleName(from))) {
+            res = rename(cu.ToCacheReleName(from).c_str(), 
+                    cu.ToCacheReleName(to).c_str() );
+        }
+    }
     return res == -1 ? -errno : 0;
 }
 
@@ -429,20 +461,12 @@ static int xmp_flush(const char *path, struct fuse_file_info *fi) {
     return ret;
 }
 
-int j2 = 0;
 
 static int xmp_release(const char *path, struct fuse_file_info *fi) {
     printf("= = = =  START = = = =  xmp_release\n");
     std::string cpp_path = path;
-
-    if (j2 == 0) {
-      j2 = 1;
-      printf("--!-- Fake release \n");
-      return 0;
-    }
-    else {
-      j2 = 0;
-      printf("--!-- True release \n");
+    if (IsCrash("crash_config.txt")) {
+        exit(0);
     }
 
     CacheUtil cu;                                                                                                                                                   
