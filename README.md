@@ -13,9 +13,9 @@ A toy version of AFS-like user-space filesystem implemented by [FUSE](http://fus
 ### Build the server and client side programs
 1. `cd toy_afs/tafs`
 2. `make`
-3. start server on the machine you like `./tafs_server`
+3. start server on the machine you like `./tafs_server`, your filesystem real path is `/tmp/tafs`
 4. edit the file `toy_afs/tafs/server` to specify the host:port of the server you ran
-5. start client-side program, which is integrated into Fuse, and set mount point you like. e.g., `./fusetafs /tmp/afs/ -d`
+5. start client-side program, which is integrated into Fuse, and set mount point you like. e.g., `/tmp/afs`
    - verbose mode(for debug/demo): `./fusetafs /tmp/afs/ -d`
    - silent mode: `./fusetafs /tmp/afs/ -d`
 
