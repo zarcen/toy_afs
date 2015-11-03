@@ -162,6 +162,7 @@ public:
     }
 
     int ReadFile(uint64_t fd, std::string& buf) {
+        lseek(fd, 0, SEEK_SET);
         int size = lseek(fd, (size_t)0, SEEK_END);
         buf.resize(size);
         lseek(fd, 0, SEEK_SET);

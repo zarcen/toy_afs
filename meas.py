@@ -6,8 +6,8 @@ import subprocess
 import errno
 
 cache_prefix = "/tmp/cache/"
-min_mb = 1   # the min filesize in KB
-max_mb = 50  # the max filesize in KB
+min_mb = 1   # the min filesize in Mb
+max_mb = 75  # the max filesize in Mb
 
 def createfiles(fs_prefix):
     print('Start creating files in mount point "%s" from %d kB to %d kB' % 
