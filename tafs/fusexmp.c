@@ -199,13 +199,10 @@ static int xmp_symlink(const char *from, const char *to)
 static int xmp_rename(const char *from, const char *to)
 {
     printf("## START ## xmp_rename\n");
-    int res;
-
-    res = rename(from, to);
-    if (res == -1)
-        return -errno;
-
-    return 0;
+    std::string cpp_from = from;
+    std::string cpp_to = to;
+    int res = greeter->Rename(cpp_from, cpp_to);
+    return res == -1 ? -errno : 0;
 }
 
 static int xmp_link(const char *from, const char *to)
@@ -247,8 +244,16 @@ static int xmp_chown(const char *path, uid_t uid, gid_t gid)
 static int xmp_truncate(const char *path, off_t size) {
     printf("## START ## xmp_truncate\n");
 
+    CacheUtil cu;
     std::string cpp_path = path;
-    int res = greeter->Truncate(cpp_path, size);
+
+    int res = truncate(cu.ToCacheFileName(path).c_str(), size);
+    if (res < 0) {
+        return -errno;
+    } else {
+        res = greeter->Truncate(cpp_path, size);
+        writeback_flag = 1;
+    }
     return res == -1 ? -errno : 0;    
 }
 
