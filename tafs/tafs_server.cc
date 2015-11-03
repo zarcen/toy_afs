@@ -19,10 +19,6 @@ using grpc::ServerBuilder;
 using grpc::ServerContext;
 using grpc::ServerWriter;
 using grpc::Status;
-using tafs::HelloRequest;
-using tafs::HelloReply;
-using tafs::LoginRequest;
-using tafs::LoginReply;
 using tafs::OpenReq;
 using tafs::OpenReply;
 using tafs::AccessReq;
@@ -54,29 +50,6 @@ class GreeterServiceImpl final : public ToyAFS::Service {
     public:
         const std::string path_prefix; 
         GreeterServiceImpl(): path_prefix("/tmp/tafs") {
-        }
-
-        /** Sample
-        */
-        Status SayHello(ServerContext* context, const HelloRequest* request,
-                HelloReply* reply) override {
-            std::string prefix("Hello ");
-            reply->set_message(prefix + request->name());
-
-            std::string t;
-            t.resize(40);
-            for (int i = 0; i < 10; i++) {
-                memcpy(&t[i*4], &i, sizeof(int));
-            }
-
-            for (int i = 0; i < 10; i++) {
-                int k;
-                memcpy(&k, &t[i*4], sizeof(int));
-                printf("%d\n", k);
-            }
-
-
-            return Status::OK;
         }
 
         /**
@@ -111,7 +84,7 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             struct stat stbuf;
             std::string path = path_prefix + request->path();
 
-            printf("PATH: %s \n", path.c_str());
+            printf("GetAttr: %s \n", path.c_str());
 
             res = lstat(path.c_str(), &stbuf);
             if (res == -1) {
@@ -121,7 +94,6 @@ class GreeterServiceImpl final : public ToyAFS::Service {
                 std::string buf;
 
                 int stat_size = sizeof(struct stat);
-                printf("STAT_SIZE: %d \n", stat_size);
                 buf.resize(stat_size);
 
                 assert(buf.size() == sizeof(struct stat));
@@ -181,7 +153,6 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             reply->set_buf(buf);
             reply->set_num_bytes(res);
 
-            printf("READ data%s \n", buf.c_str());
             return Status::OK;
         }
 
@@ -309,7 +280,6 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             while ((de = readdir(dp)) != NULL) {
                 std::string buf;
                 buf.resize(sizeof(struct dirent));
-                printf("HELLLLL: %s \n", de->d_name);
                 memcpy(&buf[0], de, buf.size());
                 reply->set_buf(buf);
                 writer->Write(*reply);
@@ -373,20 +343,6 @@ class GreeterServiceImpl final : public ToyAFS::Service {
                 return Status::OK;
             }
             reply->set_err(res);
-            return Status::OK;
-        }
-
-        /**
-         * login
-         */
-        Status Login(ServerContext* context, const LoginRequest* request,
-                LoginReply* reply) override {
-            // get input
-            int uid = request->num();
-
-            // set output
-            reply->set_num(uid);
-
             return Status::OK;
         }
 
