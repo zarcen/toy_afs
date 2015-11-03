@@ -35,110 +35,121 @@ package tafs;
 
 // The greeting service definition.
 service ToyAFS {
-  // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply) {}
-  rpc Login (LoginRequest) returns (LoginReply) {}
-  rpc TestBytes (TestB) returns (LoginReply) {}
-  rpc GetAttr (GetAttrReq) returns (GetAttrReply) {}
-  rpc Open (OpenReq) returns (OpenReply) {}
-  rpc Read (ReadReq) returns (ReadReply) {}
-  rpc Write (WriteReq) returns (WriteReply) {}
-  rpc ReadDir (ReadDirReq) returns (stream ReadDirReply) {}
-  rpc MkDir (MkDirReq) returns (MkDirReply) {}
-  rpc RmDir (RmDirReq) returns (RmDirReply) {}
-  rpc Unlink (UnlinkReq) returns (UnlinkReply) {}
-  rpc Access(AccessReq) returns (AccessReply) {}
-  rpc Flush(FlushReq) returns (FlushReply) {}
-  rpc Mknod(MknodReq) returns (MknodReply) {}
-  rpc Truncate(TruncateReq) returns (TruncateReply) {}
+    // Sends a greeting
+    rpc SayHello (HelloRequest) returns (HelloReply) {}
+    rpc Login (LoginRequest) returns (LoginReply) {}
+    rpc TestBytes (TestB) returns (LoginReply) {}
+    rpc GetAttr (GetAttrReq) returns (GetAttrReply) {}
+    rpc Open (OpenReq) returns (OpenReply) {}
+    rpc Read (ReadReq) returns (ReadReply) {}
+    rpc Write (WriteReq) returns (WriteReply) {}
+    rpc ReadDir (ReadDirReq) returns (stream ReadDirReply) {}
+    rpc MkDir (MkDirReq) returns (MkDirReply) {}
+    rpc RmDir (RmDirReq) returns (RmDirReply) {}
+    rpc Unlink (UnlinkReq) returns (UnlinkReply) {}
+    rpc Access(AccessReq) returns (AccessReply) {}
+    rpc Flush(FlushReq) returns (FlushReply) {}
+    rpc Mknod(MknodReq) returns (MknodReply) {}
+    rpc Truncate(TruncateReq) returns (TruncateReply) {}
+    rpc Rename (RenameReq) returns (RenameReply) {}
+}
+
+// Rename
+message RenameReq {
+  string oldpath = 1;
+  string newpath = 2;
+}
+
+message RenameReply {
+  int32  err = 1;
 }
 
 // Truncate
 message TruncateReq {
-  string path = 1;
-  int32  size = 2;
+    string path = 1;
+    int32  size = 2;
 }
 
 message TruncateReply {
-  int32  err = 1;
+    int32  err = 1;
 }
 
 // Mknod
 message MknodReq {
-  string path = 1;
-  int32  mode = 2;
-  int32  rdev = 3;
+    string path = 1;
+    int32  mode = 2;
+    int32  rdev = 3;
 }
 
 message MknodReply {
-  int32 err = 1;
+    int32 err = 1;
 }
 
 // flush
 message FlushReq {
-  string path = 1;
+    string path = 1;
 }
 
 message FlushReply {
-  int32 err = 1;
+    int32 err = 1;
 }
 
 // Access
 message AccessReq{
-  string path = 1;
-  int32  mode = 2;
+    string path = 1;
+    int32  mode = 2;
 }
 
 message AccessReply{
-  int32  err = 1;
+    int32  err = 1;
 }
 
 // ReadDir
 message ReadDirReq{
-  string path = 1;
+    string path = 1;
 }
 
 message ReadDirReply {
-  int32 err = 1;
-  bytes buf = 2;
+    int32 err = 1;
+    bytes buf = 2;
 }
 
 // MkDir
 message MkDirReq {
-  string path = 1;
-  int32 mode = 2;
+    string path = 1;
+    int32 mode = 2;
 }
 
 message MkDirReply {
-  int32 err = 1;
+    int32 err = 1;
 }
 
 // RmDir
 message RmDirReq {
-  string path = 1;
+    string path = 1;
 }
 
 message RmDirReply {
-  int32 err = 1;
+    int32 err = 1;
 }
 
 // Unlink
 message UnlinkReq {
-  string path = 1;
+    string path = 1;
 }
 
 message UnlinkReply {
-  int32 err = 1;
+    int32 err = 1;
 }
 
 // The request message containing the user's name.
 message HelloRequest {
-  string name = 1;
+    string name = 1;
 }
 
 // The response message containing the greetings
 message HelloReply {
-  string message = 1;
+    string message = 1;
 }
 
 message GetAttrReq {
@@ -183,21 +194,21 @@ message WriteReply {
 }
 
 message ErrNo {
-  int32 err = 1;
+    int32 err = 1;
 }
 
 message Buf {
-  bytes data = 1;
+    bytes data = 1;
 }
 
 message LoginRequest{
-  int32 num = 1;
+    int32 num = 1;
 }
 
 message LoginReply{
-  int32 num = 1;
+    int32 num = 1;
 }
 
 message TestB {
-  bytes mydata = 1;
+    bytes mydata = 1;
 }

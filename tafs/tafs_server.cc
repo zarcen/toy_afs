@@ -33,6 +33,8 @@ using tafs::WriteReq;
 using tafs::WriteReply;
 using tafs::TruncateReq;
 using tafs::TruncateReply;
+using tafs::RenameReq;
+using tafs::RenameReply;
 using tafs::MknodReq;
 using tafs::MknodReply;
 using tafs::UnlinkReq;
@@ -229,6 +231,23 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             if (res == -1) {
                 reply->set_err(-errno);
                 return Status::OK;
+            }
+            reply->set_err(res);
+            return Status::OK;
+        }
+        
+        /**
+         * Rename
+         */
+        Status Rename(ServerContext* context, const RenameReq* request,
+                RenameReply* reply) override {
+            // default errno = 0
+            reply->set_err(0);
+            std::string oldpath = path_prefix + request->oldpath();
+            std::string newpath = path_prefix + request->newpath();
+            int res = rename(oldpath.c_str(), newpath.c_str());
+            if (res == -1) {
+                reply->set_err(-1);
             }
             reply->set_err(res);
             return Status::OK;
