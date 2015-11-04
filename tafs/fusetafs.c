@@ -209,8 +209,12 @@ static int xmp_unlink(const char *path) {
     std::string cpp_path = path;
     int res = greeter->Unlink(cpp_path);
     if (res != -1) {                                                                                                                                                        
-        res = unlink(cu.ToCacheFileName(path).c_str());                                                                                                                     
-        res = unlink(cu.ToCacheAttrName(path).c_str());                                                                                                                     
+        if (cu.IsExisted(cu.ToCacheFileName(path))) {
+            res = unlink(cu.ToCacheFileName(path).c_str());                                                                                                                     
+        }
+        if (cu.IsExisted(cu.ToCacheAttrName(path))) {
+            res = unlink(cu.ToCacheAttrName(path).c_str());                                                                                                                     
+        }
         if (cu.IsExisted(cu.ToCacheReleName(path))) {
             res = unlink(cu.ToCacheReleName(path).c_str());                                                                                                                     
         }
