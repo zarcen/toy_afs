@@ -134,6 +134,7 @@ class GreeterServiceImpl final : public ToyAFS::Service {
         /**
          * Read
          */
+        /*
         Status Read(ServerContext* context, const ReadReq* request,
                 ReadReply* reply) override {
             // default errno = 0
@@ -162,6 +163,7 @@ class GreeterServiceImpl final : public ToyAFS::Service {
 
             return Status::OK;
         }
+        */
 
         Status ReadS(ServerContext* context, const ReadSReq* request,
                 ServerWriter<ReadSReply>* writer) override {
@@ -211,10 +213,10 @@ class GreeterServiceImpl final : public ToyAFS::Service {
         /**
          * WriteS
          */
-        Status WriteS(ServerContext* context, ServerReader<WriteReq>* reader,
-                     WriteReply* reply) override { 
+        Status WriteS(ServerContext* context, ServerReader<WriteSReq>* reader,
+                     WriteSReply* reply) override { 
             std::string path;
-            WriteReq request;
+            WriteSReq request;
             int fd = -100;
             int res;
             int size;
@@ -257,6 +259,7 @@ class GreeterServiceImpl final : public ToyAFS::Service {
         /**
          * Write
          */
+        /*
         Status Write(ServerContext* context, const WriteReq* request,
                 WriteReply* reply) override {
             // default errno = 0
@@ -286,6 +289,7 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             reply->set_num_bytes(res);
             return Status::OK;
         }
+        */
 
         /**
          * Truncate
