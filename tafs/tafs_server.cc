@@ -194,7 +194,7 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             close(fd);
 
             int remain = b;
-            int stump = 1<<20;
+            int stump = 1048576; // 1Mb
             int curr = 0;
             
             while (remain) {

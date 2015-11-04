@@ -19,7 +19,7 @@ def readwritetest(fs_prefix, min_mb, max_mb):
             f.write(nbytes)
             f.close()
         first_write_map.append((i, time.time() - start_time))
-        time.sleep(1.5)   # add a little delay to avoid rpc call failing
+        time.sleep(2)   # add a little delay to avoid rpc call failing
     
     # first read access & sub read access
     cleancache()
@@ -31,13 +31,13 @@ def readwritetest(fs_prefix, min_mb, max_mb):
             f.read()
             f.close()
         first_read_map.append((i, time.time() - start_time))
-        time.sleep(1.5)   # add a little delay to avoid rpc call failing
+        time.sleep(2)   # add a little delay to avoid rpc call failing
         start_time = time.time()
         with open(fs_prefix + "f" + str(i), 'rb') as f:
             f.read()
             f.close()
         sub_read_map.append((i, time.time() - start_time))
-        time.sleep(1.5)   # add a little delay to avoid rpc call failing
+        time.sleep(2)   # add a little delay to avoid rpc call failing
     for i in range(len(first_read_map)):
         print "%d,%f,%f,%f" % (first_write_map[i][0], first_write_map[i][1], first_read_map[i][1], sub_read_map[i][1]) 
 
