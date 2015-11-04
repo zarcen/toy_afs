@@ -125,6 +125,7 @@ static int xmp_getattr(const char *path, struct stat *stbuf) {
     if (res < 0) {
         return res;
     }
+    stat_hash[cu.ToCacheAttrName(path)] = rpcbuf;
     assert(rpcbuf.size() == sizeof(struct stat));
 
     memset(stbuf, 0, sizeof(struct stat)); 
@@ -369,15 +370,23 @@ static int xmp_open(const char *path, struct fuse_file_info *fi) {
     // read from local disk
     fi->fh = (int)-1;
     bool local_existed = false;
-    if (cu.IsExisted(localfile_path) && cu.IsExisted(localattr_path)) {
+    if (cu.IsExisted(localfile_path) 
+     && cu.IsExisted(localattr_path)) {
+        printf("== local file and attr exist\n");
+
         std::string local_stat;
         if (cu.GetLocalAttr(stat_hash, localattr_path, local_stat) >= 0
                 && server_stat.compare(local_stat) == 0) {
-
             local_existed  = true;
             fi->fh = open(localfile_path.c_str(), O_RDWR);
-            printf("== File existed in local, fh: %d ==\n", (int)fi->fh);
+            printf("== local attr is same as server, fh: %d ==\n", (int)fi->fh);
         }
+        else {
+            printf("== local attr is NOT same as server");
+        }
+    }
+    else {
+        printf("== local file and attr not exist \n");
     }
 
     // read from server
