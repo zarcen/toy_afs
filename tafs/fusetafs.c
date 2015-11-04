@@ -84,9 +84,6 @@ int IsCrash(const char* filename) {
 
 static int xmp_getattr(const char *path, struct stat *stbuf) {
     printf("= = = =  START = = = =  xmp_getattr\n");
-
-    Timer timer("-!- Timer GetAttr");
-
     int res;
     std::string rpcbuf;
     std::string cpp_path = path;
@@ -104,17 +101,12 @@ static int xmp_getattr(const char *path, struct stat *stbuf) {
             int fd = open(localfile_path.c_str(), O_RDONLY);
             std::string local_buf;
             if (cu.ReadFile(fd, local_buf) < 0) {
-                printf("--!-- Fail to read cache in open: %s \n", localfile_path.c_str());
                 return -1;
             }
             // Sync back to server
             int res = greeter->Write(cpp_path, local_buf, local_buf.size(), 0 /*offset*/);
             if (res < 0) {
-                printf("-- cache existed, fail write back--\n");
                 return res;
-            }
-            else {
-                printf(" -- cached existed, write back to server success\n");
             }
             res = close(fd);
         }
@@ -504,9 +496,6 @@ static int xmp_flush(const char *path, struct fuse_file_info *fi) {
 
 static int xmp_release(const char *path, struct fuse_file_info *fi) {
     printf("= = = =  START = = = =  xmp_release\n");
-
-    Timer timer("-!- Timer Release");
-
     std::string cpp_path = path;
 #ifdef CRASH_TEST
     if (IsCrash("crash_config.txt")) {
