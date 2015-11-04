@@ -5,29 +5,7 @@ import os, sys, argparse, time
 import subprocess
 import errno
 
-cache_prefix = "/tmp/cache/"
-min_mb = 1   # the min filesize in Mb
-max_mb = 75  # the max filesize in Mb
-
-def createfiles(fs_prefix):
-    print('Start creating files in mount point "%s" from %d kB to %d kB' % 
-            (fs_prefix, min_mb, max_mb))
-    if fs_prefix[-1] != '/':
-        fs_prefix += '/'
-    for i in range(min_mb, max_mb + 1):
-        while True:
-            try:
-                with open(fs_prefix + "f" + str(i), 'wb') as f:
-                    f.seek(i*1024*1024 - 1)
-                    f.write('\0')
-                    f.close()
-            except:
-                print 'failed to create %s, try again' % (fs_prefix+"f"+str(i))
-                continue
-            break
-
-def readtest(fs_prefix):
-    print('Doing the read test')
+def readtest(fs_prefix, min_mb, max_mb):
     cleancache()
     if fs_prefix[-1] != '/':
         fs_prefix += '/'
@@ -50,8 +28,7 @@ def readtest(fs_prefix):
         print "%d,%f,%f" % (first_read_map[i][0], first_read_map[i][1], sub_read_map[i][1]) 
 
 
-def writetest(fs_prefix):
-    print('Doing the write test')
+def writetest(fs_prefix, min_mb, max_mb):
     cleancache()
     if fs_prefix[-1] != '/':
         fs_prefix += '/'
@@ -76,7 +53,7 @@ def writetest(fs_prefix):
         print "%d,%f,%f" % (first_write_map[i][0], first_write_map[i][1], sub_write_map[i][1]) 
 
 def cleancache():
-    print('Cleaning the cache...')
+    cache_prefix = "/tmp/cache/"
     for the_file in os.listdir(cache_prefix):
         file_path = os.path.join(cache_prefix, the_file)
         try:
@@ -92,21 +69,26 @@ def main():
         Use this tool to do the measurements for cs739-p2
         """)
     parser.add_argument("-o", "--options", 
-            help="Test options ['read', 'write', 'create']", default=None)
+            help="Test options ['read', 'write']", default=None)
     parser.add_argument("-f", "--fs_prefix", 
             help="The mount point of fuse filesystem. Default=\"/tmp/afs\"",
             default='/tmp/afs')
+    parser.add_argument("-m", "--minsize", help="The min size(Mb) to run testing (default: 1)",
+            default=1)
+    parser.add_argument("-M", "--maxsize", help="The max size(Mb) to run testing (default: 50)",
+            default=50)
     args = parser.parse_args()
+
+    min_mb = args.minsize   # the min filesize in Mb
+    max_mb = args.maxsize   # the max filesize in Mb
 
     fs_prefix = args.fs_prefix
     if args.options is not None:
         # start test
         if args.options == 'read':
-            readtest(fs_prefix)
+            readtest(fs_prefix, min_mb, maxsize)
         elif args.options == 'write':
-            writetest(fs_prefix)
-        elif args.options == 'create':
-            createfiles(fs_prefix)
+            writetest(fs_prefix, min_mb, max_mb)
         else:
             parser.print_help()
     else:
