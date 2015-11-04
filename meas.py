@@ -35,21 +35,17 @@ def readtest(fs_prefix):
     sub_read_map = []
     for i in range(min_mb, max_mb + 1):
         start_time = time.time()
-        try:
-            with open(fs_prefix + "f" + str(i), 'rb') as f:
-                f.read()
-                f.close()
-        except IOError as e:
-            pass
+        with open(fs_prefix + "f" + str(i), 'rb') as f:
+            f.read()
+            f.close()
         first_read_map.append((i, time.time() - start_time))
+        time.sleep(1)   # add a little delay to avoid rpc call failing
         start_time = time.time()
-        try:
-            with open(fs_prefix + "f" + str(i), 'rb') as f:
-                f.read()
-                f.close()
-        except IOError as e:
-            pass
+        with open(fs_prefix + "f" + str(i), 'rb') as f:
+            f.read()
+            f.close()
         sub_read_map.append((i, time.time() - start_time))
+        time.sleep(1)   # add a little delay to avoid rpc call failing
     for i in range(len(first_read_map)):
         print "%d,%f,%f" % (first_read_map[i][0], first_read_map[i][1], sub_read_map[i][1]) 
 
@@ -69,11 +65,13 @@ def writetest(fs_prefix):
             f.write(nbytes)
             f.close()
         first_write_map.append((i, time.time() - start_time))
+        time.sleep(1)   # add a little delay to avoid rpc call failing
         start_time = time.time()
         with open(fs_prefix + "f" + str(i), 'wb') as f:
             f.write(nbytes)
             f.close()
         sub_write_map.append((i, time.time() - start_time))
+        time.sleep(1)   # add a little delay to avoid rpc call failing
     for i in range(len(first_write_map)):
         print "%d,%f,%f" % (first_write_map[i][0], first_write_map[i][1], sub_write_map[i][1]) 
 
