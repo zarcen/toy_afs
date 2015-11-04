@@ -25,6 +25,8 @@ using tafs::AccessReq;
 using tafs::AccessReply;
 using tafs::ReadReq;
 using tafs::ReadReply;
+using tafs::ReadSReq;
+using tafs::ReadSReply;
 using tafs::WriteReq;
 using tafs::WriteReply;
 using tafs::TruncateReq;
@@ -155,6 +157,55 @@ class GreeterServiceImpl final : public ToyAFS::Service {
 
             return Status::OK;
         }
+
+        Status ReadS(ServerContext* context, const ReadSReq* request,
+                ServerWriter<ReadSReply>* writer) override {
+            ReadSReply* reply = new ReadSReply();
+
+
+            reply->set_num_bytes(0);
+            int res;
+            std::string path = path_prefix + request->path();
+            int size = request->size();
+            int offset = request->offset();
+
+            int fd = open(path.c_str(), O_RDONLY);
+            if (fd == -1) {
+                reply->set_num_bytes(-1);
+                return Status::OK;
+            }
+
+            std::string buf;
+            buf.resize(size);
+            std::string bigbuf;
+            bigbuf.reserve(size);
+            
+            int b = 0;
+            while( ( b = pread(fd, &buf[0], size, offset)) != 0 ) {
+               bigbuf += buf;
+            }
+            if (res == -1) {
+                reply->set_num_bytes(-errno);
+            }
+            close(fd);
+
+            int remain = buf.size();
+            int stump = 1<<20;
+            int curr = 0;
+            
+            while (remain) {
+                reply->set_buf(bigbuf.substr(curr, std::min(stump, remain)));
+                curr += stump;
+                remain -= stump;
+
+                reply->set_num_bytes(stump);
+                writer->Write(*reply);
+            }
+            return Status::OK;
+        }
+
+
+
 
         /**
          * Write
