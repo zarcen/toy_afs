@@ -101,7 +101,7 @@ class GreeterClient {
 
         while (reader->Read(&reply)) {
             buf += reply.buf();
-            if (reply.num_bytes() == 0) {
+            if (reply.num_bytes() < 0) {
                 break;
             }
         }
