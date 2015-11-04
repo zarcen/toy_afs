@@ -24,12 +24,8 @@ using tafs::OpenReq;
 using tafs::OpenReply;
 using tafs::AccessReq;
 using tafs::AccessReply;
-using tafs::ReadReq;
-using tafs::ReadReply;
 using tafs::ReadSReq;
 using tafs::ReadSReply;
-using tafs::WriteReq;
-using tafs::WriteReply;
 using tafs::WriteSReq;
 using tafs::WriteSReply;
 using tafs::TruncateReq;
@@ -131,40 +127,6 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             return Status::OK;
         }
 
-        /**
-         * Read
-         */
-        /*
-        Status Read(ServerContext* context, const ReadReq* request,
-                ReadReply* reply) override {
-            // default errno = 0
-            reply->set_num_bytes(0);
-            int res;
-            std::string path = path_prefix + request->path();
-            printf("Read: %s \n", path.c_str());
-            int size = request->size();
-            int offset = request->offset();
-
-            int fd = open(path.c_str(), O_RDONLY);
-            if (fd == -1) {
-                reply->set_num_bytes(-1);
-                return Status::OK;
-            }
-
-            std::string buf;
-            buf.resize(size);
-            res = pread(fd, &buf[0], size, offset);
-            if (res == -1) {
-                reply->set_num_bytes(-errno);
-            }
-            close(fd);
-            reply->set_buf(buf);
-            reply->set_num_bytes(res);
-
-            return Status::OK;
-        }
-        */
-
         Status ReadS(ServerContext* context, const ReadSReq* request,
                 ServerWriter<ReadSReply>* writer) override {
             ReadSReply* reply = new ReadSReply();
@@ -188,7 +150,7 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             
             int b = pread(fd, &buf[0], size, offset);
             if (b != size) {
-                printf("Reads: PREAD didn't read %d bytes from offset %d\n", size, offset);
+                printf("ReadS: PREAD didn't read %d bytes from offset %d\n", size, offset);
             } 
             if (b == -1) {
                 reply->set_num_bytes(-errno);
@@ -255,41 +217,6 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             return Status::OK;
         }
 
-
-        /**
-         * Write
-         */
-        /*
-        Status Write(ServerContext* context, const WriteReq* request,
-                WriteReply* reply) override {
-            // default errno = 0
-            reply->set_num_bytes(-errno);
-            std::string path = path_prefix + request->path();
-            printf("Write: %s \n", path.c_str());
-            int fd;
-            int res;
-            int size = request->size();
-            int offset = request->offset();
-
-            fd = open(path.c_str(), O_WRONLY);
-            if (fd == -1) {
-                reply->set_num_bytes(-errno);
-                return Status::OK;
-            }
-
-            std::string buf = request->buf();
-            res = pwrite(fd, &buf[0], size, offset);
-
-            if (res == -1) {
-                reply->set_num_bytes(-errno);
-                return Status::OK;
-            }
-
-            close(fd);
-            reply->set_num_bytes(res);
-            return Status::OK;
-        }
-        */
 
         /**
          * Truncate
