@@ -100,7 +100,7 @@ static int xmp_getattr(const char *path, struct stat *stbuf) {
         else {
             int fd = open(localfile_path.c_str(), O_RDONLY);
             std::string local_buf;
-            if (cu.ReadFile(fd, local_buf) < 0) {
+            if (cu.ReadWholeFile(fd, local_buf) < 0) {
                 return -1;
             }
             // Sync back to server
@@ -417,15 +417,13 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         struct fuse_file_info *fi) {
     printf("= = = =  START = = = =  xmp_read\n");
     CacheUtil cu;
-    std::string local_buf;
-
-    if (cu.ReadFile(fi->fh, local_buf) < 0) {
+    int res = cu.ReadFile(fi->fh, buf, size, offset);
+    if (res < 0) {
         printf("-- readfile fail when fd = %d\n", (int)fi->fh);
-        return -1;
+    } else {
+        printf("-- readfile success\n");
     }
-    printf("-- readfile success\n");
-    memcpy(buf, &local_buf[0]+offset, size);
-    return size;
+    return res;
 }
 
 static int xmp_write(const char *path, const char *buf, size_t size,
@@ -516,7 +514,7 @@ static int xmp_release(const char *path, struct fuse_file_info *fi) {
             if (writeback_flag == 1) {
                 printf("ACTION(xmp_release) - write %s back to server\n", path);                                                                                                
                 std::string local_buf;
-                if (cu.ReadFile(fi->fh, local_buf) < 0) {                                                                                                                       
+                if (cu.ReadWholeFile(fi->fh, local_buf) < 0) {                                                                                                                       
                     fprintf(stderr,                                                                                                                                             
                             "ERROR(xmp_release) - failed at fetching cache from disk: %s\n",                                                                                    
                             strerror(errno));                                                                                                                                   

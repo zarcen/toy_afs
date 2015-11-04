@@ -216,7 +216,6 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             // default errno = 0
             reply->set_num_bytes(-errno);
             std::string path;
-            printf("WriteS: %s \n", path.c_str());
             WriteReq request;
             int fd = -100;
             int res;
@@ -226,6 +225,7 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             while (reader->Read(&request)) {
                 if (fd == -100) {
                     path = path_prefix + request.path();
+                    printf("WriteS: %s \n", path.c_str());
                     fd = open(path.c_str(), O_WRONLY);
                     if (fd == -1) {
                         reply->set_num_bytes(-errno);
