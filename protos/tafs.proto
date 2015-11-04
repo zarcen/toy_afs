@@ -38,10 +38,10 @@ service ToyAFS {
     // Sends a greeting
     rpc GetAttr (GetAttrReq) returns (GetAttrReply) {}
     rpc Open (OpenReq) returns (OpenReply) {}
-    rpc Read (ReadReq) returns (ReadReply) {}
+    //rpc Read (ReadReq) returns (ReadReply) {}
     rpc ReadS (ReadSReq) returns (stream ReadSReply) {}
-    rpc Write (WriteReq) returns (WriteReply) {}
-    rpc WriteS (stream WriteReq) returns (WriteReply) {}
+    //rpc Write (WriteReq) returns (WriteReply) {}
+    rpc WriteS (stream WriteSReq) returns (WriteSReply) {}
     rpc ReadDir (ReadDirReq) returns (stream ReadDirReply) {}
     rpc MkDir (MkDirReq) returns (MkDirReply) {}
     rpc RmDir (RmDirReq) returns (RmDirReply) {}
