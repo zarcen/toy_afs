@@ -161,12 +161,20 @@ public:
         return 0;
     }
 
-    int ReadFile(uint64_t fd, std::string& buf) {
+    int ReadFile(uint64_t fd, char* buf, int size, int offset) {
+        int res = pread(fd, buf, size, offset);
+        if (res < 0) {
+            printf(" CACHE READ FAIL. ERRNO = %d\n", errno);
+        }
+        return res;
+    }
+
+    int ReadWholeFile(uint64_t fd, std::string& buf) {
         lseek(fd, 0, SEEK_SET);
         int size = lseek(fd, (size_t)0, SEEK_END);
         buf.resize(size);
         lseek(fd, 0, SEEK_SET);
-        int res = read(fd, &buf[0], size);
+        int res = pread(fd, &buf[0], size, 0);
         if (res < 0) {
             printf(" CACHE READ FAIL. ERRNO = %d\n", errno);
         }
@@ -175,7 +183,7 @@ public:
 
     int PrintFile(uint64_t fd, std::string str) {
         std::string buf;
-        if (ReadFile(fd, buf) < 0) {
+        if (ReadWholeFile(fd, buf) < 0) {
           return -1;
         }
         printf("%s\n", str.c_str());
