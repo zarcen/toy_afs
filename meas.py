@@ -14,11 +14,19 @@ def readwritetest(fs_prefix, min_mb, max_mb):
     towrite = 'x'
     for i in range(min_mb, max_mb + 1):
         nbytes = towrite * i * 1024 * 1024
-        start_time = time.time()
-        with open(fs_prefix + "f" + str(i), 'wb') as f:
-            f.write(nbytes)
-            f.close()
-        first_write_map.append((i, time.time() - start_time))
+        filepath = fs_prefix + "f" + str(i)
+        cnt = 0
+        while True:
+            start_time = time.time()
+            with open(filepath, 'wb+') as f:
+                f.write(nbytes)
+                f.close()
+            first_write_map.append((i, time.time() - start_time))
+            filesize = os.path.getsize(filepath)
+            if filesize == len(nbytes):
+                break
+            else:
+                del first_write_map[-1]
         time.sleep(2)   # add a little delay to avoid rpc call failing
     
     # first read access & sub read access
