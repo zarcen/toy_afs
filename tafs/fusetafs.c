@@ -388,7 +388,7 @@ static int xmp_open(const char *path, struct fuse_file_info *fi) {
         memcpy(&st, &server_stat[0], sizeof(struct stat));
         int size = st.st_size;
         printf("--- st size: %d\n", size);
-        res = greeter->Read(cpp_path, rpcbuf, size, 0);
+        res = greeter->ReadS(cpp_path, rpcbuf, size, 0);
         if (res < 0) {
             return res;
         }

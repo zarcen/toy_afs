@@ -36,7 +36,8 @@ using tafs::TruncateReq;
 using tafs::TruncateReply;
 using tafs::RenameReq;
 using tafs::RenameReply;
-
+using tafs::ReadSReq;
+using tafs::ReadSReply;
 
 
 class GreeterClient {
@@ -82,6 +83,30 @@ class GreeterClient {
             printf("SERVER NOT CALLED FAILLLL\n");
             return -1;
         }
+    }
+
+    // put file in buf
+    int ReadS(const std::string& path, std::string& buf, int size, int offset) {
+        ReadSReq request;
+        request.set_path(path);
+        request.set_size(size);
+        request.set_offset(offset);
+
+        ReadSReply reply;
+        ClientContext context;
+
+        std::unique_ptr<ClientReader<ReadSReply> > reader(stub_->ReadS(&context, request));
+        buf = std::string();
+        buf.reserve(size);
+
+        while (reader->Read(&reply)) {
+            buf += reply.buf();
+            if (reply.num_bytes() == 0) {
+                break;
+            }
+        }
+        Status status = reader->Finish();
+        return status.ok() ? buf.size() : -1;
     }
 
     // read directory
