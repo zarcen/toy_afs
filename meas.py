@@ -86,7 +86,7 @@ def main():
     if args.options is not None:
         # start test
         if args.options == 'read':
-            readtest(fs_prefix, min_mb, maxsize)
+            readtest(fs_prefix, min_mb, max_mb)
         elif args.options == 'write':
             writetest(fs_prefix, min_mb, max_mb)
         else:
