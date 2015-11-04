@@ -6,6 +6,8 @@ import subprocess
 import errno
 
 def readonly(fs_prefix, min_mb, max_mb):
+    if fs_prefix[-1] != '/':
+        fs_prefix += '/'
     # first read access & sub read access
     cleancache()
     first_read_map = []
