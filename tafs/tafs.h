@@ -206,7 +206,7 @@ class GreeterClient {
         int curr = offset;
         printf("remain:%d, curr:%d\n", remain, curr);
         request.set_path(path); 
-        while (remain) {
+        while (remain > 0) {
             printf("substr --> %d\n", std::min(stump, remain));
             request.set_buf(data.substr(curr, std::min(stump, remain)));
             request.set_size(std::min(stump, remain));

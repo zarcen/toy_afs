@@ -197,7 +197,7 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             int stump = 1048576; // 1Mb
             int curr = 0;
             
-            while (remain) {
+            while (remain > 0) {
                 reply->set_buf(buf.substr(curr, std::min(stump, remain)));
                 reply->set_num_bytes(std::min(stump, remain));
                 curr += stump;
