@@ -18,6 +18,7 @@ using grpc::Server;
 using grpc::ServerBuilder;
 using grpc::ServerContext;
 using grpc::ServerWriter;
+using grpc::ServerReader;
 using grpc::Status;
 using tafs::OpenReq;
 using tafs::OpenReply;
@@ -29,6 +30,8 @@ using tafs::ReadSReq;
 using tafs::ReadSReply;
 using tafs::WriteReq;
 using tafs::WriteReply;
+using tafs::WriteSReq;
+using tafs::WriteSReply;
 using tafs::TruncateReq;
 using tafs::TruncateReply;
 using tafs::RenameReq;
@@ -63,6 +66,7 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             reply->set_err(0);
 
             std::string path = path_prefix + request->path();
+            printf("Access: %s \n", path.c_str());
 
             int res;
 
@@ -85,7 +89,6 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             int res;
             struct stat stbuf;
             std::string path = path_prefix + request->path();
-
             printf("GetAttr: %s \n", path.c_str());
 
             res = lstat(path.c_str(), &stbuf);
@@ -114,6 +117,7 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             reply->set_err(0);
 
             std::string path = path_prefix + request->path();
+            printf("Open: %s \n", path.c_str());
 
             int res;
 
@@ -136,6 +140,7 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             reply->set_num_bytes(0);
             int res;
             std::string path = path_prefix + request->path();
+            printf("Read: %s \n", path.c_str());
             int size = request->size();
             int offset = request->offset();
 
@@ -166,6 +171,7 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             reply->set_num_bytes(0);
             int res;
             std::string path = path_prefix + request->path();
+            printf("ReadS: %s \n", path.c_str());
             int size = request->size();
             int offset = request->offset();
 
@@ -180,7 +186,7 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             
             int b = pread(fd, &buf[0], size, offset);
             if (b != size) {
-                printf("PREAD didn't read %d bytes from offset %d\n", size, offset);
+                printf("Reads: PREAD didn't read %d bytes from offset %d\n", size, offset);
             } 
             if (b == -1) {
                 reply->set_num_bytes(-errno);
@@ -189,7 +195,6 @@ class GreeterServiceImpl final : public ToyAFS::Service {
 
             int remain = b;
             int stump = 1<<20;
-            printf("stump = %d\n", stump);
             int curr = 0;
             
             while (remain) {
@@ -203,6 +208,50 @@ class GreeterServiceImpl final : public ToyAFS::Service {
         }
 
 
+        /**
+         * WriteS
+         */
+        Status WriteS(ServerContext* context, ServerReader<WriteReq>* reader,
+                     WriteReply* reply) override { 
+            // default errno = 0
+            reply->set_num_bytes(-errno);
+            std::string path;
+            printf("WriteS: %s \n", path.c_str());
+            WriteReq request;
+            int fd = -100;
+            int res;
+            int size;
+            int offset;
+            int num_bytes = -1;
+            while (reader->Read(&request)) {
+                if (fd == -100) {
+                    path = path_prefix + request.path();
+                    fd = open(path.c_str(), O_WRONLY);
+                    if (fd == -1) {
+                        reply->set_num_bytes(-errno);
+                        return Status::OK;
+                    }
+                }
+                size = request.size();
+                offset = request.offset();
+                std::string buf = request.buf();
+                res = pwrite(fd, &buf[0], size, offset);
+                if (res == -1) {
+                    reply->set_num_bytes(num_bytes);
+                    return Status::OK;
+                }
+                if (num_bytes == -1) {
+                    num_bytes = res;
+                } else {
+                    num_bytes += res;
+                }
+            }
+            if (fd > 0) {
+                close(fd);
+            }
+            reply->set_num_bytes(num_bytes);
+            return Status::OK;
+        }
 
 
         /**
@@ -213,6 +262,7 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             // default errno = 0
             reply->set_num_bytes(-errno);
             std::string path = path_prefix + request->path();
+            printf("Write: %s \n", path.c_str());
             int fd;
             int res;
             int size = request->size();
@@ -245,6 +295,7 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             // default errno = 0
             reply->set_err(-errno);
             std::string path = path_prefix + request->path();
+            printf("Truncate: %s \n", path.c_str());
             int res;
 
             res = truncate(path.c_str(), request->size());
@@ -265,6 +316,7 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             reply->set_err(0);
             std::string oldpath = path_prefix + request->oldpath();
             std::string newpath = path_prefix + request->newpath();
+            printf("Rename: from %s to %s\n", oldpath.c_str(), newpath.c_str());
             int res = rename(oldpath.c_str(), newpath.c_str());
             if (res == -1) {
                 reply->set_err(-1);
@@ -281,6 +333,7 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             // default errno = 0
             reply->set_err(-errno);
             std::string path = path_prefix + request->path();
+            printf("Mknod: %s \n", path.c_str());
             int mode = request->mode();
             int rdev = request->rdev();
             int res;
@@ -316,6 +369,7 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             reply->set_err(0);
 
             std::string path = path_prefix + request->path();
+            printf("ReadDir: %s \n", path.c_str());
 
             DIR *dp;
             struct dirent *de;
@@ -346,6 +400,7 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             // default errno = 0
             reply->set_err(0);
             std::string path = path_prefix + request->path();
+            printf("MkDir: %s \n", path.c_str());
             int res;
 
             res = mkdir(path.c_str(), request->mode());
@@ -365,6 +420,7 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             // default errno = 0
             reply->set_err(0);
             std::string path = path_prefix + request->path();
+            printf("RmDir: %s \n", path.c_str());
             int res;
 
             res = rmdir(path.c_str());
@@ -385,6 +441,7 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             // default errno = 0
             reply->set_err(0);
             std::string path = path_prefix + request->path();
+            printf("Unlink: %s \n", path.c_str());
             int res;
             res = unlink(path.c_str());
             if (res == -1) {

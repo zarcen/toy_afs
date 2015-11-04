@@ -104,7 +104,7 @@ static int xmp_getattr(const char *path, struct stat *stbuf) {
                 return -1;
             }
             // Sync back to server
-            int res = greeter->Write(cpp_path, local_buf, local_buf.size(), 0 /*offset*/);
+            int res = greeter->WriteS(cpp_path, local_buf, local_buf.size(), 0 /*offset*/);
             if (res < 0) {
                 return res;
             }
@@ -523,7 +523,7 @@ static int xmp_release(const char *path, struct fuse_file_info *fi) {
                     return -1;                                                                                                                                                  
                 }                                                                                                                                                               
                 // Sync back to server                                                                                                                                          
-                res = greeter->Write(cpp_path, local_buf, local_buf.size(), 0 /*offset*/);                                                                                      
+                res = greeter->WriteS(cpp_path, local_buf, local_buf.size(), 0 /*offset*/);                                                                                      
                 if (res < 0) {                                                                                                                                                  
                     fprintf(stderr,                                                                                                                                             
                             "ERROR(xmp_release) - failed at writing to server RPC call: %s\n",                                                                                  
@@ -580,7 +580,7 @@ struct tafs_fuse_operations:fuse_operations {
         chown		= xmp_chown;
         truncate	= xmp_truncate;
         utimens	    = xmp_utimens,
-                    open		= xmp_open;
+        open		= xmp_open;
         read		= xmp_read;
         write		= xmp_write;
         statfs		= xmp_statfs;

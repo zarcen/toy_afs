@@ -9,6 +9,7 @@
 using grpc::Channel;
 using grpc::ClientContext;
 using grpc::ClientReader;
+using grpc::ClientWriter;
 using grpc::Status;
 
 using tafs::ToyAFS;
@@ -28,6 +29,8 @@ using tafs::AccessReq;
 using tafs::AccessReply;
 using tafs::WriteReq;
 using tafs::WriteReply;
+using tafs::WriteSReq;
+using tafs::WriteSReply;
 using tafs::MknodReq;
 using tafs::MknodReply;
 using tafs::UnlinkReq;
@@ -193,6 +196,32 @@ class GreeterClient {
         return status.ok() ? reply.num_bytes() : -1;
     }
 
+    int WriteS(const std::string& path, std::string& data, int size, int offset) {
+        WriteReq request;
+        WriteReply reply;
+        ClientContext context;
+        std::unique_ptr<ClientWriter<WriteReq> > writer(
+                stub_->WriteS(&context, &reply));
+        int remain = size;
+        int stump = 1<<20;
+        int curr = offset;
+        request.set_path(path); 
+        while (remain) {
+            request.set_buf(data.substr(curr, std::min(stump, remain)));
+            request.set_size(std::min(stump, remain));
+            request.set_offset(curr);
+            curr += stump;
+            remain -= stump;
+            if (!writer->Write(request)) {
+                // Broken stream.
+                break;
+            }
+        }
+        writer->WritesDone();
+        Status status = writer->Finish();
+
+        return status.ok() ? reply.num_bytes() : -1;
+    }
 
     int Mknod(const std::string& path, int mode, int rdev) {
         MknodReq request;
