@@ -70,6 +70,7 @@ static int xmp_getattr(const char *path, struct stat *stbuf) {
     std::string localfile_path = cu.ToCacheFileName(path);
     std::string localattr_path = cu.ToCacheAttrName(path);
 
+#ifndef NO_CONSIST_PROT
     // check if there's anything in cache to release to server
     if (cu.IsExisted(cu.ToCacheReleName(path))) {
         if (!cu.IsExisted(localfile_path)) {
@@ -94,6 +95,7 @@ static int xmp_getattr(const char *path, struct stat *stbuf) {
             res = close(fd);
         }
     }
+#endif
 
     res = greeter->GetAttr(cpp_path, rpcbuf);
     if (res < 0) {
@@ -215,9 +217,11 @@ static int xmp_unlink(const char *path) {
         if (cu.IsExisted(cu.ToCacheAttrName(path))) {
             res = unlink(cu.ToCacheAttrName(path).c_str());                                                                                                                     
         }
+#ifndef NO_CONSIST_PROT
         if (cu.IsExisted(cu.ToCacheReleName(path))) {
             res = unlink(cu.ToCacheReleName(path).c_str());                                                                                                                     
         }
+#endif
     }                                                                                                                                                                       
     return res == -1 ? -errno : 0;
 }
@@ -260,10 +264,12 @@ static int xmp_rename(const char *from, const char *to)
             res = rename(cu.ToCacheAttrName(from).c_str(), 
                     cu.ToCacheAttrName(to).c_str() );
         }
+#ifndef NO_CONSIST_PROT
         if (CacheUtil().IsExisted(cu.ToCacheReleName(from))) {
             res = rename(cu.ToCacheReleName(from).c_str(), 
                     cu.ToCacheReleName(to).c_str() );
         }
+#endif
     }
     return res == -1 ? -errno : 0;
 }
@@ -448,6 +454,7 @@ static int xmp_flush(const char *path, struct fuse_file_info *fi) {
     close(fi->fh);
 
     // with fsync inside
+#ifndef NO_CONSIST_PROT
     std::string rele = CacheUtil().ToCacheReleName(path);
     if (CacheUtil().IsExisted(rele)) {
         printf("--!--!-- %s already exists\n", rele.c_str());
@@ -455,6 +462,7 @@ static int xmp_flush(const char *path, struct fuse_file_info *fi) {
     else if (CacheUtil().Touch(rele) < 0) {
         printf("--!--!-- Fail to cache_repaly file: %s \n", path);
     }
+#endif
     return ret;
 }
 
@@ -496,9 +504,11 @@ static int xmp_release(const char *path, struct fuse_file_info *fi) {
                     return res;                                                                                                                                                 
                 }
 
+#ifndef NO_CONSIST_PROT
                 if (cu.Unlink(cu.ToCacheReleName(path))){ 
                     printf("--!--!-- Fail to unlink file: %s \n", path);
                 }
+#endif
             }
             writeback_flag = -1;
             res = close(fi->fh);

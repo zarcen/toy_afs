@@ -52,6 +52,9 @@ tafs_server: tafs.pb.o tafs.grpc.pb.o tafs_server.o
 fusetafs: tafs.pb.o tafs.grpc.pb.o fusetafs.c
 	$(CXX) $^ -Wall $(LDFLAGS) $(CXXFLAGS) `pkg-config fuse --cflags --libs` -o $@
 
+fusetafs_norele: tafs.pb.o tafs.grpc.pb.o fusetafs.c
+	$(CXX) $^ -Wall -DNO_CONSIST_PROT $(LDFLAGS) $(CXXFLAGS) `pkg-config fuse --cflags --libs` -o $@
+
 fusetafs_crash: tafs.pb.o tafs.grpc.pb.o fusetafs.c
 	$(CXX) $^ -Wall -DCRASH_TEST $(LDFLAGS) $(CXXFLAGS) `pkg-config fuse --cflags --libs` -o fusetafs_crash
 
