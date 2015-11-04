@@ -32,6 +32,8 @@ gcc -Wall fusexmp.c `pkg-config fuse --cflags --libs` -o fusexmp
 #include <sys/time.h>
 #include <cassert>
 #include <unordered_map>
+#include <iostream>
+#include <chrono>
 
 #include "tafs.h"
 #include "cache_util.h"
@@ -42,6 +44,25 @@ static GreeterClient* greeter = NULL;
 static std::unordered_map<std::string, std::string> stat_hash;                                                                                                              
 // flag for release() to decide to contact server or not                                                                                                                    
 static int writeback_flag = -1;
+
+
+class Timer {
+    std::chrono::system_clock::time_point start;
+    std::chrono::system_clock::time_point end;
+    std::string str_;
+public:
+  Timer(std::string str) {
+    str_ = str;
+    start = std::chrono::system_clock::now();
+  }
+  ~Timer() {
+      end = std::chrono::system_clock::now();
+      auto elapsed =
+          std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+      std::cout<<str_<<":"<<elapsed.count()<<"\n";
+  }
+};
+
 
 void InitRPC(const char* serverhost) {
     if (greeter == NULL) {
@@ -63,6 +84,9 @@ int IsCrash(const char* filename) {
 
 static int xmp_getattr(const char *path, struct stat *stbuf) {
     printf("= = = =  START = = = =  xmp_getattr\n");
+
+    Timer timer("-!- Timer GetAttr");
+
     int res;
     std::string rpcbuf;
     std::string cpp_path = path;
@@ -328,6 +352,7 @@ static int xmp_truncate(const char *path, off_t size) {
 
 static int xmp_open(const char *path, struct fuse_file_info *fi) {
     printf("= = = =  START = = = =  xmp_open\n");
+
     CacheUtil cu;
 
     std::string cpp_path = path;
@@ -383,6 +408,7 @@ static int xmp_open(const char *path, struct fuse_file_info *fi) {
         close(dummy);
         printf("== Read from server and save ==\n");
     }
+
     return 0;
 }
 
@@ -469,6 +495,9 @@ static int xmp_flush(const char *path, struct fuse_file_info *fi) {
 
 static int xmp_release(const char *path, struct fuse_file_info *fi) {
     printf("= = = =  START = = = =  xmp_release\n");
+
+    Timer timer("-!- Timer Release");
+
     std::string cpp_path = path;
 #ifdef CRASH_TEST
     if (IsCrash("crash_config.txt")) {
@@ -503,13 +532,17 @@ static int xmp_release(const char *path, struct fuse_file_info *fi) {
                             strerror(errno));                                                                                                                                   
                     return res;                                                                                                                                                 
                 }
+            }
 
 #ifndef NO_CONSIST_PROT
-                if (cu.Unlink(cu.ToCacheReleName(path))){ 
-                    printf("--!--!-- Fail to unlink file: %s \n", path);
-                }
-#endif
+            if (cu.Unlink(cu.ToCacheReleName(path))){ 
+                printf("--!--!-- Fail to unlink file: %s \n", path);
             }
+            else {
+                printf("--!--!-- Success to unlink file: %s \n", path);
+            }
+#endif
+
             writeback_flag = -1;
             res = close(fi->fh);
         }
