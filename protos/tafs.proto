@@ -41,6 +41,7 @@ service ToyAFS {
     rpc Read (ReadReq) returns (ReadReply) {}
     rpc ReadS (ReadSReq) returns (stream ReadSReply) {}
     rpc Write (WriteReq) returns (WriteReply) {}
+    rpc WriteS (stream WriteReq) returns (WriteReply) {}
     rpc ReadDir (ReadDirReq) returns (stream ReadDirReply) {}
     rpc MkDir (MkDirReq) returns (MkDirReply) {}
     rpc RmDir (RmDirReq) returns (RmDirReply) {}
@@ -50,18 +51,6 @@ service ToyAFS {
     rpc Mknod(MknodReq) returns (MknodReply) {}
     rpc Truncate(TruncateReq) returns (TruncateReply) {}
     rpc Rename (RenameReq) returns (RenameReply) {}
-}
-
-// Read Streaming
-message ReadSReq {
-    string path = 1;
-    int32  size = 2;
-    int32  offset = 3;
-}
-
-message ReadSReply {
-    int32 num_bytes = 1;
-    bytes buf  = 2;
 }
 
 // Rename
@@ -192,6 +181,18 @@ message ReadReply {
     bytes buf  = 2;
 }
 
+// Read Streaming
+message ReadSReq {
+    string path = 1;
+    int32  size = 2;
+    int32  offset = 3;
+}
+
+message ReadSReply {
+    int32 num_bytes = 1;
+    bytes buf  = 2;
+}
+
 message WriteReq {
     string path = 1;
     bytes  buf = 2;
@@ -200,5 +201,16 @@ message WriteReq {
 }
 
 message WriteReply {
+    int32 num_bytes = 1;
+}
+
+message WriteSReq {
+    string path = 1;
+    bytes  buf = 2;
+    int32  size = 3;
+    int32  offset = 4;
+}
+
+message WriteSReply {
     int32 num_bytes = 1;
 }
