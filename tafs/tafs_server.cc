@@ -177,28 +177,26 @@ class GreeterServiceImpl final : public ToyAFS::Service {
 
             std::string buf;
             buf.resize(size);
-            std::string bigbuf;
-            bigbuf.reserve(size);
             
-            int b = 0;
-            while( ( b = pread(fd, &buf[0], size, offset)) != 0 ) {
-               bigbuf += buf;
-            }
-            if (res == -1) {
+            int b = pread(fd, &buf[0], size, offset);
+            if (b != size) {
+                printf("PREAD didn't read %d bytes from offset %d\n", size, offset);
+            } 
+            if (b == -1) {
                 reply->set_num_bytes(-errno);
             }
             close(fd);
 
-            int remain = buf.size();
+            int remain = b;
             int stump = 1<<20;
+            printf("stump = %d\n", stump);
             int curr = 0;
             
             while (remain) {
-                reply->set_buf(bigbuf.substr(curr, std::min(stump, remain)));
+                reply->set_buf(buf.substr(curr, std::min(stump, remain)));
+                reply->set_num_bytes(std::min(stump, remain));
                 curr += stump;
                 remain -= stump;
-
-                reply->set_num_bytes(stump);
                 writer->Write(*reply);
             }
             return Status::OK;
