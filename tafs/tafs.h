@@ -83,7 +83,6 @@ class GreeterClient {
             return reply.num_bytes();
         }
         else {
-            printf("SERVER NOT CALLED FAILLLL\n");
             return -1;
         }
     }
@@ -203,10 +202,12 @@ class GreeterClient {
         std::unique_ptr<ClientWriter<WriteReq> > writer(
                 stub_->WriteS(&context, &reply));
         int remain = size;
-        int stump = 1<<20;
+        int stump = 1048576; // 1Mb
         int curr = offset;
+        printf("remain:%d, curr:%d\n", remain, curr);
         request.set_path(path); 
         while (remain) {
+            printf("substr --> %d\n", std::min(stump, remain));
             request.set_buf(data.substr(curr, std::min(stump, remain)));
             request.set_size(std::min(stump, remain));
             request.set_offset(curr);
