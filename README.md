@@ -45,3 +45,46 @@ A toy version of AFS-like user-space filesystem implemented by [FUSE](http://fus
 
 ## Known Bugs
 - When calling gRPC func too fast, transferred data would sometimes be corrupt
+
+
+## Writeup
+
+- Goal: AFS-like protocol
+  - grpc + FUSE
+  - cache: store cache in disk ("/tmp/cache")
+    - types: file, attribute, cache_reply
+    - ex: Server file "/tmp/server/file1"
+      - Client cache file: "/tmp/cache/file1"
+      - Client cache attribute: "/tmp/cache/file1.attr"
+      - Client cache cache_reply: "/tmp/cache/file1.rele"
+  - multiple clients consistency
+   - last write wins
+  - crash recover
+    - handle crash happened between flush() and close()
+
+- Supported functions:
+  - getattr(), access(), readdir(), mknod(), mkdir(), unlink(), rmdir(), rename(), truncate(), open(), read(), write(), flush(), release().
+
+- Protocol:
+  - Read a file: 
+  - Write a file:
+
+- Mechanism to implement protocol (Key funcitons) 
+  - a system call usually involves serveral file operations.
+    - a cat operation: getattr > open > read > getattr > read > flush > release
+  - FUSE
+    - getattr() : check if anything needs to write back to server (write back if there's any).
+    - open() : compare attribute between server and local. If attributes are not the same, then fetch from server and save in the cache.
+    - flush() : make sure the cache is saved in the disk, using fsync()
+    - release() : write back to server if file is updated. 
+
+- Crash recover
+  - Before the operation reaches flush(), i.e. save to disk, the updates to the file is in the memroy. If crash happens before flush(), we will loss the updates. Once the updates is flushed to cache in disk, and the client crashs before write back to server, we can recover the updates to server when client is back.
+  - Mechanism:
+
+- Improve performance
+  - attribute: put attribute in memory cache for fast access
+
+
+
+
