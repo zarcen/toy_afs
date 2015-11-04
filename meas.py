@@ -5,10 +5,24 @@ import os, sys, argparse, time
 import subprocess
 import errno
 
-def readtest(fs_prefix, min_mb, max_mb):
+def readwritetest(fs_prefix, min_mb, max_mb):
+    # create & write
     cleancache()
     if fs_prefix[-1] != '/':
         fs_prefix += '/'
+    first_write_map = []
+    towrite = 'x'
+    for i in range(min_mb, max_mb + 1):
+        nbytes = towrite * i * 1024 * 1024
+        start_time = time.time()
+        with open(fs_prefix + "f" + str(i), 'wb') as f:
+            f.write(nbytes)
+            f.close()
+        first_write_map.append((i, time.time() - start_time))
+        time.sleep(1.5)   # add a little delay to avoid rpc call failing
+    
+    # first read access & sub read access
+    cleancache()
     first_read_map = []
     sub_read_map = []
     for i in range(min_mb, max_mb + 1):
@@ -17,40 +31,15 @@ def readtest(fs_prefix, min_mb, max_mb):
             f.read()
             f.close()
         first_read_map.append((i, time.time() - start_time))
-        time.sleep(1)   # add a little delay to avoid rpc call failing
+        time.sleep(1.5)   # add a little delay to avoid rpc call failing
         start_time = time.time()
         with open(fs_prefix + "f" + str(i), 'rb') as f:
             f.read()
             f.close()
         sub_read_map.append((i, time.time() - start_time))
-        time.sleep(1)   # add a little delay to avoid rpc call failing
+        time.sleep(1.5)   # add a little delay to avoid rpc call failing
     for i in range(len(first_read_map)):
-        print "%d,%f,%f" % (first_read_map[i][0], first_read_map[i][1], sub_read_map[i][1]) 
-
-
-def writetest(fs_prefix, min_mb, max_mb):
-    cleancache()
-    if fs_prefix[-1] != '/':
-        fs_prefix += '/'
-    first_write_map = []
-    sub_write_map = []
-    towrite = 'x'
-    for i in range(min_mb, max_mb + 1):
-        start_time = time.time()
-        nbytes = towrite * i * 1024 * 1024
-        with open(fs_prefix + "f" + str(i), 'wb') as f:
-            f.write(nbytes)
-            f.close()
-        first_write_map.append((i, time.time() - start_time))
-        time.sleep(1)   # add a little delay to avoid rpc call failing
-        start_time = time.time()
-        with open(fs_prefix + "f" + str(i), 'wb') as f:
-            f.write(nbytes)
-            f.close()
-        sub_write_map.append((i, time.time() - start_time))
-        time.sleep(1)   # add a little delay to avoid rpc call failing
-    for i in range(len(first_write_map)):
-        print "%d,%f,%f" % (first_write_map[i][0], first_write_map[i][1], sub_write_map[i][1]) 
+        print "%d,%f,%f,%f" % (first_write_map[i][0], first_write_map[i][1], first_read_map[i][1], sub_read_map[i][1]) 
 
 def cleancache():
     cache_prefix = "/tmp/cache/"
@@ -69,7 +58,7 @@ def main():
         Use this tool to do the measurements for cs739-p2
         """)
     parser.add_argument("-o", "--options", 
-            help="Test options ['read', 'write']", default=None)
+            help="Test options ['readwritetest']", default='readwritetest')
     parser.add_argument("-f", "--fs_prefix", 
             help="The mount point of fuse filesystem. Default=\"/tmp/afs\"",
             default='/tmp/afs')
@@ -85,10 +74,8 @@ def main():
     fs_prefix = args.fs_prefix
     if args.options is not None:
         # start test
-        if args.options == 'read':
-            readtest(fs_prefix, min_mb, max_mb)
-        elif args.options == 'write':
-            writetest(fs_prefix, min_mb, max_mb)
+        if args.options == 'readwritetest':
+            readwritetest(fs_prefix, min_mb, max_mb)
         else:
             parser.print_help()
     else:
