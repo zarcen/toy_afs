@@ -30,7 +30,7 @@
 #
 
 CXX = g++
-CPPFLAGS += -I/usr/local/include -pthread
+CPPFLAGS += -I/usr/local/include -pthread -w -O3
 CXXFLAGS += -std=c++11 -g
 LDFLAGS += -L/usr/local/lib -lgrpc++_unsecure -lgrpc -lgpr -lprotobuf -lpthread -ldl
 PROTOC = protoc
@@ -41,22 +41,22 @@ PROTOS_PATH = ../protos
 
 vpath %.proto $(PROTOS_PATH)
 
-all: system-check tafs_server fusetafs fusetafs_crash
+all: system-check tafs_server fusetafs fusetafs_norele fusetafs_crash 
 
 #tafs_client: tafs.pb.o tafs.grpc.pb.o tafs_client.o
 #	$(CXX) $^ $(LDFLAGS) -o $@
 
 tafs_server: tafs.pb.o tafs.grpc.pb.o tafs_server.o
-	$(CXX) $^ $(LDFLAGS) -o $@
+	$(CXX) $^ $(LDFLAGS) $(CPPFLAGS) -o $@
 
 fusetafs: tafs.pb.o tafs.grpc.pb.o fusetafs.c
-	$(CXX) $^ -Wall $(LDFLAGS) $(CXXFLAGS) `pkg-config fuse --cflags --libs` -o $@
+	$(CXX) $^ $(LDFLAGS) $(CPPFLAGS) $(CXXFLAGS) `pkg-config fuse --cflags --libs` -o $@
 
 fusetafs_norele: tafs.pb.o tafs.grpc.pb.o fusetafs.c
-	$(CXX) $^ -Wall -DNO_CONSIST_PROT $(LDFLAGS) $(CXXFLAGS) `pkg-config fuse --cflags --libs` -o $@
+	$(CXX) $^ -DNO_CONSIST_PROT $(LDFLAGS) $(CPPFLAGS) $(CXXFLAGS) `pkg-config fuse --cflags --libs` -o $@
 
 fusetafs_crash: tafs.pb.o tafs.grpc.pb.o fusetafs.c
-	$(CXX) $^ -Wall -DCRASH_TEST $(LDFLAGS) $(CXXFLAGS) `pkg-config fuse --cflags --libs` -o fusetafs_crash
+	$(CXX) $^ -DCRASH_TEST $(LDFLAGS) $(CPPFLAGS) $(CXXFLAGS) `pkg-config fuse --cflags --libs` -o $@
 
 %.grpc.pb.cc: %.proto
 	$(PROTOC) -I $(PROTOS_PATH) --grpc_out=. --plugin=protoc-gen-grpc=$(GRPC_CPP_PLUGIN_PATH) $<
@@ -65,7 +65,7 @@ fusetafs_crash: tafs.pb.o tafs.grpc.pb.o fusetafs.c
 	$(PROTOC) -I $(PROTOS_PATH) --cpp_out=. $<
 
 clean:
-	rm -f *.o *.pb.cc *.pb.h tafs_client tafs_server fusetafs fusetafs_crash
+	rm -f *.o *.pb.cc *.pb.h tafs_client tafs_server fusetafs fusetafs_norele fusetafs_crash
 
 
 # The following is to test your system and ensure a smoother experience.

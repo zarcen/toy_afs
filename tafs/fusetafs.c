@@ -441,9 +441,9 @@ static int xmp_write(const char *path, const char *buf, size_t size,
     int fd = fi->fh;
     int res = pwrite(fd, buf, size, offset);
 
-    if (res == -1) {
+    if (res < 0) {
         writeback_flag = -1;
-        return -errno;
+        return res;
     }
     writeback_flag = 1;                                                                                                 
     printf("-- writefile success\n");

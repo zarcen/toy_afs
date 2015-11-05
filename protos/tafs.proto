@@ -38,10 +38,10 @@ service ToyAFS {
     // Sends a greeting
     rpc GetAttr (GetAttrReq) returns (GetAttrReply) {}
     rpc Open (OpenReq) returns (OpenReply) {}
-    rpc Read (ReadReq) returns (ReadReply) {}
+    //rpc Read (ReadReq) returns (ReadReply) {}
     rpc ReadS (ReadSReq) returns (stream ReadSReply) {}
-    rpc Write (WriteReq) returns (WriteReply) {}
-    rpc WriteS (stream WriteReq) returns (WriteReply) {}
+    //rpc Write (WriteReq) returns (WriteReply) {}
+    rpc WriteS (stream WriteSReq) returns (WriteSReply) {}
     rpc ReadDir (ReadDirReq) returns (stream ReadDirReply) {}
     rpc MkDir (MkDirReq) returns (MkDirReply) {}
     rpc RmDir (RmDirReq) returns (RmDirReply) {}
@@ -170,17 +170,6 @@ message OpenReply{
     int32  err = 1;
 }
 
-message ReadReq {
-    string path = 1;
-    int32  size = 2;
-    int32  offset = 3;
-}
-
-message ReadReply {
-    int32 num_bytes = 1;
-    bytes buf  = 2;
-}
-
 // Read Streaming
 message ReadSReq {
     string path = 1;
@@ -193,17 +182,7 @@ message ReadSReply {
     bytes buf  = 2;
 }
 
-message WriteReq {
-    string path = 1;
-    bytes  buf = 2;
-    int32  size = 3;
-    int32  offset = 4;
-}
-
-message WriteReply {
-    int32 num_bytes = 1;
-}
-
+// Write Streaming
 message WriteSReq {
     string path = 1;
     bytes  buf = 2;

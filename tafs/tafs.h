@@ -17,8 +17,6 @@ using tafs::GetAttrReq;
 using tafs::GetAttrReply;
 using tafs::OpenReq;
 using tafs::OpenReply;
-using tafs::ReadReq;
-using tafs::ReadReply;
 using tafs::ReadDirReq;
 using tafs::ReadDirReply;
 using tafs::MkDirReq;
@@ -27,8 +25,6 @@ using tafs::RmDirReq;
 using tafs::RmDirReply;
 using tafs::AccessReq;
 using tafs::AccessReply;
-using tafs::WriteReq;
-using tafs::WriteReply;
 using tafs::WriteSReq;
 using tafs::WriteSReply;
 using tafs::MknodReq;
@@ -68,7 +64,7 @@ class GreeterClient {
         }
     }
 
-    // put file in buf
+    /*
     int Read(const std::string& path, std::string& buf, int size, int offset) {
         ReadReq request;
         request.set_path(path);
@@ -86,6 +82,7 @@ class GreeterClient {
             return -1;
         }
     }
+    */
 
     // put file in buf
     int ReadS(const std::string& path, std::string& buf, int size, int offset) {
@@ -180,7 +177,7 @@ class GreeterClient {
         return status.ok() ? reply.err() : -1;
     }
 
-
+    /*
     int Write(const std::string& path, std::string& data, int size, int offset) {
         WriteReq request;
         request.set_path(path);
@@ -194,12 +191,13 @@ class GreeterClient {
 
         return status.ok() ? reply.num_bytes() : -1;
     }
+    */
 
     int WriteS(const std::string& path, std::string& data, int size, int offset) {
-        WriteReq request;
-        WriteReply reply;
+        WriteSReq request;
+        WriteSReply reply;
         ClientContext context;
-        std::unique_ptr<ClientWriter<WriteReq> > writer(
+        std::unique_ptr<ClientWriter<WriteSReq> > writer(
                 stub_->WriteS(&context, &reply));
         int remain = size;
         int stump = 1048576; // 1Mb
