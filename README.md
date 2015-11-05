@@ -49,33 +49,48 @@ A toy version of AFS-like user-space filesystem implemented by [FUSE](http://fus
 
 ## Writeup
 
-- Goal: AFS-like protocol
-  - grpc + FUSE
-  - cache: store cache in disk ("/tmp/cache")
-    - types: file, attribute, cache_reply
-    - ex: Server file "/tmp/server/file1"
+- AFS-like protocol
+  - Implementation: grpc + FUSE
+  - Cache data types: file, attribute, cache_reply
+    - File and cache_replay are stored in disk.
+    - Attribute is stored in both memory and disk.
+    - ex: a file in server path "/tmp/server/file1" corresponds to client cache:
       - Client cache file: "/tmp/cache/file1"
       - Client cache attribute: "/tmp/cache/file1.attr"
       - Client cache cache_reply: "/tmp/cache/file1.rele"
-  - multiple clients consistency
-   - last write wins
-  - crash recover
-    - handle crash happened between flush() and close()
+  - Support multiple clients consistency
+    - Last writer wins
+  - Support Crash recover
+    - Once the file update is flushed, the client system will syncronize with server after reboot.
+    - If crash happened before flush(), then the updates in file will disappear. 
 
-- Supported functions:
+- File system functionality support:
   - getattr(), access(), readdir(), mknod(), mkdir(), unlink(), rmdir(), rename(), truncate(), open(), read(), write(), flush(), release().
+  - Each function corresponds a specific funciton in FUSE.
+  - Most funcitons in FUSE have corresponding grpc fucnctions.
+    - read() and rddir() use grpc streaming type, otherwise the data would be corrupted. 
 
-- Protocol:
-  - Read a file: 
-  - Write a file:
+- Cache Protocol:
+  - A system call (read/write) usually involves serveral operations, so we properly modified FUSE functions to implement cache feature.
+    - ex: a cat operation triggers: getattr() -> open() -> read() -> getattr() -> read() -> flush() -> release()
+  - Read a file
+    0. getattr():  
+      - Check if there is any cache updates needed to write back to server; if so, then write back.
+      - Retrieve file attribute from server, and cache in memory.
+    1. open():
+      - Retrieve file attribute from client disk, if there is any.
+      - Compare the attribute between server and client
+        - If the same, then return.
+        - Otherwise, retreive file from server and store both attribute and file to the client cache in disk.
+    2. flush():
+      - make sure the cache is saved in the disk, using fsync().
+  - Write a file
 
 - Mechanism to implement protocol (Key funcitons) 
-  - a system call usually involves serveral file operations.
-    - a cat operation: getattr > open > read > getattr > read > flush > release
   - FUSE
-    - getattr() : check if anything needs to write back to server (write back if there's any).
+    - getattr() : check if anything needs to write back to server .
     - open() : compare attribute between server and local. If attributes are not the same, then fetch from server and save in the cache.
-    - flush() : make sure the cache is saved in the disk, using fsync()
+    - flush() : make sure the cache is saved in the disk, using fsync().
     - release() : write back to server if file is updated. 
 
 - Crash recover
