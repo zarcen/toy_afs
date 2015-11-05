@@ -89,7 +89,6 @@ def readwrite(fs_prefix, min_mb, max_mb):
     if fs_prefix[-1] != '/':
         fs_prefix += '/'
     first_write_map = []
-    sub_write_map = []
     towrite = 'x'
     for i in range(min_mb, max_mb + 1):
         nbytes = towrite * i * 1024 * 1024
@@ -100,18 +99,6 @@ def readwrite(fs_prefix, min_mb, max_mb):
                 f.write(nbytes)
                 f.close()
             first_write_map.append((i, time.time() - start_time))
-            filesize = os.path.getsize(filepath)
-            if filesize == len(nbytes):
-                break
-            else:
-                del first_write_map[-1]
-        time.sleep(2)   # add a little delay to avoid rpc call failing
-        while True:
-            start_time = time.time()
-            with open(filepath, 'wb') as f:
-                f.write(nbytes)
-                f.close()
-            sub_write_map.append((i, time.time() - start_time))
             filesize = os.path.getsize(filepath)
             if filesize == len(nbytes):
                 break
@@ -137,7 +124,7 @@ def readwrite(fs_prefix, min_mb, max_mb):
         sub_read_map.append((i, time.time() - start_time))
         time.sleep(2)   # add a little delay to avoid rpc call failing
     for i in range(len(first_read_map)):
-        print "%d,%f,%f,%f,%f" % (first_write_map[i][0], first_write_map[i][1], sub_write_map[i][1], first_read_map[i][1], sub_read_map[i][1]) 
+        print "%d,%f,%f,%f" % (first_write_map[i][0], first_write_map[i][1], first_read_map[i][1], sub_read_map[i][1]) 
 
 def cleancache():
     cache_prefix = "/tmp/cache/"
