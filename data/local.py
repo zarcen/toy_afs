@@ -53,7 +53,7 @@ def DrawFig(filename):
   ax = fig.add_subplot(111)
   fig.suptitle("Local v.s. Remote client")
   plt.xlabel('file size (mb)')
-  plt.ylabel('time(ms)')
+  plt.ylabel('time(sec)')
 #ax.set_yscale('log')
 #plt.xlim([2.6, 8.3])
   ax.plot(n1, w1, 'b-', label="Local client: write")

@@ -53,7 +53,7 @@ def DrawFig(filename):
   ax = fig.add_subplot(111)
   fig.suptitle("With/Without Consistency check")
   plt.xlabel('file size (mb)')
-  plt.ylabel('time(ms)')
+  plt.ylabel('time(sec)')
 #ax.set_yscale('log')
 #plt.xlim([2.6, 8.3])
   ax.plot(n0, w0, 'r-', label="Without check: write")

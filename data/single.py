@@ -33,7 +33,7 @@ def DrawFig(filename):
   ax = fig.add_subplot(111)
   fig.suptitle("Single client:  Write,  1st Read,  2nd Read")
   plt.xlabel('file size (mb)')
-  plt.ylabel('time(ms)')
+  plt.ylabel('time(sec)')
 #  ax.set_yscale('log')
 #plt.xlim([2.6, 8.3])
   ax.plot(n, w, 'ro', label="write")
