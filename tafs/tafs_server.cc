@@ -211,6 +211,7 @@ class GreeterServiceImpl final : public ToyAFS::Service {
                 }
             }
             if (fd > 0) {
+                fsync(fd);
                 close(fd);
             }
             reply->set_num_bytes(num_bytes);
