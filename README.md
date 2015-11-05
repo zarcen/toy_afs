@@ -100,6 +100,7 @@ A toy version of AFS-like user-space filesystem implemented by [FUSE](http://fus
 
 
 - Single client: write, 1st read, 2nd read
-
+  * ![fig.1](https://github.com/zarcen/toy_afs/blob/writeup/data/single.png)
 
 - Scale: Single v.s. Three clients
+  * ![fig.2](https://github.com/zarcen/toy_afs/blob/writeup/data/scale.png)
