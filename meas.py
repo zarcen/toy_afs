@@ -21,6 +21,7 @@ def consistcheck(fs_prefix, min_mb, max_mb):
         time.sleep(2)   # add a little delay to avoid rpc call failing
         start_time = time.time()
         # crash after write
+        cache_prefix = "/tmp/cache/"
         with open(cache_prefix + "f" + str(i) + ".rele", 'wb') as f:
             f.close()
         #
