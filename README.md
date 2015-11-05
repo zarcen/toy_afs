@@ -54,7 +54,7 @@ A toy version of AFS-like user-space filesystem implemented by [FUSE](http://fus
   - Cache data types: file, attribute, cache_reply
     - File and cache_replay are stored in disk.
     - Attribute is stored in both memory and disk.
-    - ex: a file in server path "/tmp/server/file" corresponds to client cache:
+    - ex: a file in server path "/tmp/tafs/file" corresponds to client cache:
       - Client cache file: "/tmp/cache/file"
       - Client cache attribute: "/tmp/cache/file.attr"
       - Client cache cache_reply: "/tmp/cache/file.rele"
@@ -98,3 +98,8 @@ A toy version of AFS-like user-space filesystem implemented by [FUSE](http://fus
   - attribute: put attribute in memory cache for fast access
   - Pass file descriptor instead of open a file to reduce the overhead. Will close it in flush().
 
+
+- Single client: write, 1st read, 2nd read
+
+
+- Scale: Single v.s. Three clients
