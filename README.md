@@ -74,15 +74,15 @@ A toy version of AFS-like user-space filesystem implemented by [FUSE](http://fus
   - A system call (read/write) usually involves serveral operations, so we properly modified FUSE functions to implement cache feature.
     - ex: a cat operation triggers: getattr() -> open() -> read() -> getattr() -> read() -> flush() -> release()
   - Read a file
-    0. getattr():  
+    0) getattr():  
       - Check if there is any cache updates needed to write back to server; if so, then write back.
       - Retrieve file attribute from server, and cache in memory.
-    1. open():
+    1) open():
       - Retrieve file attribute from client disk, if there is any.
       - Compare the attribute between server and client
         - If the same, then return.
         - Otherwise, retreive file from server and store both attribute and file to the client cache in disk.
-    2. flush():
+    2) flush():
       - make sure the cache is saved in the disk, using fsync().
   - Write a file
 
