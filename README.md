@@ -51,6 +51,7 @@ A toy version of AFS-like user-space filesystem implemented by [FUSE](http://fus
 
 - AFS-like protocol
   - Implementation: grpc + FUSE
+    - gcc, compile with -O3
   - Cache data types: file, attribute, cache_reply
     - File and cache_replay are stored in disk.
     - Attribute is stored in both memory and disk.
@@ -82,11 +83,13 @@ A toy version of AFS-like user-space filesystem implemented by [FUSE](http://fus
       1. Compare the attribute between server and client
         - If the same, then return.
         - Otherwise, retreive file from server and store both attribute and file to the client cache in disk.
-    2. flush():
+    2. read():
+      0. read file directly from cache.
+    3. flush():
       0. make sure the cache is saved in the disk, using fsync().
       1. apply cache reply mechanism to make sure the file updates are written back to server.
         - generate a empty file to indicate the file is not write back yet, e.g. "/tmp/cache/file.rele"
-    3. release():
+    4. release():
       0. check if there is updates in file, and write back if so.
       1. update cache reply
         - e.g. remove "/tmp/cache/file.rele"
