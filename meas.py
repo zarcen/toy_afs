@@ -5,6 +5,35 @@ import os, sys, argparse, time
 import subprocess
 import errno
 
+# assume cache exist and crash after last write
+def consistcheck(fs_prefix, min_mb, max_mb):
+    if fs_prefix[-1] != '/':
+        fs_prefix += '/'
+    # first read access & sub read access
+    norele_map = []
+    rele_map = []
+    for i in range(min_mb, max_mb + 1):
+        start_time = time.time()
+        with open(fs_prefix + "f" + str(i), 'rb') as f:
+            f.read()
+            f.close()
+        norele_map.append((i, time.time() - start_time))
+        time.sleep(2)   # add a little delay to avoid rpc call failing
+        start_time = time.time()
+        # crash after write
+        cache_prefix = "/tmp/cache/"
+        with open(cache_prefix + "f" + str(i) + ".rele", 'wb') as f:
+            f.close()
+        #
+        with open(fs_prefix + "f" + str(i), 'rb') as f:
+            f.read()
+            f.close()
+        rele_map.append((i, time.time() - start_time))
+        time.sleep(2)   # add a little delay to avoid rpc call failing
+    for i in range(len(rele_map)):
+        print "%d,%f,%f" % (rele_map[i][0], norele_map[i][1], rele_map[i][1]) 
+    
+
 def readonly(fs_prefix, min_mb, max_mb):
     if fs_prefix[-1] != '/':
         fs_prefix += '/'
@@ -127,7 +156,7 @@ def main():
         Use this tool to do the measurements for cs739-p2
         """)
     parser.add_argument("-o", "--options", 
-            help="Test options ['rdonly', 'wronly', 'readwrite']", default='readwrite')
+            help="Test options ['rdonly', 'wronly', 'readwrite', 'consistcheck']", default='readwrite')
     parser.add_argument("-f", "--fs_prefix", 
             help="The mount point of fuse filesystem. Default=\"/tmp/afs\"",
             default='/tmp/afs')
@@ -149,6 +178,8 @@ def main():
             readonly(fs_prefix, min_mb, max_mb)
         elif args.options == 'wronly':
             writeonly(fs_prefix, min_mb, max_mb)
+        elif args.options == 'consistcheck':
+            consistcheck(fs_prefix, min_mb, max_mb)
         else:
             parser.print_help()
     else:
