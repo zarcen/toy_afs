@@ -5,7 +5,7 @@ import os, sys, argparse, time
 import subprocess
 import errno
 
-# assume cache exist and crash after last write
+# assume crash after last write
 def consistcheck(fs_prefix, min_mb, max_mb):
     if fs_prefix[-1] != '/':
         fs_prefix += '/'
