@@ -114,9 +114,14 @@ A toy version of AFS-like user-space filesystem implemented by [FUSE](http://fus
   - attribute: put attribute in memory cache for fast access
   - Pass file descriptor instead of open a file to reduce the overhead. Will close it in flush().
 
-
 - Single client: write, 1st read, 2nd read
   * ![fig.1](https://github.com/zarcen/toy_afs/blob/writeup/data/single.png)
 
 - Scale: Single v.s. Three clients
   * ![fig.2](https://github.com/zarcen/toy_afs/blob/writeup/data/scale.png)
+
+- Impact of network bandwidth
+  * ![fig.3](https://github.com/zarcen/toy_afs/blob/writeup/data/local.png)
+
+- Overhead of doing consistency check
+  * ![fig.4](https://github.com/zarcen/toy_afs/blob/writeup/data/norele.png)
