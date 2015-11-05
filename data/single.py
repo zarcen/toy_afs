@@ -31,12 +31,15 @@ def DrawFig(filename):
 
   fig = plt.figure()
   ax = fig.add_subplot(111)
-  fig.suptitle("Single client:  Write (red),  1st Read (blue),  2nd Read (green)")
+  fig.suptitle("Single client:  Write,  1st Read,  2nd Read")
   plt.xlabel('file size (mb)')
   plt.ylabel('time(ms)')
 #  ax.set_yscale('log')
 #plt.xlim([2.6, 8.3])
-  ax.plot(n, w, 'ro', n, r1, 'b^', n, r2, 'g^')
+  ax.plot(n, w, 'ro', label="write")
+  ax.plot(n, r1, 'b^', label="1st read")
+  ax.plot(n, r2, 'g^', label="2nd read")
+  ax.legend(bbox_to_anchor=(0.2, 0.8), loc=2, borderaxespad=0.)
   plt.savefig('single.png')
   plt.show()
   return
