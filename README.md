@@ -73,7 +73,7 @@ A toy version of AFS-like user-space filesystem implemented by [FUSE](http://fus
 - Cache Protocol:
   - A system call (read/write) usually involves serveral operations, so we properly modified FUSE functions to implement cache feature.
     - ex: a **cat** operation triggers: getattr() -> open() -> read() -> getattr() -> read() -> flush() -> release()
-  - Read/Write a file
+  - Read / Write a file
     0. getattr():  
       0. Check if there is any cache updates needed to write back to server; if so, then write back.
       1. Retrieve file attribute from server, and cache in memory.
@@ -84,11 +84,24 @@ A toy version of AFS-like user-space filesystem implemented by [FUSE](http://fus
         - Otherwise, retreive file from server and store both attribute and file to the client cache in disk.
     2. flush():
       0. make sure the cache is saved in the disk, using fsync().
-      1. apply cache reply mechnism to make sure the file updates are written back to server.
+      1. apply cache reply mechanism to make sure the file updates are written back to server.
         - generate a empty file to indicate the file is not write back yet, e.g. "/tmp/cache/file.rele"
     3. release():
       0. check if there is updates in file, and write back if so.
       1. update cache reply
+        - e.g. remove "/tmp/cache/file.rele"
+
+- Consistency Protocol:
+  - Read / Write a file
+    0. getattr():  
+      * Check if there is any cache updates needed to write back to server
+        - e.g. check "/tmp/cache/file.rele"
+    2. flush():
+      * apply cache reply mechanism to make sure the file updates are written back to server.
+        - generate a empty file to indicate the file is not write back yet, e.g. "/tmp/cache/file.rele"
+    3. release():
+      * write back to server
+      * update cache reply
         - e.g. remove "/tmp/cache/file.rele"
 
 - Crash recover
