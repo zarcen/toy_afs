@@ -88,19 +88,19 @@ class GreeterServiceImpl final : public ToyAFS::Service {
             printf("GetAttr: %s \n", path.c_str());
 
             res = lstat(path.c_str(), &stbuf);
-            if (res == -1) {
+            if (res < 0) {
                 reply->set_err(-errno);
+                return Status::OK;
             } 
-            else {
-                std::string buf;
+            std::string buf;
 
-                int stat_size = sizeof(struct stat);
-                buf.resize(stat_size);
+            int stat_size = sizeof(struct stat);
+            buf.resize(stat_size);
 
-                assert(buf.size() == sizeof(struct stat));
-                memcpy(&buf[0], &stbuf, buf.size());
-                reply->set_buf(buf);    
-            }
+            assert(buf.size() == sizeof(struct stat));
+            memcpy(&buf[0], &stbuf, buf.size());
+            reply->set_buf(buf);    
+            reply->set_err(res);
             return Status::OK;
         }
 

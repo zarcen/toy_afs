@@ -91,7 +91,6 @@ static int xmp_getattr(const char *path, struct stat *stbuf) {
     std::string localfile_path = cu.ToCacheFileName(path);
     std::string localattr_path = cu.ToCacheAttrName(path);
 
-#ifndef NO_CONSIST_PROT
     // check if there's anything in cache to release to server
     if (cu.IsExisted(cu.ToCacheReleName(path))) {
         if (!cu.IsExisted(localfile_path)) {
@@ -104,14 +103,13 @@ static int xmp_getattr(const char *path, struct stat *stbuf) {
                 return -1;
             }
             // Sync back to server
-            int res = greeter->WriteS(cpp_path, local_buf, local_buf.size(), 0 /*offset*/);
+            res = greeter->WriteS(cpp_path, local_buf, local_buf.size(), 0 /*offset*/);
             if (res < 0) {
                 return res;
             }
             res = close(fd);
         }
     }
-#endif
 
     res = greeter->GetAttr(cpp_path, rpcbuf);
     if (res < 0) {
@@ -123,7 +121,7 @@ static int xmp_getattr(const char *path, struct stat *stbuf) {
     memset(stbuf, 0, sizeof(struct stat)); 
     memcpy(stbuf, &rpcbuf[0], rpcbuf.size());
 
-    return 0;
+    return res;
 }
 
 static int xmp_access(const char *path, int mask) {
@@ -132,7 +130,7 @@ static int xmp_access(const char *path, int mask) {
     std::string cpp_path = path;
     res = greeter->Access(cpp_path, mask);
     if (res < 0)
-        return -errno;
+        return res;
 
     return res;
 }
@@ -165,7 +163,7 @@ static int xmp_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
     std::string cpp_path = path;
     res = greeter->ReadDir(cpp_path, bufs);
     if (res < 0) {
-        res = -errno;
+        return res;
     }
     for (std::string& raw : bufs) {
         struct dirent de;
@@ -188,7 +186,7 @@ static int xmp_mknod(const char *path, mode_t mode, dev_t rdev)
     std::string cpp_path = path;
     res = greeter->Mknod(cpp_path, mode, rdev);
 
-    return res == -1 ? -errno : 0;    
+    return res;
 
     /* On Linux this could just be 'mknod(path, mode, rdev)' but this
        is more portable */
@@ -231,11 +229,9 @@ static int xmp_unlink(const char *path) {
         if (cu.IsExisted(cu.ToCacheAttrName(path))) {
             res = unlink(cu.ToCacheAttrName(path).c_str());                                                                                                                     
         }
-#ifndef NO_CONSIST_PROT
         if (cu.IsExisted(cu.ToCacheReleName(path))) {
             res = unlink(cu.ToCacheReleName(path).c_str());                                                                                                                     
         }
-#endif
     }                                                                                                                                                                       
     return res == -1 ? -errno : 0;
 }
@@ -278,12 +274,10 @@ static int xmp_rename(const char *from, const char *to)
             res = rename(cu.ToCacheAttrName(from).c_str(), 
                     cu.ToCacheAttrName(to).c_str() );
         }
-#ifndef NO_CONSIST_PROT
         if (CacheUtil().IsExisted(cu.ToCacheReleName(from))) {
             res = rename(cu.ToCacheReleName(from).c_str(), 
                     cu.ToCacheReleName(to).c_str() );
         }
-#endif
     }
     return res == -1 ? -errno : 0;
 }
@@ -476,7 +470,6 @@ static int xmp_flush(const char *path, struct fuse_file_info *fi) {
     close(fi->fh);
 
     // with fsync inside
-#ifndef NO_CONSIST_PROT
     std::string rele = CacheUtil().ToCacheReleName(path);
     if (CacheUtil().IsExisted(rele)) {
         printf("--!--!-- %s already exists\n", rele.c_str());
@@ -484,7 +477,6 @@ static int xmp_flush(const char *path, struct fuse_file_info *fi) {
     else if (CacheUtil().Touch(rele) < 0) {
         printf("--!--!-- Fail to cache_repaly file: %s \n", path);
     }
-#endif
     return ret;
 }
 
@@ -527,14 +519,12 @@ static int xmp_release(const char *path, struct fuse_file_info *fi) {
                 }
             }
 
-#ifndef NO_CONSIST_PROT
             if (cu.Unlink(cu.ToCacheReleName(path))){ 
                 printf("--!--!-- Fail to unlink file: %s \n", path);
             }
             else {
                 printf("--!--!-- Success to unlink file: %s \n", path);
             }
-#endif
 
             writeback_flag = -1;
             res = close(fi->fh);
