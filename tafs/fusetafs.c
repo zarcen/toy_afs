@@ -128,16 +128,13 @@ static int xmp_getattr(const char *path, struct stat *stbuf) {
 
 static int xmp_access(const char *path, int mask) {
     printf("= = = =  START = = = =  xmp_access\n");
-    return 0;
-    /*
-       int res;
-       std::string cpp_path = path;
-       res = greeter->Access(cpp_path, mask);
-       if (res < 0)
-       return -errno;
+    int res;
+    std::string cpp_path = path;
+    res = greeter->Access(cpp_path, mask);
+    if (res < 0)
+        return -errno;
 
-       return res;
-       */
+    return res;
 }
 
 static int xmp_readlink(const char *path, char *buf, size_t size)
