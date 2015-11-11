@@ -153,8 +153,8 @@ def main():
             default=50)
     args = parser.parse_args()
 
-    min_mb = args.minsize   # the min filesize in Mb
-    max_mb = args.maxsize   # the max filesize in Mb
+    min_mb = int(args.minsize)   # the min filesize in Mb
+    max_mb = int(args.maxsize)   # the max filesize in Mb
 
     fs_prefix = args.fs_prefix
     if args.options is not None:
