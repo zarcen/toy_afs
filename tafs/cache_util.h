@@ -111,7 +111,6 @@ public:
             return buf;
         }
         else {
-            printf("Warning: file %s is zero size \n", filepath.c_str());
             return std::string();
         }
     }
@@ -134,7 +133,6 @@ public:
         if (fp != NULL) {
           fwrite(&data[0], 1, data.size(), fp);
           fclose(fp);
-          printf("== Save file: %s \n", filepath.c_str());
         }
         return fp != NULL;
     }
@@ -163,9 +161,6 @@ public:
 
     int ReadFile(uint64_t fd, char* buf, int size, int offset) {
         int res = pread(fd, buf, size, offset);
-        if (res < 0) {
-            printf(" CACHE READ FAIL. ERRNO = %d\n", errno);
-        }
         return res;
     }
 
@@ -175,20 +170,7 @@ public:
         buf.resize(size);
         lseek(fd, 0, SEEK_SET);
         int res = pread(fd, &buf[0], size, 0);
-        if (res < 0) {
-            printf(" CACHE READ FAIL. ERRNO = %d\n", errno);
-        }
         return res;
-    }
-
-    int PrintFile(uint64_t fd, std::string str) {
-        std::string buf;
-        if (ReadWholeFile(fd, buf) < 0) {
-          return -1;
-        }
-        printf("%s\n", str.c_str());
-        printf("%s\n", buf.c_str());
-        return 0;
     }
 
     int SaveFile(const std::string& filepath, std::string& data, uint64_t& fh) {
@@ -202,7 +184,6 @@ public:
         }
 
         fh = fd;
-        //printf("In.... SaveFile filename = %s, fd = %d\n",filepath.c_str(), fd);
 
         int res = pwrite(fd, &data[0], data.size(), 0 /*offset*/);
         lseek(fd, (size_t)0, SEEK_CUR);
@@ -226,7 +207,6 @@ public:
         if (-1 == FhStatus(fh)) {
             int fd = GetFileFh(ToCacheFileName(path));
             if (fd < 0) {
-                printf("-- Fail to GetFileFh\n");
                 return -1;
             }
             fh = fd;

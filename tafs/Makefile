@@ -43,16 +43,13 @@ vpath %.proto $(PROTOS_PATH)
 
 all: system-check tafs_server fusetafs fusetafs_crash 
 
-#tafs_client: tafs.pb.o tafs.grpc.pb.o tafs_client.o
-#	$(CXX) $^ $(LDFLAGS) -o $@
-
 tafs_server: tafs.pb.o tafs.grpc.pb.o tafs_server.o
 	$(CXX) $^ $(LDFLAGS) $(CPPFLAGS) -o $@
 
-fusetafs: tafs.pb.o tafs.grpc.pb.o fusetafs.c
+fusetafs: tafs.pb.o tafs.grpc.pb.o tafs_rpc.h fusetafs.c
 	$(CXX) $^ $(LDFLAGS) $(CPPFLAGS) $(CXXFLAGS) `pkg-config fuse --cflags --libs` -o $@
 
-fusetafs_crash: tafs.pb.o tafs.grpc.pb.o fusetafs.c
+fusetafs_crash: tafs.pb.o tafs.grpc.pb.o tafs_rpc.h fusetafs.c
 	$(CXX) $^ -DCRASH_TEST $(LDFLAGS) $(CPPFLAGS) $(CXXFLAGS) `pkg-config fuse --cflags --libs` -o $@
 
 %.grpc.pb.cc: %.proto
@@ -62,7 +59,7 @@ fusetafs_crash: tafs.pb.o tafs.grpc.pb.o fusetafs.c
 	$(PROTOC) -I $(PROTOS_PATH) --cpp_out=. $<
 
 clean:
-	rm -f *.o *.pb.cc *.pb.h tafs_client tafs_server fusetafs fusetafs_crash
+	rm -f *.o *.pb.cc *.pb.h tafs_server fusetafs fusetafs_crash
 
 
 # The following is to test your system and ensure a smoother experience.

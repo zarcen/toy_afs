@@ -1,3 +1,41 @@
+/*
+ * Copyright 2015, Google Inc.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are
+ * met:
+ *
+ *     * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above
+ * copyright notice, this list of conditions and the following disclaimer
+ * in the documentation and/or other materials provided with the
+ * distribution.
+ *     * Neither the name of Google Inc. nor the names of its
+ * contributors may be used to endorse or promote products derived from
+ * this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ */
+
+/* Author: Wei-Chen Chen (zarcen@gmail.com), Lun-Cheng Chu 
+ * This is the server part for the toy afs implementation empowered by 
+ * grpc (Google RPC https://github.com/grpc/grpc)
+ * 
+ * Usage: ./tafs_server &
+ */
 #include <iostream>
 #include <cassert>
 #include <memory>
@@ -179,36 +217,32 @@ class GreeterServiceImpl final : public ToyAFS::Service {
                      WriteSReply* reply) override { 
             std::string path;
             WriteSReq request;
-            int fd = -100;
+            int fd = -1;
             int res;
             int size;
             int offset;
-            int num_bytes = -1;
+            int num_bytes = 0;
             reply->set_num_bytes(num_bytes);
             while (reader->Read(&request)) {
-                if (fd == -100) {
-                    path = path_prefix + request.path();
-                    printf("WriteS: %s \n", path.c_str());
-                    fd = open(path.c_str(), O_WRONLY);
-                    if (fd == -1) {
-                        printf("WriteS: %s \n", path.c_str());
-                        reply->set_num_bytes(-errno);
-                        return Status::OK;
-                    }
-                }
+                path = path_prefix + request.path();
                 size = request.size();
                 offset = request.offset();
                 std::string buf = request.buf();
+                if (num_bytes == 0) {
+                    fd = open(path.c_str(), O_WRONLY);
+                    if (fd == -1) {
+                        reply->set_num_bytes(-errno);
+                        return Status::OK;
+                    }
+                    printf("WriteS: %s \n", path.c_str());
+                }
                 res = pwrite(fd, &buf[0], size, offset);
+                // pwrite returns -1 when error, and store type in errno
                 if (res == -1) {
-                    reply->set_num_bytes(num_bytes);
+                    reply->set_num_bytes(-errno);
                     return Status::OK;
                 }
-                if (num_bytes == -1) {
-                    num_bytes = res;
-                } else {
-                    num_bytes += res;
-                }
+                num_bytes += res;
             }
             if (fd > 0) {
                 fsync(fd);

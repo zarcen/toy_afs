@@ -1,24 +1,14 @@
 /*
-FUSE: Filesystem in Userspace
-Copyright (C) 2001-2007  Miklos Szeredi <miklos@szeredi.hu>
-Copyright (C) 2011       Sebastian Pipping <sebastian@pipping.org>
-
 This program can be distributed under the terms of the GNU GPL.
 See the file COPYING.
 
-gcc -Wall fusexmp.c `pkg-config fuse --cflags --libs` -o fusexmp
+Compile: see Makefile
+Usage: ./fusetafs /tmp/afs -d
+
+Issues: make some part more c++ style
 */
 
 #define FUSE_USE_VERSION 26
-
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
-
-#ifdef linux
-/* For pread()/pwrite()/utimensat() */
-#define _XOPEN_SOURCE 700
-#endif
 
 #include <signal.h>
 #include <fuse.h>
@@ -35,7 +25,7 @@ gcc -Wall fusexmp.c `pkg-config fuse --cflags --libs` -o fusexmp
 #include <iostream>
 #include <chrono>
 
-#include "tafs.h"
+#include "tafs_rpc.h"
 #include "cache_util.h"
 
 // rpc caller object                                                                                                                                                        
@@ -82,8 +72,8 @@ int IsCrash(const char* filename) {
     return crash;
 }
 
-static int xmp_getattr(const char *path, struct stat *stbuf) {
-    printf("= = = =  START = = = =  xmp_getattr\n");
+static int tafs_getattr(const char *path, struct stat *stbuf) {
+    printf("= = = =  START = = = =  tafs_getattr\n");
     int res;
     std::string rpcbuf;
     std::string cpp_path = path;
@@ -105,7 +95,10 @@ static int xmp_getattr(const char *path, struct stat *stbuf) {
             // Sync back to server
             res = greeter->WriteS(cpp_path, local_buf, local_buf.size(), 0 /*offset*/);
             if (res < 0) {
+                printf("-- cache existed, fail write back--\n");
                 return res;
+            } else {
+                printf(" -- cached existed, write back to server success\n");
             }
             res = close(fd);
         }
@@ -124,21 +117,15 @@ static int xmp_getattr(const char *path, struct stat *stbuf) {
     return res;
 }
 
-static int xmp_access(const char *path, int mask) {
-    printf("= = = =  START = = = =  xmp_access\n");
-    return 0;
-    /*
+static int tafs_access(const char *path, int mask) {
+    printf("= = = =  START = = = =  tafs_access\n");
     int res;
     std::string cpp_path = path;
     res = greeter->Access(cpp_path, mask);
-    if (res < 0)
-        return res;
-
     return res;
-    */
 }
 
-static int xmp_readlink(const char *path, char *buf, size_t size)
+static int tafs_readlink(const char *path, char *buf, size_t size)
 {
     int res;
 
@@ -151,10 +138,10 @@ static int xmp_readlink(const char *path, char *buf, size_t size)
 }
 
 
-static int xmp_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
+static int tafs_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
         off_t offset, struct fuse_file_info *fi)
 {
-    printf("= = = =  START = = = =  xmp_readdir\n");
+    printf("= = = =  START = = = =  tafs_readdir\n");
     (void) offset;
     (void) fi;
     //
@@ -182,35 +169,18 @@ static int xmp_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
     return 0;
 }
 
-static int xmp_mknod(const char *path, mode_t mode, dev_t rdev)
+static int tafs_mknod(const char *path, mode_t mode, dev_t rdev)
 {
-    printf("= = = =  START = = = =  xmp_mknod\n");
+    printf("= = = =  START = = = =  tafs_mknod\n");
     int res;
     std::string cpp_path = path;
     res = greeter->Mknod(cpp_path, mode, rdev);
 
     return res;
-
-    /* On Linux this could just be 'mknod(path, mode, rdev)' but this
-       is more portable */
-    /*
-       if (S_ISREG(mode)) {
-       res = open(path, O_CREAT | O_EXCL | O_WRONLY, mode);
-       if (res >= 0)
-       res = close(res);
-       } else if (S_ISFIFO(mode))
-       res = mkfifo(path, mode);
-       else
-       res = mknod(path, mode, rdev);
-       if (res == -1)
-       return -errno;
-
-       return 0;
-       */
 }
 
-static int xmp_mkdir(const char *path, mode_t mode) {
-    printf("= = = = START = = = = xmp_mkdir\n");
+static int tafs_mkdir(const char *path, mode_t mode) {
+    printf("= = = = START = = = = tafs_mkdir\n");
     CacheUtil cu;
     std::string cpp_path = path;
     int res = greeter->MkDir(cpp_path, mode);
@@ -220,8 +190,8 @@ static int xmp_mkdir(const char *path, mode_t mode) {
     return res == -1 ? -errno : 0;    
 }
 
-static int xmp_unlink(const char *path) {
-    printf("= = = =  START = = = =  xmp_unlink\n");
+static int tafs_unlink(const char *path) {
+    printf("= = = =  START = = = =  tafs_unlink\n");
     CacheUtil cu;
     std::string cpp_path = path;
     int res = greeter->Unlink(cpp_path);
@@ -239,8 +209,8 @@ static int xmp_unlink(const char *path) {
     return res == -1 ? -errno : 0;
 }
 
-static int xmp_rmdir(const char *path) {
-    printf("= = = =  START = = = =  xmp_rmdir\n");
+static int tafs_rmdir(const char *path) {
+    printf("= = = =  START = = = =  tafs_rmdir\n");
     CacheUtil cu;
     std::string cpp_path = path;
     int res = greeter->RmDir(cpp_path);
@@ -250,7 +220,7 @@ static int xmp_rmdir(const char *path) {
     return res == -1 ? -errno : 0;    
 }
 
-static int xmp_symlink(const char *from, const char *to)
+static int tafs_symlink(const char *from, const char *to)
 {
     int res;
 
@@ -261,9 +231,9 @@ static int xmp_symlink(const char *from, const char *to)
     return 0;
 }
 
-static int xmp_rename(const char *from, const char *to)
+static int tafs_rename(const char *from, const char *to)
 {
-    printf("= = = = START = = = = xmp_rename\n");
+    printf("= = = = START = = = = tafs_rename\n");
     CacheUtil cu;
     std::string cpp_from = from;
     std::string cpp_to = to;
@@ -285,9 +255,9 @@ static int xmp_rename(const char *from, const char *to)
     return res == -1 ? -errno : 0;
 }
 
-static int xmp_link(const char *from, const char *to)
+static int tafs_link(const char *from, const char *to)
 {
-    printf("= = = =  START = = = =  xmp_link\n");
+    printf("= = = =  START = = = =  tafs_link\n");
     int res;
 
     res = link(from, to);
@@ -297,9 +267,9 @@ static int xmp_link(const char *from, const char *to)
     return 0;
 }
 
-static int xmp_chmod(const char *path, mode_t mode)
+static int tafs_chmod(const char *path, mode_t mode)
 {
-    printf("= = = =  START = = = =  xmp_chmod\n");
+    printf("= = = =  START = = = =  tafs_chmod\n");
     int res;
 
     res = chmod(path, mode);
@@ -309,9 +279,9 @@ static int xmp_chmod(const char *path, mode_t mode)
     return 0;
 }
 
-static int xmp_chown(const char *path, uid_t uid, gid_t gid)
+static int tafs_chown(const char *path, uid_t uid, gid_t gid)
 {
-    printf("= = = =  START = = = =  xmp_chown\n");
+    printf("= = = =  START = = = =  tafs_chown\n");
     int res;
 
     res = lchown(path, uid, gid);
@@ -321,8 +291,8 @@ static int xmp_chown(const char *path, uid_t uid, gid_t gid)
     return 0;
 }
 
-static int xmp_truncate(const char *path, off_t size) {
-    printf("= = = =  START = = = =  xmp_truncate\n");
+static int tafs_truncate(const char *path, off_t size) {
+    printf("= = = =  START = = = =  tafs_truncate\n");
 
     CacheUtil cu;
     std::string cpp_path = path;
@@ -337,8 +307,8 @@ static int xmp_truncate(const char *path, off_t size) {
     return res == -1 ? -errno : 0;    
 }
 
-static int xmp_open(const char *path, struct fuse_file_info *fi) {
-    printf("= = = =  START = = = =  xmp_open\n");
+static int tafs_open(const char *path, struct fuse_file_info *fi) {
+    printf("= = = =  START = = = =  tafs_open\n");
 
     CacheUtil cu;
 
@@ -407,9 +377,9 @@ static int xmp_open(const char *path, struct fuse_file_info *fi) {
     return 0;
 }
 
-static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
+static int tafs_read(const char *path, char *buf, size_t size, off_t offset,
         struct fuse_file_info *fi) {
-    printf("= = = =  START = = = =  xmp_read\n");
+    printf("= = = =  START = = = =  tafs_read\n");
     CacheUtil cu;
     int res = cu.ReadFile(fi->fh, buf, size, offset);
     if (res < 0) {
@@ -420,9 +390,9 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     return res;
 }
 
-static int xmp_write(const char *path, const char *buf, size_t size,
+static int tafs_write(const char *path, const char *buf, size_t size,
         off_t offset, struct fuse_file_info *fi) {
-    printf("= = = =  START = = = =  xmp_write\n");
+    printf("= = = =  START = = = =  tafs_write\n");
     CacheUtil cu;
     std::string cpp_path = path;
     std::string cache_path = cu.ToCacheFileName(path);
@@ -444,8 +414,8 @@ static int xmp_write(const char *path, const char *buf, size_t size,
     return res;
 }
 
-static int xmp_statfs(const char *path, struct statvfs *stbuf) {
-    printf("= = = =  START = = = =  xmp_statfs\n");
+static int tafs_statfs(const char *path, struct statvfs *stbuf) {
+    printf("= = = =  START = = = =  tafs_statfs\n");
     int res;
 
     res = statvfs(path, stbuf);
@@ -455,12 +425,13 @@ static int xmp_statfs(const char *path, struct statvfs *stbuf) {
     return 0;
 }
 
-static int xmp_utimens(const char *path, const struct timespec ts[2]) {
+static int tafs_utimens(const char *path, const struct timespec ts[2]) {
+    printf("= = = =  START = = = =  tafs_utimens\n");
     return 0;
 }
 
-static int xmp_flush(const char *path, struct fuse_file_info *fi) {
-    printf("= = = =  START = = = =  xmp_flush\n");
+static int tafs_flush(const char *path, struct fuse_file_info *fi) {
+    printf("= = = =  START = = = =  tafs_flush\n");
     CacheUtil cu;
 
     // validate fh
@@ -484,11 +455,11 @@ static int xmp_flush(const char *path, struct fuse_file_info *fi) {
 }
 
 
-static int xmp_release(const char *path, struct fuse_file_info *fi) {
-    printf("= = = =  START = = = =  xmp_release\n");
+static int tafs_release(const char *path, struct fuse_file_info *fi) {
+    printf("= = = =  START = = = =  tafs_release\n");
     std::string cpp_path = path;
 #ifdef CRASH_TEST
-    if (IsCrash("crash_config.txt")) {
+    if (IsCrash("crash_config")) {
         printf("Simulating CRASH Case...\n");                                                                                                                   
         kill(getpid(), SIGINT);
         return 0;
@@ -504,11 +475,11 @@ static int xmp_release(const char *path, struct fuse_file_info *fi) {
         int res = 0;
         if ((int)fi->fh != -1) {
             if (writeback_flag == 1) {
-                printf("ACTION(xmp_release) - write %s back to server\n", path);                                                                                                
+                printf("ACTION(tafs_release) - write %s back to server\n", path);                                                                                                
                 std::string local_buf;
                 if (cu.ReadWholeFile(fi->fh, local_buf) < 0) {                                                                                                                       
                     fprintf(stderr,                                                                                                                                             
-                            "ERROR(xmp_release) - failed at fetching cache from disk: %s\n",                                                                                    
+                            "ERROR(tafs_release) - failed at fetching cache from disk: %s\n",                                                                                    
                             strerror(errno));                                                                                                                                   
                     return -1;                                                                                                                                                  
                 }                                                                                                                                                               
@@ -516,7 +487,7 @@ static int xmp_release(const char *path, struct fuse_file_info *fi) {
                 res = greeter->WriteS(cpp_path, local_buf, local_buf.size(), 0 /*offset*/);                                                                                      
                 if (res < 0) {                                                                                                                                                  
                     fprintf(stderr,                                                                                                                                             
-                            "ERROR(xmp_release) - failed at writing to server RPC call: %s\n",                                                                                  
+                            "ERROR(tafs_release) - failed at writing to server RPC call: %s\n",                                                                                  
                             strerror(errno));                                                                                                                                   
                     return res;                                                                                                                                                 
                 }
@@ -538,9 +509,9 @@ static int xmp_release(const char *path, struct fuse_file_info *fi) {
 #endif
 }
 
-static int xmp_fsync(const char *path, int isdatasync,
+static int tafs_fsync(const char *path, int isdatasync,
         struct fuse_file_info *fi) {
-    printf("= = = =  START = = = =  xmp_fsync\n");
+    printf("= = = =  START = = = =  tafs_fsync\n");
     /* Just a stub.	 This method is optional and can safely be left
        unimplemented */
 
@@ -553,32 +524,32 @@ static int xmp_fsync(const char *path, int isdatasync,
 
 struct tafs_fuse_operations:fuse_operations {
     tafs_fuse_operations () {
-        getattr	= xmp_getattr;
-        access		= xmp_access;
-        readlink	= xmp_readlink;
-        readdir	    = xmp_readdir;
-        mknod		= xmp_mknod;
-        mkdir		= xmp_mkdir;
-        symlink	    = xmp_symlink;
-        unlink		= xmp_unlink;
-        rmdir		= xmp_rmdir;
-        rename		= xmp_rename;
-        link		= xmp_link;
-        chmod		= xmp_chmod;
-        chown		= xmp_chown;
-        truncate	= xmp_truncate;
-        utimens	    = xmp_utimens,
-        open		= xmp_open;
-        read		= xmp_read;
-        write		= xmp_write;
-        statfs		= xmp_statfs;
-        release	    = xmp_release;
-        flush       = xmp_flush;
-        fsync		= xmp_fsync;
+        getattr	= tafs_getattr;
+        access		= tafs_access;
+        readlink	= tafs_readlink;
+        readdir	    = tafs_readdir;
+        mknod		= tafs_mknod;
+        mkdir		= tafs_mkdir;
+        symlink	    = tafs_symlink;
+        unlink		= tafs_unlink;
+        rmdir		= tafs_rmdir;
+        rename		= tafs_rename;
+        link		= tafs_link;
+        chmod		= tafs_chmod;
+        chown		= tafs_chown;
+        truncate	= tafs_truncate;
+        utimens	    = tafs_utimens,
+        open		= tafs_open;
+        read		= tafs_read;
+        write		= tafs_write;
+        statfs		= tafs_statfs;
+        release	    = tafs_release;
+        flush       = tafs_flush;
+        fsync		= tafs_fsync;
     }
 };
 
-static struct tafs_fuse_operations xmp_oper;
+static struct tafs_fuse_operations tafs_oper;
 
 int main(int argc, char** argv) {                                                                                                                                          
     const char* default_server = "node1:50051";                                                                                                                             
@@ -594,5 +565,5 @@ int main(int argc, char** argv) {
     }                                                                                                                                                                       
 
     umask(0);                                                                                                                                                               
-    return fuse_main(argc, argv, &xmp_oper, NULL);
+    return fuse_main(argc, argv, &tafs_oper, NULL);
 }
